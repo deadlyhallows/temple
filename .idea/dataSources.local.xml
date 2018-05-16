@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="temple@localhost" uuid="69d08b5c-cdc4-4542-ae5c-2c9b0b67c45e">
+      <database-info product="PostgreSQL" version="9.6.8" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.2">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>awanti</user-name>
+      <introspection-schemas>temple:public</introspection-schemas>
+    </data-source>
+  </component>
+</project>
