@@ -31,8 +31,7 @@
 
  <!-- Login Form -->
   <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-    <form method="post"  role="form" action= "{% url 'darshan:login' %}" >
+      <form method="post"  role="form" action= "{% url 'darshan:login' %}" >
        <div class="modal-dialog ">
            <div class="modal-content">
             <div class="modal-header">
@@ -42,7 +41,6 @@
             </div>
             <div class="modal-body">
                 {% csrf_token %}
-
                 {{ form.as_p }}
             </div>
             <div class="modal-footer">
@@ -54,9 +52,9 @@
             </div>
            </div>
        </div>
-
-    </form><br>
+      </form><br>
  </div>
+
  <!--SignUp form-->
      <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <form role="form" action="{% url 'darshan:signup' %}" method="post">
@@ -70,7 +68,7 @@
             <div class="modal-body">
                 {% csrf_token %}
                 {{ user_form.as_p }}
-                {{ profile_form.as_p }}
+                {{ Mobile_form.as_p }}
             </div>
             <div class="modal-footer">
                 <button type="submit">Sign Up</button>
@@ -231,7 +229,7 @@ function showSlides() {
     var slides = document.getElementsByClassName("item");
 
     for (i = 0; i < slides.length; i++) {
-       slides[i].style.display = "none";
+        slides[i].style.display = "none";
     }
     slideIndex++;
     if (slideIndex > slides.length) {slideIndex = 1}

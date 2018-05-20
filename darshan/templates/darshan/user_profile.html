@@ -1,36 +1,39 @@
 {% extends "darshan/base.html" %}
 
+{% load temple_extra %}
+
 {% block content %}
 
 <div class="row">
     <h1>{{ title }}</h1>
     <br>
-    <form action="" method="post"> {% csrf_token %}
-        <label for="id_Temple">Temple:</label>
-            <select id="id_Temple" class=" django-select2"  name="Temple" multiple="multiple"
-                    style="float:left;width: 428px;">
-                 {% for temp in object_list %}
-                <option value="{{ temp.id }}">{{ temp.Temple }}</option>
-                 {% endfor %}
-
-            </select>
-
+    <form action="{% url 'darshan:user_profile' %}" method="post" role="form"> {% csrf_token %}
+        {{ form.as_p }}
         <button id="my_button" type="submit">Add</button>
     </form>
     <br><br><hr>
-<div class="row">
-        <ul>
-            {% for t in query_list%}
-                {% for x in t.Temple1 %}
-                    <li> {{ x }}</li>
-                 {% endfor %}
-            {% endfor %}
-
-
-        </ul>
 </div>
+{% for t in query_list %}
+    {% for x in t.Temple1 %}
+        <div class="row">
+        <form action="" method="post"> {% csrf_token %}
+            <label for="id_Temple1">{{ x }}</label>
+            {% for y in x|temple %}
+                <select  class="django-select"  name="{{ x }}" multiple="multiple"
+                style="float:left;width: 428px;">
+                {% for z in y|picture %}
+                    <option value="{{ z.id }}">{{ z.TimeD }}</option>
+                {% endfor %}
+                </select>
+                <button id="my_button" type="submit">Add</button>
+                <br>
+            {% endfor %}
+        </form>
+        </div>
+    {% endfor %}
+{% endfor %}
 
-    </div>
+
 <!--<div class="pagination">
     <span class="step-links">
         {% if object_list.has_previous %}

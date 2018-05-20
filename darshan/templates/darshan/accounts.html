@@ -52,17 +52,19 @@
  </div>
      <br><br>
     <div class=" row display">
+        {% for object in img %}
      <div class="column">
                 <div class="hovereffect ">
-                     {% for object in query_set %}
+
                     <img class="image-container img-responsive roundedCorner"
                          src= "{{ object.image.url }}" style="width: 100%;">
                     <div class="overlay">
                         <h2>{{ object.Temple }}</h2>
                     </div>
-                    {% endfor %}
+
                 </div>
      </div>
+        {% endfor %}
     </div>
 
 

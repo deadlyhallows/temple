@@ -4,21 +4,24 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Picture,Profile
+from .models import Picture, Profile, Temples, Mobile
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import login
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
-from darshan.forms import SignUpForm, ChoiceForm
+from darshan.forms import SignUpForm, TempleForm, MobileForm
 from darshan.tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.forms import AuthenticationForm
 import smtplib
+from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.contrib import messages
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.core import serializers
-from django.http import HttpResponse
 from django.views.generic import View
 from django.template.loader import get_template
 from django.template import Context
@@ -27,7 +30,8 @@ from django.template import Context
 
 
 def home(request):
-    return render(request, 'darshan/home.html')
+    return render(request, 'darshan/home.html',{'form':AuthenticationForm,'Mobile_form':MobileForm,
+                                                'user_form':SignUpForm})
 
 
 def signup(request):
@@ -36,17 +40,17 @@ def signup(request):
     if request.method == 'POST':
         print("p")
         user_form = SignUpForm(request.POST)
+        mobile_form = MobileForm(request.POST)
         print("o")
-        profile_form = ChoiceForm(request.POST)
-        print("k")
-        if user_form.is_valid() and profile_form.is_valid():
+
+        if user_form.is_valid() and mobile_form.is_valid():
             print("asd")
             user = user_form.save(commit=False)
             user.is_active = False
             user.save()
 
-            user.profile.Mobile_No = profile_form.cleaned_data.get('Mobile_No')
-            user.profile.save()
+            user.mobile.Mobile_No = mobile_form.cleaned_data.get('Mobile_No')
+            user.mobile.save()
             #send_mail(subject,message,from_email,to_list,fail_silently=True)
             current_site = get_current_site(request)
             subject = 'Activate Your MySite Account'
@@ -57,16 +61,17 @@ def signup(request):
                 'token': account_activation_token.make_token(user),
             })
             user.email_user(subject, message)
-            send_verification_mail(user.email, message,subject)
+            send_verification_mail(user.email, message, subject)
             return render(request, 'darshan/account_activation_sent.html')
     else:
         print("abc")
         user_form = SignUpForm()
-        profile_form = ChoiceForm()
+        mobile_form = MobileForm()
 
     context = {
         "user_form":user_form,
-        "profile_form":profile_form
+        "Mobile_form":mobile_form
+
     }
     return render(request, 'darshan/home.html', context)
 
@@ -85,7 +90,8 @@ def activate(request, uidb64, token,):
 
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
-        user.profile.email_confirmed = True
+        user.mobile.email_confirmed = True
+        user.mobile.save()
         user.save()
         login(request, user, backend='django.core.mail.backends.console.EmailBackend')
         return render(request,'darshan/home.html')
@@ -112,48 +118,56 @@ def send_verification_mail(email, msg,sub):
         print("failed to send mail")
 
 
-
+@login_required
 def user_profile(request):
-        set = request.user
-        print(set)
-        a = Picture.objects.all()
-        print(a)
-        print(set.id)
-        if request.POST:
-            city_pk_list = request.POST.getlist('Temple', None)
-            print(request.POST.getlist('Temple', None))
+    user=request.user
+    profile=Profile.objects.get(user_id=user.id)
+    print("a")
+    if request.POST:
+        print("b")
+        form = TempleForm(request.POST,instance=profile)
+        print("c")
+        if form.is_valid():
+            print("d")
+            profile=form.save(commit=False)
+            profile.save()
 
-            selected_city_obj_list = Picture.objects.filter(pk__in=city_pk_list)
-            print(selected_city_obj_list)
-            print(set.profile)
-            for temp in selected_city_obj_list:
-                print(temp.Temple)
-                ab = str(temp.Temple)
-                print(ab)
-                set.profile.Temple1.append(ab)
-                print(set.profile.Temple1)
-            set.profile.save()
-        query_set2 = Profile.objects.filter(user_id=set.id)
-        for t in query_set2:
+            return redirect('/login/user_profile/', {'form':form})
+        else:
+            messages.error(request, "not created at all")
+    else:
+        form = TempleForm()
+    print("e")
+    query_list=Profile.objects.filter(user_id=user.id)
+
+    if request.POST:
+        for t in query_list:
+            print(t)
             for x in t.Temple1:
-                print(x)
+                city_pk_list = request.POST.getlist(x, None)
+                for z in city_pk_list:
+                    s = Picture.objects.get(id=z)
+                    s.selected=True
+                    s.save()
 
-        context={'set': set,
-                 'object_list':a,
-                 'query_list':query_set2}
+    context={'set': user,
+            'query_list':query_list,
+            'form':form,
+                 }
+    return render(request, 'darshan/user_profile.html', context)
 
-        return render(request, 'darshan/user_profile.html', context)
+def TempleTimeSelected(request):
+    city_pk_list = request.POST.getlist('x', None)
+    for z in city_pk_list:
+        z.selected=True
+    return render(request, 'darshan/user_profile.html')
+
 
 def accounts(request):
     #set = Profile.objects.all()
-    set = request.user
-    query_set2 = Profile.objects.get(id=set.id)
-    query = query_set2.Temple
-    pro = Picture.objects.filter(Temple=query)
+    img=Picture.objects.filter(selected=True)
     context = {
-        "set":set,
-        "query_set":pro
-
+        'img':img
     }
     return render(request,'darshan/accounts.html', context)
 
