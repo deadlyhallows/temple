@@ -1,6 +1,6 @@
 {% extends 'darshan/base.html' %}
 {% load staticfiles %}
-
+{% load temple_extra %}
 
 {% block content %}
 
@@ -52,20 +52,22 @@
  </div>
      <br><br>
     <div class=" row display">
-        {% for object in img %}
-     <div class="column">
-                <div class="hovereffect ">
-
-                    <img class="image-container img-responsive roundedCorner"
-                         src= "{{ object.image.url }}" style="width: 100%;">
-                    <div class="overlay">
-                        <h2>{{ object.Temple }}</h2>
+    {% for s in pro %}
+        {% for t in s.selected %}
+            {% for u in t|pics %}
+                <div class="column">
+                    <div class="hovereffect ">
+                        <img src="{{ u.image.url }}" class="image-container img-responsive roundedCorner">
+                        <div class="overlay">
+                            <h2>{{ u }}</h2>
+                        </div>
                     </div>
-
                 </div>
-     </div>
+            {% endfor %}
         {% endfor %}
+    {% endfor %}
     </div>
+
 
 
 {% endblock %}

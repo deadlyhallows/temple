@@ -122,14 +122,21 @@ def send_verification_mail(email, msg,sub):
 def user_profile(request):
     user=request.user
     profile=Profile.objects.get(user_id=user.id)
-    print("a")
+    print(profile.Temple1)
     if request.POST:
         print("b")
+        print(profile.Temple1)
+        c=profile.Temple1
+
         form = TempleForm(request.POST,instance=profile)
         print("c")
         if form.is_valid():
-            print("d")
+            print(profile.Temple1)
             profile=form.save(commit=False)
+            for a in c:
+                print(a)
+                profile.Temple1.append(a)
+            print(profile.Temple1)
             profile.save()
 
             return redirect('/login/user_profile/', {'form':form})
@@ -147,8 +154,8 @@ def user_profile(request):
                 city_pk_list = request.POST.getlist(x, None)
                 for z in city_pk_list:
                     s = Picture.objects.get(id=z)
-                    s.selected=True
-                    s.save()
+                    profile.selected.append(s.id)
+                    profile.save()
 
     context={'set': user,
             'query_list':query_list,
@@ -156,19 +163,18 @@ def user_profile(request):
                  }
     return render(request, 'darshan/user_profile.html', context)
 
-def TempleTimeSelected(request):
-    city_pk_list = request.POST.getlist('x', None)
-    for z in city_pk_list:
-        z.selected=True
-    return render(request, 'darshan/user_profile.html')
-
 
 def accounts(request):
     #set = Profile.objects.all()
-    img=Picture.objects.filter(selected=True)
-    context = {
-        'img':img
-    }
+    user=request.user
+    pro=Profile.objects.filter(user_id=user.id)
+    for i in pro:
+        print(i)
+        for j in i.selected:
+            print(j)
+            r = Picture.objects.filter(id=j)
+            print(r)
+    context={'pro':pro}
     return render(request,'darshan/accounts.html', context)
 
 

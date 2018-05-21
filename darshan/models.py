@@ -28,7 +28,6 @@ class Picture(models.Model):
     height_field=models.IntegerField(default=None, null=True,blank=True)
     width_field=models.IntegerField(default=None,null=True,blank=True)
     TimeD=models.TimeField(auto_now_add=False, auto_now=False, null=True, blank=True)
-    selected=models.BooleanField(default=False)
     publish = models.DateField(auto_now_add=False,auto_now=False)
     timestamp = models.DateField(auto_now=False,auto_now_add=True)
     updated = models.DateField(auto_now=True,auto_now_add=False)
@@ -47,7 +46,7 @@ class Picture(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     Temple1 = ArrayField(models.CharField(max_length=250,default=None,blank=True,null=True),default=list,blank=True,null=True)
-
+    selected = ArrayField(models.IntegerField(default=None),default=list,blank=True,null=True)
 
     def __str__(self):
         return self.user.username
