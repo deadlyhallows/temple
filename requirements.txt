@@ -8,6 +8,7 @@ django-multiselectfield==0.1.8
 django-otp==0.4.3
 django-otp-twilio==0.4.2
 django-select2==6.0.2
+django-stringfield==0.3.0
 idna==2.6
 oauthlib==2.0.7
 Pillow==5.1.0

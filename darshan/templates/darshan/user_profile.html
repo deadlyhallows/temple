@@ -17,15 +17,19 @@
     {% for x in t.Temple1 %}
         <div class="row">
         <form action="" method="post"> {% csrf_token %}
-            <label for="id_Temple1">{{ x }}</label>
+            <span><label for="id_Temple1">{{ x }}</label>
+                <span><a href="{% url 'darshan:delete' value=x  %}">x</a></span>
+            </span>
             {% for y in x|temple %}
-                <select  class="django-select"  name="{{ x }}" multiple="multiple"
-                style="float:left;width: 428px;">
-                {% for z in y|picture %}
-                    <option value="{{ z.id }}">{{ z.TimeD }}</option>
-                {% endfor %}
-                </select>
-                <button id="my_button" type="submit">Add</button>
+                <span>
+                    <select  class="django-select"  name="{{ x }}" multiple="multiple"
+                    style="float:left;width: 428px;">
+                    {% for z in y|picture %}
+                        <option value="{{ z.id }}">{{ z.TimeD }}</option>
+                    {% endfor %}
+                    </select>
+                </span>
+                <span><button id="my_button" type="submit">Add</button></span>
                 <br>
             {% endfor %}
         </form>

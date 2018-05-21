@@ -139,7 +139,7 @@ def user_profile(request):
             print(profile.Temple1)
             profile.save()
 
-            return redirect('/login/user_profile/', {'form':form})
+            return redirect('/login/user_profile/')
         else:
             messages.error(request, "not created at all")
     else:
@@ -163,7 +163,7 @@ def user_profile(request):
                  }
     return render(request, 'darshan/user_profile.html', context)
 
-
+@login_required
 def accounts(request):
     #set = Profile.objects.all()
     user=request.user
@@ -177,7 +177,27 @@ def accounts(request):
     context={'pro':pro}
     return render(request,'darshan/accounts.html', context)
 
+@login_required
+def delete(request, value):
+    print("a")
+    user=request.user
+    print(user)
+    query_l = Profile.objects.get(user_id=user.id)
+    print("b")
+    for i in query_l.Temple1:
+        if i==value:
+            query_l.Temple1.remove(i)
+            query_l.save()
+    t=Temples.objects.get(temple2=value)
+    s=Picture.objects.filter(Temple_id=t.id)
+    for j in s:
+        for k in query_l.selected:
+            if k==j.id:
+                query_l.selected.remove(k)
+                query_l.save()
 
+    return redirect('/login/user_profile/')
 
-
+def details(request):
+    return render(request, 'darshan/details.html')
 

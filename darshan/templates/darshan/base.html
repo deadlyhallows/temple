@@ -58,8 +58,8 @@
 
                     {% if user.is_authenticated %}
                         <li><a href="">Notification</a></li>
-                        <li><a   href="{% url 'darshan:logout' %}">logout</a></li>
-                        <li><a   href="{% url 'darshan:accounts' %}">Welcome {{ set }}</a></li>
+                        <li><a  href="{% url 'darshan:logout' %}">logout</a></li>
+                        <li><a  href="{% url 'darshan:accounts' %}">Welcome {{ set }}</a></li>
                     {% else %}
                         <li><a class=" launch-modal" href="{% url 'darshan:home' %}" style="margin-left: 20px" data-modal-id="modal"> Signup
                         <span class="glyphicon glyphicon-user"></span></a></li>
