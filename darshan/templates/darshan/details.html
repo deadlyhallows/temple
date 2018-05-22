@@ -1,0 +1,131 @@
+{% extends 'darshan/base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+<div class="fluid-container">
+
+  <h2 class="text-center">Temple details</h2>
+
+
+  <ul class="nav nav-tabs"  class="row">
+
+    <li class="col-sm-4"><a data-toggle="tab" href="#menu1">Basic Information</a></li>
+    <li class="col-sm-4"><a data-toggle="tab" href="#menu2">Facilities</a></li>
+    <li class="col-sm-4"><a data-toggle="tab" href="#menu3">Contact</a></li>
+
+  </ul>
+
+ <!-- tab contents -->
+  <div class="tab-content" style="margin: 25px 50px">
+
+    <div id="menu1" class="tab-pane fade">
+      <table class="table table-striped">
+
+    <tbody>
+      <tr>
+        <td><!-- style="padding-left: 200px"-->{{ q.temple2 }}</td>
+
+      </tr>
+      <tr>
+        <td>Religion</td>
+        <td>{{ q.Religion }}</td>
+      </tr>
+      <tr>
+        <td>Address</td>
+        <td>{{ q.Address }}</td>
+      </tr>
+       <tr>
+        <td>City</td>
+        <td>{{ q.City }}</td>
+      </tr>
+       <tr>
+        <td>State</td>
+        <td>{{ q.State }}</td>
+      </tr>
+       <tr>
+        <td>Country</td>
+        <td>{{ q.Country }}</td>
+      </tr>
+       <tr>
+        <td>Deity</td>
+        <td>{{ q.Deity }}</td>
+      </tr>
+       <tr>
+        <td>Website</td>
+        <td>{{ q.Website }}</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+    <div id="menu2" class="tab-pane fade">
+     <table class="table table-striped">
+
+    <tbody>
+    {% if q.LiveDarshanStatus %}
+      <tr>
+        <td>Live Darshan status</td>
+        <td>{{ q.LiveDarshanStatus }}</td>
+      </tr>
+    {% endif %}
+
+    {% if q.LiveDarshanlink %}
+      <tr>
+        <td>Live Darshan link</td>
+          <td><a href="{{ q.LiveDarshanlink }}">Click here</a></td>
+      </tr>
+    {% endif %}
+
+    {% if q.OnlineDonation %}
+      <tr>
+        <td>Online Donation</td>
+        <td><a href="{{ q.OnlineDonation }}">link</a></td>
+      </tr>
+    {% endif %}
+
+    {% if q.OnlinePooja %}
+       <tr>
+        <td>Online Pooja</td>
+        <td><a href="{{ q.OnlinePooja }}">link</a></td>
+      </tr>
+    {% endif %}
+
+    {% if q.OnlinePrasad %}
+       <tr>
+        <td>Online Prasad</td>
+        <td><a href="{{ q.OnlinePrasad }}">link</a></td>
+      </tr>
+    {% endif %}
+
+    {% if q.OtherOnlineFacility %}
+       <tr>
+        <td>Other online facilities</td>
+        <td><a href="{{ q.OtherOnlineFacility }}">link</a></td>
+      </tr>
+    {% endif %}
+    </tbody>
+  </table>
+  </div>
+
+    <div id="menu3" class="tab-pane fade">
+       <table class="table table-striped">
+
+    <tbody>
+       <tr>
+        <td>Contacts</td>
+        <td>{{ q.Contacts }}</td>
+      </tr> <tr>
+        <td>Phone Numbers</td>
+        <td>{{ q.PhoneNumber }}</td>
+      </tr> <tr>
+        <td>Email</td>
+        <td>{{ q.Email }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

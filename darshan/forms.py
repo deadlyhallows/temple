@@ -52,9 +52,11 @@ class TempleForm(forms.ModelForm):
     for x in a:
         y=(x.temple2, x.temple2)
         OPTIONS.append(y)
+
     Temple1 =forms.MultipleChoiceField(
             widget=Select2MultipleWidget(),
             required=True,
+            #queryset=Temples.objects.all()
             choices=OPTIONS
             )
 

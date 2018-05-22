@@ -198,6 +198,13 @@ def delete(request, value):
 
     return redirect('/login/user_profile/')
 
-def details(request):
-    return render(request, 'darshan/details.html')
+@login_required
+def details(request, temp):
+    q=Temples.objects.get(temple2=temp)
+    p=Picture.objects.filter(Temple_id=q.id)
+    context={
+        'q':q,
+        'p':p
+    }
+    return render(request, 'darshan/details.html', context)
 

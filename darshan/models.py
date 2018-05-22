@@ -13,7 +13,22 @@ import datetime
 
 class Temples(models.Model):
     temple2 = models.CharField(max_length=250,default=None)
-
+    Religion = models.TextField(default=None)
+    Address = models.TextField(default=None)
+    City = models.CharField(max_length=40, default=None)
+    State = models.CharField(max_length=50, default=None)
+    Country = models.CharField(max_length=60, default=None)
+    Deity = models.CharField(max_length=100, default=None)
+    Website = models.URLField(default=None)
+    LiveDarshanStatus = models.BooleanField(default=False)
+    LiveDarshanlink = models.URLField(default=None,blank=True)
+    OnlineDonation = models.URLField(default=None,blank=True)
+    OnlinePooja = models.URLField(default=None,blank=True)
+    OnlinePrasad = models.URLField(default=None, blank=True)
+    OtherOnlineFacility = models.URLField(default=None)
+    Contacts = models.CharField(max_length=300, default=None)
+    PhoneNumber = models.CharField(max_length=300, default=None)
+    Email = models.CharField(max_length=200, default=None)
 
     def __str__(self):
         return self.temple2

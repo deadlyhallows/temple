@@ -56,13 +56,14 @@
         {% for t in s.selected %}
             {% for u in t|pics %}
                 <div class="column">
-                    <div class="hovereffect ">
+
                         <img src="{{ u.image.url }}" class="image-container img-responsive roundedCorner">
-                        <div class="overlay">
-                            <h2>{{ u }}</h2>
-                        </div>
-                        <p><a href="{% url 'darshan:details' %}">{{ u }}</a></p>
-                    </div>
+
+                        <br>
+                        <a href="{% url 'darshan:details' temp=u %}">
+                            {{ u }}
+                        </a>
+
                 </div>
             {% endfor %}
         {% endfor %}
