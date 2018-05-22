@@ -13,6 +13,12 @@ import datetime
 
 class Temples(models.Model):
     temple2 = models.CharField(max_length=250,default=None)
+    images = models.ImageField(
+        null=True, blank=True,
+        height_field="height_field",
+        width_field="width_field")
+    height_field = models.IntegerField(default=None, null=True, blank=True)
+    width_field = models.IntegerField(default=None, null=True, blank=True)
     Religion = models.TextField(default=None)
     Address = models.TextField(default=None)
     City = models.CharField(max_length=40, default=None)

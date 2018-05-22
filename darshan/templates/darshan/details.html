@@ -1,9 +1,27 @@
 {% extends 'darshan/base.html' %}
 {% load staticfiles %}
-
+{% load temple_extra %}
 
 {% block content %}
 <div class="fluid-container">
+
+ <div class=" row display">
+{% for x in b %}
+    {% for y in pro.selected %}
+        {% if x.id == y %}
+            <div class="column">
+                    <img src="{{ x.image.url }}" class="image-container img-responsive roundedCorner">
+                    <br>
+                    {{ x.TimeD }}<br>
+                    {{ x.publish }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+</div>
+
+<hr>
+
 
   <h2 class="text-center">Temple details</h2>
 

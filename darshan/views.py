@@ -120,6 +120,7 @@ def send_verification_mail(email, msg,sub):
 
 @login_required
 def user_profile(request):
+    b=[]
     user=request.user
     profile=Profile.objects.get(user_id=user.id)
     print(profile.Temple1)
@@ -146,7 +147,8 @@ def user_profile(request):
         form = TempleForm()
     print("e")
     query_list=Profile.objects.filter(user_id=user.id)
-
+    u = User.objects.get(id=user.id)
+    v = Mobile.objects.get(id=user.id)
     if request.POST:
         for t in query_list:
             print(t)
@@ -156,10 +158,26 @@ def user_profile(request):
                     s = Picture.objects.get(id=z)
                     profile.selected.append(s.id)
                     profile.save()
+    for n in query_list:
+        for m in n.Temple1:
+            b.append(m)
+    paginator = Paginator(b, 5)
+    page_change_var = 'page'  # change=request
+    page = request.GET.get(page_change_var)
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        queryset = paginator.page(1)
+    except EmptyPage:
+        queryset = paginator.page(paginator.num_pages)
 
     context={'set': user,
+             "object_list": queryset,
             'query_list':query_list,
             'form':form,
+             'u':u,
+             'v':v,
+             'page_change_var': page_change_var
                  }
     return render(request, 'darshan/user_profile.html', context)
 
@@ -170,9 +188,9 @@ def accounts(request):
     pro=Profile.objects.filter(user_id=user.id)
     for i in pro:
         print(i)
-        for j in i.selected:
+        for j in i.Temple1:
             print(j)
-            r = Picture.objects.filter(id=j)
+            r = Temples.objects.filter(temple2=j)
             print(r)
     context={'pro':pro}
     return render(request,'darshan/accounts.html', context)
@@ -200,11 +218,15 @@ def delete(request, value):
 
 @login_required
 def details(request, temp):
+    user = request.user
+    pro = Profile.objects.get(user_id=user.id)
     q=Temples.objects.get(temple2=temp)
-    p=Picture.objects.filter(Temple_id=q.id)
+    b = Picture.objects.filter(Temple_id=q.id)
+
     context={
         'q':q,
-        'p':p
+        'b':b,
+        'pro':pro
     }
     return render(request, 'darshan/details.html', context)
 

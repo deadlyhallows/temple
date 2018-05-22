@@ -3,7 +3,17 @@
 {% load temple_extra %}
 
 {% block content %}
-
+<div class="row">
+  <p>
+      <label>Name:</label>
+      <span>{{ u.first_name }}</span><span> {{ u.last_name }}</span>
+  </p>
+   <p>
+       <label>Mobile No.:</label>
+       <span>{{ v.Mobile_No }}</span>
+   </p>
+</div>
+<hr>
 <div class="row">
     <h1>{{ title }}</h1>
     <br>
@@ -13,6 +23,7 @@
     </form>
     <br><br><hr>
 </div>
+
 {% for t in query_list %}
     {% for x in t.Temple1 %}
         <div class="row">
@@ -36,9 +47,9 @@
         </div>
     {% endfor %}
 {% endfor %}
-
-
-<!--<div class="pagination">
+ <div class="row">
+   <div class="col-md-6 col-md-offset-3">
+    <div class="pagination">
     <span class="step-links">
         {% if object_list.has_previous %}
             <a href="?{{ page_change_var }}=1">&laquo; first</a>
@@ -54,7 +65,7 @@
             <a href="?{{ page_change_var }}={{ object_list.paginator.num_pages }} ">last &raquo;</a>
         {% endif %}
     </span>
-</div> -->
-
-
+    </div>
+   </div>
+ </div>
 {% endblock content %}

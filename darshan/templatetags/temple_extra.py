@@ -15,3 +15,7 @@ def picture(value):
 @register.filter("pics")
 def pics(value):
     return Picture.objects.filter(id=value)
+
+@register.filter("darshan")
+def darshan(value):
+    return Temples.objects.filter(temple2=value)
