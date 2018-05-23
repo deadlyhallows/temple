@@ -25,7 +25,7 @@ SECRET_KEY = '(1hy9%gtgf5dp_(c$+n-n4chuvp4=bg#l4mucyjry!-vw5bcc('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1",]
+ALLOWED_HOSTS = ["127.0.0.1", ".pythonanywhere.com"]
 
 
 # Application definition
@@ -95,7 +95,7 @@ DATABASES = {
         'NAME': 'temple',
         'USER': 'awanti',
         'PASSWORD':'carmelacademy',
-        'HOST': 'localhost',
+        'HOST': '.pythonanywhere.com',
         'PORT': '', }
 }
 

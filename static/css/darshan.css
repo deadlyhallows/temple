@@ -15,8 +15,8 @@
                  background-color: #f4a621;}
 p,a{
     color:black;
-
-    }
+}
+p,a:hover{color: gray;}
 .page-header h1 a {float:top;
                     color:white;}
 a:hover{color:white;}
@@ -234,13 +234,12 @@ input#abc{
 }
 
 .hovereffect:hover a.info, .hovereffect:hover h2 {
-  opacity: 1;
-  filter: alpha(opacity=100);
-  -webkit-transform: scale(1);
-  -ms-transform: scale(1);
-  transform: scale(1);
+    opacity: 1;
+    filter: alpha(opacity=100);
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
 }
+.select2.select2-container.select2-container--default.select2-container--below.select2-container--focus
+{width: 194px;}
 
-.seletion-container--default{width: 428px;}
-label{width: 180px;}
-#my_button{margin-left: 20px;}

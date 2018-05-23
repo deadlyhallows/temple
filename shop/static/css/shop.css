@@ -1,0 +1,11 @@
+.col1 {
+    float: left;
+    width: 30%;
+    padding: 10px;
+     }
+
+.col2{
+    float:right;
+    width:70%;
+    padding:10px;
+}
