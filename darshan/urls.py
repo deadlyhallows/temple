@@ -25,6 +25,8 @@ urlpatterns = [
         views.activate, name='activate'),
 
 
+
+
 ]
 
 

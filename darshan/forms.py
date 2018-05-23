@@ -55,7 +55,7 @@ class TempleForm(forms.ModelForm):
 
     Temple1 =forms.MultipleChoiceField(
             widget=Select2MultipleWidget(),
-            required=True,
+
             #queryset=Temples.objects.all()
             choices=OPTIONS
             )

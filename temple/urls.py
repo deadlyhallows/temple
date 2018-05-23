@@ -25,6 +25,7 @@ app_name='darshan'
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('darshan.urls', namespace='darshan')),
+    url(r'', include('shop.urls', namespace='shop')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
 
 ]

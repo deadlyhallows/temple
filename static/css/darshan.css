@@ -241,4 +241,6 @@ input#abc{
   transform: scale(1);
 }
 
-span{width:428px;}
+.seletion-container--default{width: 428px;}
+label{width: 180px;}
+#my_button{margin-left: 20px;}

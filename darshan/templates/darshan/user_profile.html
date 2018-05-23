@@ -3,52 +3,72 @@
 {% load temple_extra %}
 
 {% block content %}
-<div class="row">
-  <p>
+    {% block style %}
+        <style>
+        html,body{
+
+                padding-top: 45px;
+
+                }
+
+        </style>
+    {% endblock style %}
+<div class="row" xmlns="http://www.w3.org/1999/html">
+   <p>
       <label>Name:</label>
       <span>{{ u.first_name }}</span><span> {{ u.last_name }}</span>
-  </p>
+   </p>
    <p>
        <label>Mobile No.:</label>
        <span>{{ v.Mobile_No }}</span>
    </p>
-</div>
-<hr>
-<div class="row">
-    <h1>{{ title }}</h1>
-    <br>
-    <form action="{% url 'darshan:user_profile' %}" method="post" role="form"> {% csrf_token %}
-        {{ form.as_p }}
+    <p>
+       <label>Email:</label>
+       <span>{{ u.email }}</span>
+   </p>
+    <p>
+    <form action="{% url 'darshan:user_profile' %}" method="post" role="form" style="float:left;"> {% csrf_token %}
+        {{ form.as_table }}
         <button id="my_button" type="submit">Add</button>
     </form>
-    <br><br><hr>
+    </p>
+
 </div>
+<hr>
+
 
 {% for t in query_list %}
     {% for x in t.Temple1 %}
         <div class="row">
-        <form action="" method="post"> {% csrf_token %}
-            <span><label for="id_Temple1">{{ x }}</label>
-                <span><a href="{% url 'darshan:delete' value=x  %}">x</a></span>
-            </span>
-            {% for y in x|temple %}
-                <span>
-                    <select  class="django-select"  name="{{ x }}" multiple="multiple"
-                    style="float:left;width: 428px;">
-                    {% for z in y|picture %}
-                        <option value="{{ z.id }}">{{ z.TimeD }}</option>
-                    {% endfor %}
-                    </select>
-                </span>
-                <span><button id="my_button" type="submit">Add</button></span>
-                <br>
-            {% endfor %}
-        </form>
+         <div class="col-md-6 col-md-3">
+            <form action="" method="post"> {% csrf_token %}
+                <table>
+                    <tr>
+                        <td><label for="id_Temple1" style="width: 180px;">{{ x }}</label></td>
+                        <td ><a href="{% url 'darshan:delete' value=x  %}" style="margin-right: 20px;"
+                        class="btn btn-default">x</a></td>
+
+                        {% for y in x|temple %}
+                            <td>
+                            <select  class="django-select"  name="{{ x }}" multiple="multiple"
+                            style="float:left;width: 428px;">
+                            {% for z in y|picture %}
+                                <option value="{{ z.id }}">{{ z.TimeD }}</option>
+                            {% endfor %}
+                             </select>
+                            </td>
+                        <td><button id="my_button" type="submit" style="margin-left: 10px;">Add</button></td>
+                        <br>
+                        {% endfor %}
+                    </tr>
+                </table>
+            </form>
+         </div>
         </div>
     {% endfor %}
 {% endfor %}
- <div class="row">
-   <div class="col-md-6 col-md-offset-3">
+
+
     <div class="pagination">
     <span class="step-links">
         {% if object_list.has_previous %}
@@ -66,6 +86,9 @@
         {% endif %}
     </span>
     </div>
-   </div>
- </div>
+
+
+
+
+
 {% endblock content %}
