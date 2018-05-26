@@ -20,12 +20,23 @@
 {% for x in b %}
     {% for y in pro.selected %}
         {% if x.id == y %}
+            {% if x.TimeD|time == t %}
             <div class="column">
+                {{ x.TimeD|time }}
                     <img src="{{ x.image.url }}" class="image-container img-responsive roundedCorner">
                     <br>
+                    {{ m }}<br>
                     {{ x.TimeD }}<br>
-                    {{ x.publish }}
             </div>
+            {% elif x.TimeD|time < t %}
+                 <div class="column">
+                {{ x.TimeD|time }}
+                    <img src="{{ x.image.url }}" class="image-container img-responsive roundedCorner">
+                    <br>
+                    {{ m }}<br>
+                    {{ x.TimeD }}<br>
+                </div>
+            {% endif %}
         {% endif %}
     {% endfor %}
 {% endfor %}
@@ -37,7 +48,7 @@
   <h2 class="text-center">Temple details</h2>
 
 
-  <ul class="nav nav-tabs"  class="row">
+  <ul class="nav nav-tabs row">
 
     <li class="col-sm-4"><a data-toggle="tab" href="#menu1">Basic Information</a></li>
     <li class="col-sm-4"><a data-toggle="tab" href="#menu2">Facilities</a></li>

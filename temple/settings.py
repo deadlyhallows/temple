@@ -95,7 +95,7 @@ DATABASES = {
         'NAME': 'temple',
         'USER': 'awanti',
         'PASSWORD':'carmelacademy',
-        'HOST': 'pythonanywhere',
+        'HOST': 'localhost',
         'PORT': '', }
 }
 

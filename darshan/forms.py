@@ -2,7 +2,7 @@ from django import forms
 from .models import Profile,Temples, Mobile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django_select2.forms import (Select2MultipleWidget,
+from django_select2.forms import (
     HeavySelect2MultipleWidget, HeavySelect2Widget, ModelSelect2MultipleWidget,
     ModelSelect2TagWidget, ModelSelect2Widget, Select2MultipleWidget,
     Select2Widget
@@ -47,17 +47,17 @@ class MobileForm(forms.ModelForm):
 
 
 class TempleForm(forms.ModelForm):
-    OPTIONS = []
-    a = Temples.objects.all()
-    for x in a:
-        y=(x.temple2, x.temple2)
-        OPTIONS.append(y)
+    #OPTIONS = []
+    #a = Temples.objects.all()
+    #for x in a:
+     #   y=(x.temple2, x.temple2)
+      #  OPTIONS.append(y)
 
-    Temple1 =forms.MultipleChoiceField(
+    Temple1 =forms.ModelMultipleChoiceField(
             widget=Select2MultipleWidget(),
 
-            #queryset=Temples.objects.all()
-            choices=OPTIONS
+            queryset=Temples.objects.all()
+            #choices=OPTIONS
             )
 
     class Meta:

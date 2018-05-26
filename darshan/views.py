@@ -1,11 +1,8 @@
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Picture, Profile, Temples, Mobile
-from django.shortcuts import get_object_or_404
+from django.utils import timezone
 from django.contrib.auth import login
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
@@ -18,14 +15,14 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.forms import AuthenticationForm
 import smtplib
-from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib import messages
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.core import serializers
-from django.views.generic import View
-from django.template.loader import get_template
-from django.template import Context
-
+from django.utils.timezone import now, localtime
+import datetime
+import time
+from django.db.models import F
+from django.db.models import Q
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 
 
@@ -218,15 +215,19 @@ def delete(request, value):
 
 @login_required
 def details(request, temp):
+    #m = localtime().time()
+    #FMT = '%H:%M:%S'
     user = request.user
     pro = Profile.objects.get(user_id=user.id)
     q=Temples.objects.get(temple2=temp)
     b = Picture.objects.filter(Temple_id=q.id)
-
+    t = 200
     context={
+        't':t,
         'q':q,
         'b':b,
-        'pro':pro
+        'pro':pro,
+
     }
     return render(request, 'darshan/details.html', context)
 

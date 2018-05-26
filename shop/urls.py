@@ -10,5 +10,7 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^allproducts/$', core_views.allproducts, name='home'),
+    url(r'^detail/(?P<val>.+)/$', core_views.detail, name='detail'),
+
 
 ]

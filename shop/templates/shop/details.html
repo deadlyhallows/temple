@@ -1,0 +1,19 @@
+{% extends 'darshan/base.html' %}
+{% load staticfiles %}
+{% load temple_extra %}
+{% block content %}
+    {% block style %}
+        <style>
+        html,body{
+
+                padding-top: 45px;
+
+                }
+
+        </style>
+    {% endblock style %}
+
+    <img src="{{ a.Photo.url }}"><br>
+    {{ a.ProductName }}<br>
+    {{ a.Price }}
+{% endblock %}
