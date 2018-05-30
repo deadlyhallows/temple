@@ -2,6 +2,7 @@ from django import template
 from darshan.models import Picture, Profile, Temples
 from shop.models import Product
 from django.utils.timezone import now, localtime
+from operator import attrgetter
 import datetime
 
 register = template.Library()
@@ -21,7 +22,7 @@ def pics(value):
 
 @register.filter("darshan")
 def darshan(value):
-    return Temples.objects.filter(temple2=value)
+    return Temples.objects.filter(id=value)
 
 @register.filter("product")
 def product(value):
@@ -29,7 +30,7 @@ def product(value):
 
 @register.filter("ascend")
 def ascend(value):
-    return Product.objects.filter(TempleName_id=value).order_by('Price')
+    return sorted(value, key= attrgetter('Price'),reverse=False)
 
 @register.filter("descend")
 def descend(value):

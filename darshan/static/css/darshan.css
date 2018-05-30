@@ -240,6 +240,21 @@ input#abc{
     -ms-transform: scale(1);
     transform: scale(1);
 }
-.select2.select2-container.select2-container--default.select2-container--below.select2-container--focus
-{width: 194px;}
 
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+#darshan td{ text-align: center;}
+#darshan th{ text-align: center;}
+
+@media screen and (min-width:1024px) and (max-width:1250px) {
+   .abce {
+       margin-top: 50px;
+       margin-right: 100px;
+       margin-left: 100px;
+   }
+
+}

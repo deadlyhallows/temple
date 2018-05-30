@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Picture, Profile, Temples, Mobile
+from .models import Picture, Profile, Temples, Mobile, Darshans
 from django.utils import timezone
 from django.contrib.auth import login
 from django.contrib.sites.shortcuts import get_current_site
@@ -27,8 +27,26 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 
 def home(request):
-    return render(request, 'darshan/home.html',{'form':AuthenticationForm,'Mobile_form':MobileForm,
-                                                'user_form':SignUpForm})
+
+    t=Temples.objects.all()
+    paginator = Paginator(t, 4)
+    page_change_var = 'page'  # change=request
+    page = request.GET.get(page_change_var)
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        queryset = paginator.page(1)
+    except EmptyPage:
+        queryset = paginator.page(paginator.num_pages)
+
+    context={'t':t,
+            'form':AuthenticationForm,
+             'Mobile_form':MobileForm,
+             'user_form':SignUpForm,
+             "object_list": queryset,
+             "page_change_var": page_change_var
+             }
+    return render(request, 'darshan/home.html',context)
 
 
 def signup(request):
@@ -217,17 +235,26 @@ def delete(request, value):
 def details(request, temp):
     #m = localtime().time()
     #FMT = '%H:%M:%S'
-    user = request.user
-    pro = Profile.objects.get(user_id=user.id)
+    #user = request.user
+    #pro = Profile.objects.get(user_id=user.id)
     q=Temples.objects.get(temple2=temp)
-    b = Picture.objects.filter(Temple_id=q.id)
-    t = 200
+    s = Darshans.objects.filter(temple_id=q.id)
+    #b = Picture.objects.filter(Temple_id=q.id)
     context={
-        't':t,
+        's':s,
         'q':q,
-        'b':b,
-        'pro':pro,
-
-    }
+        }
     return render(request, 'darshan/details.html', context)
+
+def detail(request, temp1):
+    #m = localtime().time()
+    #FMT = '%H:%M:%S'
+    q = get_object_or_404(Temples,temple2 = temp1)
+    s= Darshans.objects.filter(temple_id=q.id)
+    context={
+        's':s,
+        'q':q,
+        }
+    return render(request, 'darshan/detail.html', context)
+
 

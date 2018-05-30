@@ -11,6 +11,11 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/darshan.css' %}">
         <style>
 
+            .carousel-inner > .item > img,
+            .carousel-inner > .item > a > img {
+                 width: 100%;
+                 margin: auto;
+                }
             html,body{
 
                 width:100%;
@@ -84,8 +89,17 @@
  <div class="row ">
      <div class="col-md-12 ">
  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators --><!-- Wrapper for slides -->
-        <div class="carousel-inner">
+        <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+      <li data-target="#myCarousel" data-slide-to="3"></li>
+      <li data-target="#myCarousel" data-slide-to="4"></li>
+      <li data-target="#myCarousel" data-slide-to="5"></li>
+    </ol>
+     <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
             <div class="item active">
                 <img src="{% static  'images/Badrinath Temple.jpg' %}" alt="Internship"
                      style="width:100%; height: 650px;" class="img-responsive">
@@ -110,8 +124,6 @@
                 <img src="{% static 'images/ganesha.jpg' %}" alt="Different And Cool" style="width:100%; height: 650px;"
                      class="img-responsive">
             </div>
-
-
         </div>
         <!-- Left and right controls -->
         <a class="left carousel-control" href="#myCarousel" data-slide="prev">
@@ -130,83 +142,37 @@
      <br>
      <!-- HoverEffect Images -->
 <div class=" row display" id="darshan">
-     <div class="column">
-                <div class="hovereffect ">
-                    <img class="image-container img-responsive roundedCorner"
-                         src="{% static 'images/Badrinath Temple.jpg' %}" style="width: 100%;">
-                    <div class="overlay">
-                        <h2>Badrinath Temple</h2>
-                    </div>
-                </div>
+   {% for y in t %}
+     <div class="column" style="text-align:center;">
+         <img class="image-container img-responsive roundedCorner"
+              src="{{ y.Iconimages.url }}" style="width: 100%;">
+         <br>
+         <a href="{% url 'darshan:detail' temp1=y.temple2 %}" >{{ y.temple2 }}</a>
      </div>
-     <div class="column">
-                <div class="hovereffect ">
-                    <img class="image-container img-responsive roundedCorner"
-                         src="{% static 'images/maxresdefault.jpg'  %}" style="width: 100%;">
-                    <div class="overlay">
-                        <h2>Tirupati</h2>
-                    </div>
-                </div>
-     </div>
-     <div class="column">
-                <div class="hovereffect ">
-                    <img class="image-container img-responsive roundedCorner"
-                         src="{% static 'images/Siddhivinayak.jpg' %}" style="width: 100%;">
-                    <div class="overlay">
-                        <h2>Siddhivinayak</h2>
-                    </div>
-                </div>
-     </div>
-     <div class="column">
-                <div class="hovereffect ">
-                    <img class="image-container img-responsive roundedCorner"
-                         src="{% static 'images/Moti Dongri Jaipur.jpg' %}" style="width: 100%;">
-                    <div class="overlay">
-                        <h2>Moti Dongri Jaipur</h2>
-                    </div>
-                </div>
-     </div>
-
+   {% endfor %}
 </div>
 
-<div class=" row display">
-     <div class="column">
-                <div class="hovereffect ">
-                    <img class="image-container img-responsive roundedCorner"
-                         src="{% static 'images/Kedar Nath.jpg' %}" style="width: 100%;">
-                    <div class="overlay">
-                        <h2>Kedar Nath</h2>
-                    </div>
-                </div>
-     </div>
-      <div class="column">
-                <div class="hovereffect ">
-                    <img class="image-container img-responsive roundedCorner"
-                         src="{% static 'images/Somnath Temple.jpg' %}" style="width: 100%;">
-                    <div class="overlay">
-                        <h2>Somnath-Temple</h2>
-                    </div>
-                </div>
-      </div>
-     <div class="column">
-                <div class="hovereffect ">
-                    <img class="image-container img-responsive roundedCorner"
-                         src="{% static 'images/Dwarakadheesh.jpg' %}" style="width: 100%;">
-                    <div class="overlay">
-                        <h2>Dwarakadheesh</h2>
-                    </div>
-                </div>
-     </div>
-     <div class="column">
-                <div class="hovereffect ">
-                    <img class="image-container img-responsive roundedCorner"
-                         src="{% static 'images/Sanwariya Seth temple.jpg' %}" style="width: 100%;">
-                    <div class="overlay">
-                        <h2>Sanwariya Seth temple</h2>
-                    </div>
-                </div>
-     </div>
+<div class="pagination row">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?{{ page_change_var }}=1">&laquo; first</a>
+            <a href="?{{ page_change_var }}={{ object_list.previous_page_number }} {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?{{ page_change_var }}={{ object_list.next_page_number }} {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+            <a href="?{{ page_change_var }}={{ object_list.paginator.num_pages }} ">last &raquo;</a>
+        {% endif %}
+    </span>
 </div>
+
+
+
+
 <hr>
 
      <!--Shop Images -->
@@ -284,32 +250,20 @@
      </div>
 
 </div>
-
-
-
-
-<script>
+     <script>
      var slideIndex = 0;
     showSlides();
-
-function showSlides() {
+    function showSlides() {
     var i;
     var slides = document.getElementsByClassName("item");
-
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
     }
     slideIndex++;
     if (slideIndex > slides.length) {slideIndex = 1}
-
     slides[slideIndex-1].style.display = "block";
-
     setTimeout(showSlides, 4000); // Change image every 4 seconds
-
-}
-
-
-
-</script>
+    }
+    </script>
  {% endblock %}
 

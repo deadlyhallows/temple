@@ -34,9 +34,21 @@
     </div>
 
     <div style=" float:left;width:80%;">
+        <div class="row">
+            <form method="post">
+                {% csrf_token %}
+                <label for="sort" style="margin-left: 40px;">Sort By:</label>
+                <select id="sort" name="s">
+                    <option value="0">Default</option>
+                    <option value="1">Low to High</option>
+                    <option value="2">High to Low</option>
+                </select>
+                <button type="submit">Apply</button>
+            </form>
+        </div>
+        <div class="row">
         {% for x in c %}
             {% for y in x|product %}
-                    {% if x.id == y %}
                        <div class="column">
                         <div class="thumbnail">
                             <img src="{{ y.Photo.url }}">
@@ -45,10 +57,17 @@
                             <button style="float: right;margin-bottom: 10px;"><a href="{% url 'shop:detail' val=y.ProductName %}">View</a></button>
                         </div>
                        </div>
-                    {% endif %}
-                {% endfor %}
+            {% endfor %}
         {% endfor %}
+        </div>
     </div>
+
+     {% if l == 0 %}
+         {{ k }}
+     {% elif l == 1 %}
+     {% elif l == 2 %}
+     {% endif %}
+
 
 </div>
 

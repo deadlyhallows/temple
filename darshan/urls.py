@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^login/user_profile/$',views.user_profile, name='user_profile'),
     url(r'^accounts/$',views.accounts, name='accounts'),
     url(r'^details/(?P<temp>.+)$',views.details, name='details'),
+    url(r'^detail/(?P<temp1>.+)$', views.detail, name='detail'),
     url(r'^delete/(?P<value>.+)/$',views.delete, name='delete'),
 
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),

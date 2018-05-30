@@ -27,7 +27,8 @@
        <span>{{ u.email }}</span>
    </p>
     <p>
-    <form action="{% url 'darshan:user_profile' %}" method="post" role="form" style="float:left;"> {% csrf_token %}
+    <form action="{% url 'darshan:user_profile' %}" method="post" role="form" style="float:left;">
+        {% csrf_token %}
         {{ form.as_table }}
         <button id="my_button" type="submit">Add</button>
     </form>

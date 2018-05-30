@@ -46,6 +46,11 @@ INSTALLED_APPS = [
     'otp_twilio',
     'social_django',
 
+    # ... Other apps
+    'postgres_composite_types',
+
+    'pagedown',
+
     'darshan',
     'shop' ,
 ]

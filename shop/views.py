@@ -26,18 +26,36 @@ from django.core import serializers
 from django.views.generic import View
 from django.template.loader import get_template
 from django.template import Context
+from operator import attrgetter
+import copy
+
 
 # Create your views here.
 def allproducts(request):
-    global z
+    l1 = None
+    l = None
     c = []
-    if request.POST:
+    k = []
+
+    if request.method == 'POST' and 'temples' in request.POST:
         list = request.POST.getlist('temples', None)
         print(list)
         for i in list:
             c.append(i)
 
-    print(c)
+    for x in c:
+        y = Product.objects.filter(TempleName_id=x)
+        for z in y:
+            k.append(z)
+            print(k)
+            l1=k.copy()
+    print(l1)
+
+    if request.method == 'POST' and 's' in request.POST:
+        print(l1)
+        l = request.POST.get('s')
+        print(l)
+
     b = Temples.objects.all()
     query = request.GET.get("q")
     queryset_list=Temples.objects.all()
@@ -48,14 +66,12 @@ def allproducts(request):
                                            Q(Deity__icontains=query)|
                                            Q(State__icontains=query)).distinct().order_by('temple2')
 
-
-
     context = {
-
-        'query_list':queryset_list,
+        'k': k,
+        'l': l,
+        'query_list': queryset_list,
         'c':c,
         'b':b,
-
     }
     return render(request, 'shop/allproduct.html', context)
 

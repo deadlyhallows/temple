@@ -4,38 +4,68 @@ from django.utils import timezone
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.postgres.fields import ArrayField
+
 import datetime
 
 
 
+     # Required
 
 class Temples(models.Model):
     temple2 = models.CharField(max_length=250,default=None)
-    images = models.ImageField(
+    Iconimages = models.ImageField(
+        null=True, blank=True,
+        height_field="height_field",
+        width_field="width_field")
+    images= models.ImageField(
         null=True, blank=True,
         height_field="height_field",
         width_field="width_field")
     height_field = models.IntegerField(default=None, null=True, blank=True)
     width_field = models.IntegerField(default=None, null=True, blank=True)
-    Religion = models.TextField(default=None)
+    Religion = models.CharField(max_length=200,default=None)
     Address = models.TextField(default=None)
     City = models.CharField(max_length=40, default=None)
     State = models.CharField(max_length=50, default=None)
     Country = models.CharField(max_length=60, default=None)
     Deity = models.CharField(max_length=100, default=None)
     Website = models.URLField(default=None)
-    LiveDarshanStatus = models.BooleanField(default=False)
+    LiveDarshan = models.BooleanField(default=False)
     LiveDarshanlink = models.URLField(default=None,blank=True)
+    OnlineDonationStatus = models.BooleanField(default=False,blank=True)
     OnlineDonation = models.URLField(default=None,blank=True)
+    LivePooja = models.BooleanField(default=False)
     OnlinePooja = models.URLField(default=None,blank=True)
+    OnlinePrasadStatus = models.BooleanField(default=False)
     OnlinePrasad = models.URLField(default=None, blank=True)
-    OtherOnlineFacility = models.URLField(default=None)
+    OtherOnlineFacilityStatus = models.BooleanField(default=False)
+    OtherOnlineFacility = models.URLField(default=None,blank=True)
     Contacts = models.CharField(max_length=300, default=None)
     PhoneNumber = models.CharField(max_length=300, default=None)
-    Email = models.CharField(max_length=200, default=None)
+    Email = models.CharField(max_length=200, default=None,blank=True)
+    AboutTemple = models.TextField(default=None)
+    TempleHistory= models.TextField(default=None)
+    TemplePurohit = models.CharField(max_length=250,default=None)
+    Significance= models.TextField(default=None)
+    Management= models.TextField(default=None)
+    RelatedFaith=models.TextField(default=None)
+    AboutCity = models.TextField(default=None)
+    HowToReach = models.TextField(default=None)
+    DoAndDont = models.TextField(default=None)
+    Amenities = models.TextField(default=None)
+    Celebration = models.TextField(default=None)
+    PrecautionWhileVisiting = models.TextField(default=None)
+    Tender = models.TextField(default=None, blank=True)
+    Recruitment = models.TextField(default=None, blank=True, null=True)
+    NoticeandUpdates = models.TextField(default=None, blank=True, null=True)
+    Accomodation = models.BooleanField(default=False)
+    AccomodationLink = models.URLField(default=None,blank=True)
+    Annakshetra = models.BooleanField(default=False)
+
 
     def __str__(self):
         return self.temple2
@@ -91,3 +121,13 @@ class Mobile(models.Model):
     def create_user_mobile(sender, instance, created, **kwargs):
         if created:
             Mobile.objects.create(user=instance)
+
+class Darshans(models.Model):
+    temple = models.ForeignKey(Temples,on_delete= models.CASCADE)
+    rituals = models.CharField(max_length=250,default=None)
+    timings = models.CharField(max_length=250,default=None)
+    #rituals = ArrayField(models.CharField(max_length=250,default=None,blank=True,null=True),default=list,blank=True,null=True)
+    #timings = ArrayField(models.CharField(max_length=250,default=None,blank=True,null=True),default=list,blank=True,null=True)
+
+    def __str__(self):
+        return self.temple.temple2

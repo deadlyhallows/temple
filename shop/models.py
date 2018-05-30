@@ -19,6 +19,11 @@ class Product(models.Model):
     def __str__(self):
         return self.ProductName
 
+    class Meta:
+        ordering = [
+            '-Price'
+        ]
+
 class Photo(models.Model):
     product=models.ForeignKey(Product, on_delete=models.CASCADE)
     photos = models.ImageField(

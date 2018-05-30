@@ -7,6 +7,7 @@ from django_select2.forms import (
     ModelSelect2TagWidget, ModelSelect2Widget, Select2MultipleWidget,
     Select2Widget
 )
+from pagedown.widgets import AdminPagedownWidget
 
 
 class SignUpForm(UserCreationForm):
@@ -63,6 +64,9 @@ class TempleForm(forms.ModelForm):
     class Meta:
         model=Profile
         fields = ('Temple1',)
+
+
+
 
 
 

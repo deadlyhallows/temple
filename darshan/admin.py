@@ -1,9 +1,18 @@
-from .models import Picture, Profile, Temples
+from .models import Picture, Profile, Temples, Darshans
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+from pagedown.widgets import AdminPagedownWidget
+from django.db import models
 
-admin.site.register(Temples)
+
+class TempleAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.TextField: {'widget': AdminPagedownWidget },
+    }
+
+admin.site.register(Temples, TempleAdmin)
+admin.site.register(Darshans)
 admin.site.register(Picture)
 admin.site.register(Profile)
 #class ProfileInline(admin.StackedInline):
