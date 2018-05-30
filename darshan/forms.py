@@ -48,17 +48,17 @@ class MobileForm(forms.ModelForm):
 
 
 class TempleForm(forms.ModelForm):
-    #OPTIONS = []
-    #a = Temples.objects.all()
-    #for x in a:
-     #   y=(x.temple2, x.temple2)
-      #  OPTIONS.append(y)
+    OPTIONS = []
+    a = Temples.objects.all()
+    for x in a:
+        y=(x.temple2, x.temple2)
+        OPTIONS.append(y)
 
-    Temple1 =forms.ModelMultipleChoiceField(
+    Temple1 =forms.MultipleChoiceField(
             widget=Select2MultipleWidget(),
 
-            queryset=Temples.objects.all()
-            #choices=OPTIONS
+            #queryset=Temples.objects.all()
+            choices=OPTIONS
             )
 
     class Meta:

@@ -241,14 +241,15 @@ input#abc{
     transform: scale(1);
 }
 
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
 
-#darshan td{ text-align: center;}
-#darshan th{ text-align: center;}
+
+#darshan td{ text-align: center;
+            border: 1px solid #dddddd;
+            padding: 8px;}
+
+#darshan th{ border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;}
 
 @media screen and (min-width:1024px) and (max-width:1250px) {
    .abce {
@@ -258,3 +259,5 @@ td, th {
    }
 
 }
+
+.down{margin-top: 25px;}
