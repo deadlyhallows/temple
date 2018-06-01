@@ -48,12 +48,25 @@ INSTALLED_APPS = [
 
     # ... Other apps
     'postgres_composite_types',
+    'haystack',
+    'whoosh',
 
     'pagedown',
 
     'darshan',
-    'shop' ,
+    'shop',
+    'cart',
+
 ]
+
+
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -165,3 +178,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='335054653232-sr47dfjhh5n8csrnql93bdun49r3jg3g.apps.googleusercontent.com'  #Paste CLient Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'AAfCL1l6oI55cnBLt-rQ4aCS'
+
+SESSION_COOKIE_AGE = 1209600
+SESSION_COOKIE_DOMAIN = None
+SESSION_COOKIE_SECURE = False #True when https website
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_SAVE_EVERY_REQUEST = True
+
+CART_SESSION_ID = 'cart'

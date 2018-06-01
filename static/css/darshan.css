@@ -242,3 +242,22 @@ input#abc{
 }
 
 
+
+#darshan td{ text-align: center;
+            border: 1px solid #dddddd;
+            padding: 8px;}
+
+#darshan th{ border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;}
+
+@media screen and (min-width:1024px) and (max-width:1250px) {
+   .abce {
+       margin-top: 50px;
+       margin-right: 100px;
+       margin-left: 100px;
+   }
+
+}
+
+.down{margin-top: 25px;}

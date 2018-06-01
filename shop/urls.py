@@ -9,8 +9,9 @@ from django.conf import settings
 
 
 urlpatterns = [
-    url(r'^allproducts/$', core_views.allproducts, name='home'),
-    url(r'^detail/(?P<val>.+)/$', core_views.detail, name='detail'),
+    url(r'^allproducts/$', core_views.allproducts, name='allproducts'),
+    url(r'^details1/(?P<val>.+)/$', core_views.details1 , name='details1'),
+
 
 
 ]

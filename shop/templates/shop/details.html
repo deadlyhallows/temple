@@ -13,7 +13,17 @@
         </style>
     {% endblock style %}
 
-    <img src="{{ a.Photo.url }}"><br>
-    {{ a.ProductName }}<br>
-    {{ a.Price }}
+<div>
+    {% for p in product %}
+        <img src="{{ p.Photo.url }}"><br>
+        {{ p.ProductName }}<br>
+        <p>Rs.{{ p.Price }}</p>
+        <form action="{% url 'cart:cart_add' p.id %}" method="post">
+            {{ cart_product_form }}
+            {% csrf_token %}
+            <input type="submit" value="Add to Cart">
+        <!--add Product Description-->
+         </form>
+    {% endfor %}
+</div>
 {% endblock %}

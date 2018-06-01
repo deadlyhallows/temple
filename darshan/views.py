@@ -237,7 +237,7 @@ def details(request, temp):
     #FMT = '%H:%M:%S'
     #user = request.user
     #pro = Profile.objects.get(user_id=user.id)
-    q=Temples.objects.get(temple2=temp)
+    q=get_object_or_404(Temples,temple2 = temp)
     s = Darshans.objects.filter(temple_id=q.id)
     #b = Picture.objects.filter(Temple_id=q.id)
     context={

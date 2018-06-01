@@ -28,9 +28,9 @@ def darshan(value):
 def product(value):
     return Product.objects.filter(TempleName_id=value)
 
-@register.filter("ascend")
-def ascend(value):
-    return sorted(value, key= attrgetter('Price'),reverse=False)
+@register.filter("products")
+def Products(value):
+    return Product.objects.filter(ProductName=value)
 
 @register.filter("descend")
 def descend(value):

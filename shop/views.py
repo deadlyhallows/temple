@@ -5,14 +5,15 @@ from django.http import HttpResponse
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from darshan.models import Temples
-from shop.models import Product
+from shop.models import Product, ProductSelected
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import login
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
-
+from shop.forms import CustomSearchForm
+from cart.forms import CartAddProductForm
 from darshan.tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.utils.encoding import force_text
@@ -27,34 +28,31 @@ from django.views.generic import View
 from django.template.loader import get_template
 from django.template import Context
 from operator import attrgetter
+from haystack.query import SearchQuerySet
 import copy
 
+from haystack.generic_views import SearchView
 
-# Create your views here.
+
+class ProductSearch(SearchView):
+    template = 'search/search.html'
+    form_name = CustomSearchForm
+
+
+
+
+
+
+
 def allproducts(request):
-    l1 = None
-    l = None
-    c = []
+    print(request.user)
+    list = None
+
     k = []
 
     if request.method == 'POST' and 'temples' in request.POST:
         list = request.POST.getlist('temples', None)
         print(list)
-        for i in list:
-            c.append(i)
-
-    for x in c:
-        y = Product.objects.filter(TempleName_id=x)
-        for z in y:
-            k.append(z)
-            print(k)
-            l1=k.copy()
-    print(l1)
-
-    if request.method == 'POST' and 's' in request.POST:
-        print(l1)
-        l = request.POST.get('s')
-        print(l)
 
     b = Temples.objects.all()
     query = request.GET.get("q")
@@ -65,17 +63,19 @@ def allproducts(request):
                                            Q(Country__icontains=query)|
                                            Q(Deity__icontains=query)|
                                            Q(State__icontains=query)).distinct().order_by('temple2')
-
     context = {
+
         'k': k,
-        'l': l,
         'query_list': queryset_list,
-        'c':c,
+        'list':list,
         'b':b,
     }
     return render(request, 'shop/allproduct.html', context)
 
-def detail(request,val):
-    a = get_object_or_404(Product,ProductName = val )
-    context = {'a':a}
-    return render(request, 'shop/details.html' ,context)
+def details1(request,val):
+    print(val)
+    product = Product.objects.filter(ProductName=val)
+    cart_product_form = CartAddProductForm()
+    context = {'product': product,
+               'cart_product_form': cart_product_form}
+    return render(request, 'shop/details.html', context)

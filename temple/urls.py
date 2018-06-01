@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('darshan.urls', namespace='darshan')),
     url(r'', include('shop.urls', namespace='shop')),
+    url(r'cart/', include('cart.urls', namespace='cart')),
+    url(r'^search/', include('haystack.urls')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
 
 ]

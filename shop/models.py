@@ -1,5 +1,6 @@
 from django.db import models
 from darshan.models import Temples
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
@@ -21,7 +22,7 @@ class Product(models.Model):
 
     class Meta:
         ordering = [
-            '-Price'
+            'Price'
         ]
 
 class Photo(models.Model):
@@ -36,3 +37,8 @@ class Photo(models.Model):
     def __str__(self):
         return self.product
 
+class ProductSelected(models.Model):
+    products = ArrayField(models.IntegerField(default=None,blank=True,null=True),default=list,blank=True,null=True)
+
+    def __str__(self):
+        return self.id

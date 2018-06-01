@@ -70,6 +70,11 @@ class Temples(models.Model):
     def __str__(self):
         return self.temple2
 
+    class Meta:
+        ordering = [
+            'temple2'
+        ]
+
 class Picture(models.Model):
     Temple = models.ForeignKey(Temples , on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

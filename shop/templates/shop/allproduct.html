@@ -6,7 +6,7 @@
         <style xmlns="http://www.w3.org/1999/html">
         html,body{
 
-                padding-top: 45px;
+                padding-top: 55px;
 
                 }
 
@@ -35,26 +35,22 @@
 
     <div style=" float:left;width:80%;">
         <div class="row">
-            <form method="post">
+            <form method="POST" action="" style="border:0; padding:0; padding-bottom:10px; margin-left:10px;float: left;">
                 {% csrf_token %}
-                <label for="sort" style="margin-left: 40px;">Sort By:</label>
-                <select id="sort" name="s">
-                    <option value="0">Default</option>
-                    <option value="1">Low to High</option>
-                    <option value="2">High to Low</option>
-                </select>
-                <button type="submit">Apply</button>
+                {{ form.as_table }}
+                <input type="submit" value="Search" />
             </form>
+         <br>
         </div>
         <div class="row">
-        {% for x in c %}
+        {% for x in list %}
             {% for y in x|product %}
                        <div class="column">
                         <div class="thumbnail">
                             <img src="{{ y.Photo.url }}">
                             {{ y.ProductName }}<br>
                             {{ y.Price }}
-                            <button style="float: right;margin-bottom: 10px;"><a href="{% url 'shop:detail' val=y.ProductName %}">View</a></button>
+                            <button style="float: right;margin-bottom: 10px;"><a href="{% url 'shop:details1' val=y.ProductName %}">View</a></button>
                         </div>
                        </div>
             {% endfor %}
@@ -62,11 +58,7 @@
         </div>
     </div>
 
-     {% if l == 0 %}
-         {{ k }}
-     {% elif l == 1 %}
-     {% elif l == 2 %}
-     {% endif %}
+
 
 
 </div>
