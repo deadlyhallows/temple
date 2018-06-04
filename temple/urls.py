@@ -27,13 +27,11 @@ urlpatterns = [
     url(r'', include('darshan.urls', namespace='darshan')),
     url(r'', include('shop.urls', namespace='shop')),
     url(r'cart/', include('cart.urls', namespace='cart')),
+    url(r'orders/', include('orders.urls', namespace='orders')),
     url(r'^search/', include('haystack.urls')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
 
 ]
-
-
-
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

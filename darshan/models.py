@@ -46,7 +46,7 @@ class Temples(models.Model):
     OtherOnlineFacility = models.URLField(default=None,blank=True)
     Contacts = models.CharField(max_length=300, default=None)
     PhoneNumber = models.CharField(max_length=300, default=None)
-    Email = models.CharField(max_length=200, default=None,blank=True)
+    Email = models.EmailField()
     AboutTemple = models.TextField(default=None)
     TempleHistory= models.TextField(default=None)
     TemplePurohit = models.CharField(max_length=250,default=None)

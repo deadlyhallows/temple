@@ -1,0 +1,72 @@
+{% extends 'darshan/base.html' %}
+{% load staticfiles %}
+{% load temple_extra %}
+
+{% block title %}
+    Your Shopping Cart
+{% endblock %}
+
+{% block content %}
+    {% block head %}
+        <head><link rel="stylesheet" href="{% static 'css/cart.css' %}"></head>
+    {% endblock %}
+    {% block style %}
+        <style xmlns="http://www.w3.org/1999/html">
+        html,body{
+
+                padding-top: 55px;
+
+                }
+
+        </style>
+    {% endblock style %}
+    <h1>Your Shopping Cart</h1>
+    <table class="cart">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Remove</th>
+                <th>Unit Price</th>
+                <th>Price</th>
+            </tr>
+            {% for item in cart %}
+
+                {% with product=item.product %}
+                    {% for x in product|products %}
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            <img src="{{ x.Photo.url}}">
+                        </a>
+                    </td>
+                    <td>{{ x.ProductName }}</td>
+                    <td>
+                        <form action="{% url 'cart:cart_add' x.id %}" method="post">
+                                <select name="quantity" id="id_quantity">
+                                <option value="1" selected>1</option>
+                                {% for x in loop_times %}
+                                    <option value={{ x }}>{{ x }}</option>
+                                {% endfor %}
+                                </select>
+                                <input type="submit" name="update" value="Update" id="id_update" style="margin-left:10px;"/>
+                                {% csrf_token %}
+                        </form>
+                    </td>
+                    <td><a href="{% url 'cart:cart_remove' x.id %}">Remove</a></td>
+                    <td class="num">Rs.{{ item.price }}</td>
+                    <td class="num">Rs.{{ item.total_price }}</td>
+                </tr>
+                    {% endfor %}
+                {% endwith %}
+            {% endfor %}
+        </thead>
+    </table>
+    <p>
+        <a href="{% url 'shop:allproducts' %}" class="btn">Continue Shopping</a><br>
+        <a href="{% url 'orders:order_create' %}" class="btn">Buy Now</a>
+    </p>
+
+{% endblock %}
