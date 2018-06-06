@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load notification_tags %}
 <html>
     <head>
         <title>Divya Krupa</title>
@@ -53,19 +54,22 @@
             <div class="collapse navbar-collapse" id="myNavbar">
 
                 <ul class="nav navbar-nav navbar-right down">
-                        <li><a href="#darshan" >Darshan</a></li>
-                        <li><a href="#shop">Shop</a></li>
+
+                        <li><a href="{% url 'cart:cart_detail' %}">Cart</a></li>
                         <li id="google_translate_element" style="margin-top: 10px;"></li>
 
                     {% if user.is_authenticated %}
-                        <li><a href="">Notification</a></li>
+                        <li><a href="{% url 'notifications:all' %}">Notification({{ set|notifications_unread }})</a></li>
                         <li><a  href="{% url 'darshan:logout' %}">logout</a></li>
+                        <li><a  href="{% url 'shop:allproducts' %}">Add Items</a></li>
                         <li><a  href="{% url 'darshan:accounts' %}">Welcome {{ set }}</a></li>
                     {% else %}
-                        <li><a class=" launch-modal" href="{% url 'darshan:home' %}" style="margin-left: 20px" data-modal-id="modal"> Signup
+                        <li><a href="#darshan" >Darshan</a></li>
+                        <li><a href="#shop">Shop</a></li>
+                        <li><a class=" launch-modal" href="{% url 'darshan:home' %}" style="margin-left: 20px" data-modal-id="modal">Signup
                         <span class="glyphicon glyphicon-user"></span></a></li>
 
-                        <li><a class=" launch-modal" href="{% url 'darshan:login' %}" data-modal-id="modal-login"> Login
+                        <li><a class=" launch-modal" href="{% url 'darshan:home' %}" data-modal-id="modal-login"> Login
                             <span class="glyphicon glyphicon-log-in"></span></a></li>
                     {% endif %}
                 </ul>
@@ -108,6 +112,8 @@ function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
 }
 </script>
+
+<script src="{% static "notify/notifyX.min.js" %}"></script>
 
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 

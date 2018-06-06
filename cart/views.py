@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
+from django.contrib.auth.forms import AuthenticationForm
+from darshan.forms import SignUpForm, MobileForm
 from shop.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm
@@ -37,7 +39,10 @@ def cart_detail(request):
         item['update_quantity_form'] = str(item['update_quantity_form'])
 
     context = {'loop_times': range(2, 21),
-               'cart': cart
+               'cart': cart,
+               'form': AuthenticationForm,
+               'Mobile_form': MobileForm,
+               'user_form': SignUpForm,
 
     }
 

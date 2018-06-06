@@ -2,6 +2,7 @@ from .models import Picture, Profile, Temples, Darshans
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+from notify.signals import notify
 from pagedown.widgets import AdminPagedownWidget
 from django.db import models
 
@@ -11,9 +12,19 @@ class TempleAdmin(admin.ModelAdmin):
         models.TextField: {'widget': AdminPagedownWidget },
     }
 
+class PictureAdmin(admin.ModelAdmin):
+
+    def save_model(self, request, obj, form, change):
+        if Picture().is_dirty():
+            user = User.objects.filter(is_superuser=False)
+            notify.send(sender=self, target=obj, recipient_list=list(user), verb="updated")
+        obj.save()
+
+
+
 admin.site.register(Temples, TempleAdmin)
 admin.site.register(Darshans)
-admin.site.register(Picture)
+admin.site.register(Picture, PictureAdmin)
 admin.site.register(Profile)
 #class ProfileInline(admin.StackedInline):
  #   model = Profile

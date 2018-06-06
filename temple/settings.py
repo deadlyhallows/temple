@@ -47,12 +47,16 @@ INSTALLED_APPS = [
     'social_django',
 
     # ... Other apps
-    'postgres_composite_types',
+
     'haystack',
     'whoosh',
 
+    'notify',
+
     'pagedown',
 
+    'payu_biz', ## Package
+    
     'darshan',
     'shop',
     'cart',
@@ -188,3 +192,85 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_SAVE_EVERY_REQUEST = True
 
 CART_SESSION_ID = 'cart'
+
+
+
+
+from django.conf import settings
+
+# Class-selector of notification lists
+NF_LIST_CLASS_SELECTOR = getattr(settings, 'NOTIFY_NF_LIST_CLASS_SELECTOR',
+                                 '.notifications')
+
+# Class-selector for individual notifications.
+SINGLE_NF_CLASS_SELECTOR = getattr(settings, 'NOTIFY_SINGLE_NF_CLASS_SELECTOR',
+                                   '.notification')
+
+# Class-selector for notification list on notification box.
+NF_BOX_CLASS_SELECTOR = getattr(settings, 'NOTIFY_NF_BOX_CLASS_SELECTOR',
+                                '.notification-box-list')
+
+# Class-selector for individual notification in the notification box.
+SINGLE_NF_BOX_CLASS_SELECTOR = getattr(settings,
+                                       'NOTIFY_SINGLE_NF_BOX_CLASS_SELECTOR',
+                                       '.notification-box')
+
+# Class-selector for element performing `mark` as read/unread action.
+MARK_NF_CLASS_SELECTOR = getattr(settings, 'NOTIFY_MARK_NF_CLASS_SELECTOR',
+                                 '.mark-notification')
+
+# Class-selector for element performing `mark_all` as read/unread action.
+MARK_ALL_NF_CLASS_SELECTOR = getattr(settings,
+                                     'NOTIFY_MARK_ALL_NF_CLASS_SELECTOR',
+                                     '.mark-all-notifications')
+
+# Class of notification element when it's status is read.
+READ_NF_CLASS = getattr(settings, 'NOTIFY_READ_NOTIFICATION_CSS', 'read')
+
+# Class of notification element when it's status is unread.
+UNREAD_NF_CLASS = getattr(settings, 'NOTIFY_UNREAD_NOTIFICATION_CSS', 'unread')
+
+# Class-selector for element performing `delete` action.
+DELETE_NF_CLASS_SELECTOR = getattr(settings, 'NOTIFY_DELETE_NF_CLASS_SELECTOR',
+                                   '.delete-notification')
+
+# The tests fails if SOFT_DELETE setting is fetched from this file.
+# Ref: https://code.djangoproject.com/ticket/22071
+# Find a solution that passes the tests.
+# # Whether do delete notifications softly or not.
+# SOFT_DELETE = getattr(settings, 'NOTIFY_SOFT_DELETE', True)
+
+
+# Time interval between ajax calls for notification update.
+UPDATE_TIME_INTERVAL = getattr(settings, 'NOTIFY_UPDATE_TIME_INTERVAL', 5000)
+
+#Payu----settings, use for Production only
+
+
+#The value should be one of the items from the list ['production', 'test']
+#PAYMENT_MODE = "production"#default will be "test"
+
+#merchant_key from payu. default value will be included builtin in the package.
+#MERCHANT_KEY = "xxxxxxxx"
+
+#merchant_salt from payu. default value will be included builtin in the package.
+#MERCHANT_SALT = "xxxxxxxx"
+
+#Where to redirect while transaction is succeeded.
+#SUCCESS_URL = "www.example.com/success/" #default will be "http://127.0.0.1:8000/payubiz-success/"
+
+#Where to redirect while transaction got failure.
+#FAILURE_URL = "www.example.com/failure/" #default will be "http://127.0.0.1:8000/payubiz-failure/"
+
+#Where to redirect while transaction got canceld
+#CANCEL_URL = "www.example.com/cancel/" #default will be "http://127.0.0.1:8000/payubiz-cancel/"
+PAYU_INFO = {
+              'merchant_key': "test merchant key",
+
+             'merchant_salt': "test merchant salt",
+             # for production environment use 'https://secure.payu.in/_payment'
+             'payment_url': 'https://test.payu.in/_payment',
+             'surl':'http://example.com/pay-success/',
+             'furl':'http://example.com/failure/',
+             'curl':'http://example.com/cancel/',
+            }

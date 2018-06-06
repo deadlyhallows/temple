@@ -39,14 +39,14 @@ def home(request):
     except EmptyPage:
         queryset = paginator.page(paginator.num_pages)
 
-    context={'t':t,
-            'form':AuthenticationForm,
-             'Mobile_form':MobileForm,
-             'user_form':SignUpForm,
-             "object_list": queryset,
-             "page_change_var": page_change_var
+    context = {'t': t,
+               'form': AuthenticationForm,
+               'Mobile_form': MobileForm,
+               'user_form': SignUpForm,
+               'object_list': queryset,
+               'page_change_var': page_change_var
              }
-    return render(request, 'darshan/home.html',context)
+    return render(request, 'darshan/home.html', context)
 
 
 def signup(request):
@@ -256,5 +256,6 @@ def detail(request, temp1):
         'q':q,
         }
     return render(request, 'darshan/detail.html', context)
+
 
 

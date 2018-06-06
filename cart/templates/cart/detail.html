@@ -7,6 +7,56 @@
 {% endblock %}
 
 {% block content %}
+    <!-- Login Form -->
+  <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <form method="post"  role="form" action= "{% url 'darshan:login' %}" >
+       <div class="modal-dialog ">
+           <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h2 class="modal-title" id="myModalLabel">Login</h2>
+
+            </div>
+            <div class="modal-body">
+                {% csrf_token %}
+                {{ form.as_p }}
+            </div>
+            <div class="modal-footer">
+                <button type="submit">Log in</button>
+                <a href="{% url 'darshan:home' %}" class="ab">New to My Site? Sign up</a>
+                <p><strong>-- OR --</strong></p>
+                <p><a href="{% url 'social:begin' 'facebook' %}" class="ab">Login with Facebook</a></p>
+                <p><a href="{% url 'social:begin' 'google-oauth2' %}" class="ab">Login with Gmail</a></p>
+            </div>
+           </div>
+       </div>
+      </form><br>
+ </div>
+
+ <!--SignUp form-->
+     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <form role="form" action="{% url 'darshan:signup' %}" method="post">
+            <div class="modal-dialog ">
+           <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h2 class="modal-title" id="myModalLabel">Sign Up</h2>
+
+            </div>
+            <div class="modal-body">
+                {% csrf_token %}
+                {{ user_form.as_p }}
+                {{ Mobile_form.as_p }}
+            </div>
+            <div class="modal-footer">
+                <button type="submit">Sign Up</button>
+
+            </div>
+           </div>
+       </div>
+        </form>
+     </div>
+
     {% block head %}
         <head><link rel="stylesheet" href="{% static 'css/cart.css' %}"></head>
     {% endblock %}
