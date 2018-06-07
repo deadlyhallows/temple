@@ -59,7 +59,7 @@
                         <li id="google_translate_element" style="margin-top: 10px;"></li>
 
                     {% if user.is_authenticated %}
-                        <li><a href="{% url 'notifications:all' %}">Notification({{ set|notifications_unread }})</a></li>
+                        <li><a href="{% url 'notifications:all' %}">Notification({{ user|notifications_unread }})</a></li>
                         <li><a  href="{% url 'darshan:logout' %}">logout</a></li>
                         <li><a  href="{% url 'shop:allproducts' %}">Add Items</a></li>
                         <li><a  href="{% url 'darshan:accounts' %}">Welcome {{ set }}</a></li>

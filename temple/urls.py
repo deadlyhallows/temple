@@ -26,8 +26,8 @@ urlpatterns = [
     url(r'', include('shop.urls', namespace='shop')),
     url(r'cart/', include('cart.urls', namespace='cart')),
     url(r'orders/', include('orders.urls', namespace='orders')),
-    url(r'^notifications/', include('notify.urls',namespace='notifications')),
-    url(r'^pay', include('payu_biz.urls')),
+    url(r'^notifications/', include('notify.urls', namespace='notifications')),
+    url(r'^pay/', include('payu_biz.urls', namespace='pay')),
 
     url(r'^search/', include('haystack.urls')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),

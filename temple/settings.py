@@ -174,7 +174,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-
+SESSION_ENGINE = 'cart.session_backend'
 
 
 LOGIN_REDIRECT_URL = 'user_profile/'
@@ -192,6 +192,9 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_SAVE_EVERY_REQUEST = True
 
 CART_SESSION_ID = 'cart'
+
+SALT = '0mifJiz38z'
+KEY = 'y8GwZx8F'
 
 
 
@@ -274,3 +277,8 @@ PAYU_INFO = {
              'furl':'http://example.com/failure/',
              'curl':'http://example.com/cancel/',
             }
+PAID_FEE_AMOUNT = 1
+PAID_FEE_PRODUCT_INFO = "Message showing product details."
+PAYMENT_URL_TEST = 'https://test.payu.in/_payment'
+PAYMENT_URL_LIVE = 'https://secure.payu.in/_payment'
+SERVICE_PROVIDER = "payu_paisa"

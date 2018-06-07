@@ -124,10 +124,14 @@ class Mobile(models.Model):
     Mobile_No = models.CharField(max_length=15,blank=True,null=True)
     email_confirmed = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.user.username
+
     @receiver(post_save, sender=User)
     def create_user_mobile(sender, instance, created, **kwargs):
         if created:
             Mobile.objects.create(user=instance)
+
 
 class Darshans(models.Model):
     temple = models.ForeignKey(Temples,on_delete= models.CASCADE)

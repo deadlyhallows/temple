@@ -1,14 +1,13 @@
 from django.db import models
 from shop.models import Product
+from django.contrib.auth.models import User
 from decimal import Decimal
 from cart import cart
 
 
 
 class Order(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email= models.EmailField()
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE)
     address = models.CharField(max_length=250)
     postal_code = models.CharField(max_length=20)
     city = models.CharField(max_length=100)
@@ -16,32 +15,6 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
     order_date = models.DateField(auto_now=True)
-    # buyer = models.ForeignKey(Buyer)
-    txnid = models.CharField(max_length=36, primary_key=True, default=None)
-    amount = models.FloatField(null=True, blank=True, default=0.0)
-    hash = models.CharField(max_length=500, null=True, blank=True)
-    billing_name = models.CharField(max_length=500, null=True, blank=True)
-    billing_street_address = models.CharField(max_length=500, null=True, blank=True)
-    billing_country = models.CharField(max_length=500, null=True, blank=True)
-    billing_state = models.CharField(max_length=500, null=True, blank=True)
-    billing_city = models.CharField(max_length=500, null=True, blank=True)
-    billing_pincode = models.CharField(max_length=500, null=True, blank=True)
-    billing_mobile = models.CharField(max_length=500, null=True, blank=True)
-    billing_email = models.CharField(max_length=500, null=True, blank=True)
-
-    shipping_name = models.CharField(max_length=500, null=True, blank=True)
-    shipping_street_address = models.CharField(max_length=500, null=True, blank=True)
-    shipping_country = models.CharField(max_length=500, null=True, blank=True)
-    shipping_state = models.CharField(max_length=500, null=True, blank=True)
-    shipping_city = models.CharField(max_length=500, null=True, blank=True)
-    shipping_pincode = models.CharField(max_length=500, null=True, blank=True)
-    shipping_mobile = models.CharField(max_length=500, null=True, blank=True)
-    shipping_rate = models.FloatField(null=False, blank=False, default=0.0)
-    status = models.CharField(max_length=500, null=True, blank=True)
-    shipping_email = models.CharField(max_length=500, null=True, blank=True)
-
-    payment_method = models.CharField(max_length=1000, verbose_name='Payment-method', default=None, null=True)
-    is_paid = models.BooleanField(default=False)
     is_delivered = models.BooleanField(default=False)
     is_accepted = models.BooleanField(default=False)
 
@@ -66,5 +39,13 @@ class OrderItem(models.Model):
 
     def get_cost(self):
         return self.price * self.quantity
+
+class Payment(models.Model):
+    order_no=models.OneToOneField(Order, on_delete=models.CASCADE)
+    txnid = models.CharField(max_length=36, primary_key=True, default=None)
+    amount = models.FloatField(null=True, blank=True, default=0.0)
+    hash = models.CharField(max_length=500, null=True, blank=True)
+    payment_method = models.CharField(max_length=1000, verbose_name='Payment-method', default=None, null=True)
+
 
 
