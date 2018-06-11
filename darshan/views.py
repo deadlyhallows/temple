@@ -238,7 +238,8 @@ def accounts(request):
             print(j)
             r = Temples.objects.filter(temple2=j)
             print(r)
-    context={'pro':pro}
+    context={'set':user,
+        'pro':pro}
     return render(request,'darshan/accounts.html', context)
 
 @login_required
@@ -268,10 +269,12 @@ def details(request, temp):
     #FMT = '%H:%M:%S'
     #user = request.user
     #pro = Profile.objects.get(user_id=user.id)
+    user=request.user
     q=get_object_or_404(Temples,temple2 = temp)
     s = Darshans.objects.filter(temple_id=q.id)
     #b = Picture.objects.filter(Temple_id=q.id)
     context={
+        'set':user,
         's':s,
         'q':q,
         }

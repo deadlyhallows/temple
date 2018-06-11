@@ -18,6 +18,7 @@ class OrderAdmin(admin.ModelAdmin):
         obj.save()
 
 admin.site.register(Order,OrderAdmin)
+admin.site.register(OrderItem)
 
 #class OrderAdmin(admin.ModelAdmin):
 #    list_display = ['id','first_name','last_name','email','address','postal_code','city','created','updated','paid']

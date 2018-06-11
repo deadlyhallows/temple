@@ -7,7 +7,9 @@ from .cart import Cart
 
 
 def cart(request):
+    user = request.user
     if request.user.is_authenticated and not request.user.is_superuser:
+
         cart = get_object_or_404(Carts,user_id = request.user.id)
         cart_items = CartItem.objects.filter(cart=cart)
         total_items = 0
@@ -17,9 +19,11 @@ def cart(request):
             total_items += item.quantity
 
         return {
+        'set':user,
         'order_total':order_total,
         'total_items':total_items,
         }
 
     elif not request.user.is_authenticated and not request.user.is_superuser:
-            return {'cart': Cart(request)}
+            return {'set':user,
+                'cart': Cart(request)}

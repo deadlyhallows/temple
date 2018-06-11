@@ -61,6 +61,7 @@
 
                     {% if user.is_authenticated  and not user.is_superuser %}
                         <li><a href="{% url 'cart:view_cart' %}">Cart</a></li>
+                        <li><a href="{% url 'darshan:user_profile' %}">Home</a></li>
                         <li><a href="{% url 'notifications:all' %}">Notification({{ user|notifications_unread }})</a></li>
                         <li><a  href="{% url 'darshan:logout' %}">logout</a></li>
                         <li><a  href="{% url 'darshan:accounts' %}">Welcome {{ set }}</a></li>

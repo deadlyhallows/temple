@@ -15,10 +15,24 @@ class TempleAdmin(admin.ModelAdmin):
 class PictureAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
+        u=[]
+
         if Picture().is_dirty():
             user = User.objects.filter(is_superuser=False)
-            notify.send(sender=self, target=obj, recipient_list=list(user), verb="updated")
-        obj.save()
+            for x in user:
+                for y in x.profile.selected:
+                    if y==obj.id:
+                       u.append(x)
+            print(u)
+            if not u:
+                recipient = user
+            else:
+                recipient = u
+            notify.send(sender=self, target=obj, recipient_list=list(recipient), verb="updated")
+            obj.save()
+
+
+
 
 
 
