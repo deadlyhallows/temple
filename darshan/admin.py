@@ -13,7 +13,7 @@ class TempleAdmin(admin.ModelAdmin):
     }
 
 class PictureAdmin(admin.ModelAdmin):
-
+ #u r doing a great job
     def save_model(self, request, obj, form, change):
         u=[]
 
