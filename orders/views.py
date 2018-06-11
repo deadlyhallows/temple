@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from cart.cart import Cart
+from django.shortcuts import render, redirect
+from cart.models import Carts, CartItem
 from .forms import OrderCreateForm
 from .models import OrderItem, Order
 from shop.models import Product
@@ -15,46 +15,72 @@ import orders.constants as constants
 from django.core.urlresolvers import reverse
 import hashlib
 import requests
+from .admin import OrderAdmin
 from random import randint
+from decimal import Decimal
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user
 from django.views.decorators.csrf import csrf_exempt
+from notify.signals import notify
 
+@login_required
 def order_create(request):
-    cart = Cart(request)
+
+    total_cost=Decimal(0.0)
+    total_items=0
+    user = get_user(request)
+    print(user)
+
+    #c = Carts.objects.get(user_id=user.id)
+    c = get_object_or_404(Carts, user_id=user.id)
+    #print(c)
+    items = CartItem.objects.filter(cart_id=c.id)
     print("A")
+    for item in items:
+        #print(item)
+        total_items += item.quantity
+        a = get_object_or_404(Product, id=item.product_id)
+        #print(a)
+        total_cost += (item.quantity * a.Price)
     if request.method == 'POST':
         print("b")
         form = OrderCreateForm(request.POST)
         if form.is_valid():
+            print("c")
             #cd = form.cleaned_data
-            order = form.save()
-
-            for item in cart:
-                a = get_object_or_404(Product, ProductName=item['product'])
-                print(type(item['product']))
+            order = form.save(commit=False)
+            order.buyer_id = get_user(request).id
+            #order.paid=True
+            order.save()
+            print("d")
+            for item in items:
+                total_items+=item.quantity
+                a = get_object_or_404(Product, id=item.product_id)
+                total_cost += (item.quantity * a.Price)
                 OrderItem.objects.create(order=order,
                                          product=a,
-                                         price=item['price'],
-                                         quantity=item['quantity'])
-            cart.clear()
+                                         price=a.Price,
+                                         quantity=item.quantity)
+                #item.delete()
+
             #launch asynchronous task
             #order_created.delay(order.id)
             return render(request, 'orders/order/created.html', {'order': order})
 
     else:
         form = OrderCreateForm()
-    return render(request, 'orders/order/create.html', {'cart': cart, 'form': form})
+    return render(request, 'orders/order/create.html', {'total_cost':total_cost,'form': form,'items':items})
 
-
+@login_required
 def payment(request):
     print(request.user)
     user = request.user
-    a = get_object_or_404(User, username=request.user)
+    a = get_object_or_404(User, username=user)
     #b = Order.objects.filter(buyer_id=user.id).order_by('created').first()
     #c=get_object_or_404(OrderItem,order_id=b.id)
     #PAID_FEE_AMOUNT = c.price
     data = {}
-    txnid = get_transaction_id()
+    txnid = get_transaction_id(request)
     hash_ = generate_hash(request, txnid)
     hash_string = get_hash_string(request, txnid)
     # use constants file to store constant values.
@@ -76,6 +102,7 @@ def payment(request):
 
 
 # generate the hash
+@login_required
 def generate_hash(request, txnid):
     try:
         # get keys and SALT from dashboard once account is created.
@@ -90,6 +117,7 @@ def generate_hash(request, txnid):
 
 
 # create hash string using all the fields
+@login_required
 def get_hash_string(request, txnid):
     a = get_object_or_404(User, username=request.user)
     print(request.user)
@@ -102,7 +130,8 @@ def get_hash_string(request, txnid):
 
 
 # generate a random transaction Id.
-def get_transaction_id():
+@login_required
+def get_transaction_id(request):
     hash_object = hashlib.sha256(str(randint(0, 9999)).encode("utf-8"))
     # take approprite length
     txnid = hash_object.hexdigest().lower()[0:32]
@@ -111,14 +140,33 @@ def get_transaction_id():
 
 # no csrf token require to go to Success page.
 # This page displays the success/confirmation message to user indicating the completion of transaction.
+@login_required
 @csrf_exempt
 def payment_success(request):
+    user = request.user
+    p = get_object_or_404(Order, buyer_id=user.id)
+    p.paid=True
+    p.save()
+    c1 = get_object_or_404(Carts, user_id=user.id)
+    items1 = CartItem.objects.filter(cart_id=c1.id)
+    for item in items1:
+        item.delete()
+    #important:when paid is seen in database table mark is_accepted as True for for the product to notify
+    #order_delivered(OrderAdmin,request, obj, form, change )
     data = {}
     return render(request, "orders/order/paysuccess.html", data)
 
 
 # no csrf token require to go to Failure page. This page displays the message and reason of failure.
+@login_required
 @csrf_exempt
 def payment_failure(request):
+    print(request.user)
     data = {}
     return render(request, "orders/order/payfail.html", data)
+
+def order_delivered(self, request, obj, form, change):
+    if Order().is_dirty():
+        user = User.objects.filter(id=obj.buyer_id)
+        notify.send(sender=self, target=obj, recipient_list=list(user), verb="accepted")
+    obj.save()

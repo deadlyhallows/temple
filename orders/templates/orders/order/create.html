@@ -1,5 +1,6 @@
 {% extends 'darshan/base.html' %}
 {% load staticfiles %}
+{% load temple_extra %}
 
 {% block content %}
     {% block style %}
@@ -14,11 +15,13 @@
     <div>
         <h3>Your Order</h3>
         <ul>
-            {% for item in cart %}
-                <li>{{ item.quantity }}x{{ item.product.name }} <span>Rs.{{ item.total_price }}</span></li>
+            {% for item in items %}
+                {% for x in item.product_id|products %}
+                    <li>{{ item.quantity }}  x  {{ x.ProductName }} ({{ x.Price }})  =  <span>Rs.{% multiply item.quantity  x.Price %}</span></li>
+                {% endfor %}
             {% endfor %}
         </ul>
-        <p>Total: Rs.{{ cart.get_total_price }}</p>
+        <p>Total: Rs.{{ total_cost }}</p>
     </div>
 
     <form method="post" action="{% url 'orders:order_create' %}">

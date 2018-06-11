@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Picture, Profile, Temples, Mobile, Darshans
-from django.utils import timezone
 from django.contrib.auth import login
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
@@ -16,14 +15,18 @@ from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.forms import AuthenticationForm
 import smtplib
 from django.contrib import messages
+from django.conf import settings
+from django.shortcuts import get_object_or_404
+from cart.cart import Cart
+from shop.models import Product
+from cart.models import CartItem, Carts
 from django.utils.timezone import now, localtime
 import datetime
 import time
 from django.db.models import F
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-
+from django.utils import timezone
 
 
 def home(request):
@@ -32,6 +35,7 @@ def home(request):
     paginator = Paginator(t, 4)
     page_change_var = 'page'  # change=request
     page = request.GET.get(page_change_var)
+    print(type(page))
     try:
         queryset = paginator.page(page)
     except PageNotAnInteger:
@@ -66,6 +70,23 @@ def signup(request):
 
             user.mobile.Mobile_No = mobile_form.cleaned_data.get('Mobile_No')
             user.mobile.save()
+            create_cart=Carts.objects.create(active=True,user_id=user.id)
+            create_cart.save()
+            cart = Cart(request)
+            print(cart)
+            if cart is not None:
+                print("A")
+                c = get_object_or_404(Carts, user_id=user.id)
+                print("b")
+                for item in cart:
+                    print("c")
+                    p = get_object_or_404(Product, ProductName=item['product'])
+                    print("d")
+                    cart_item = CartItem.objects.create(quantity=item['quantity'],
+                                                        active=True, cart_id=c.id, product_id=p.id)
+                    print("E")
+                    cart_item.save()
+                    print("f")
             #send_mail(subject,message,from_email,to_list,fail_silently=True)
             current_site = get_current_site(request)
             subject = 'Activate Your MySite Account'
@@ -139,6 +160,16 @@ def user_profile(request):
     user=request.user
     profile=Profile.objects.get(user_id=user.id)
     print(profile.Temple1)
+    cart = Cart(request)
+    if cart is not None:
+        c = get_object_or_404(Carts, user_id=user.id)
+        for item in cart:
+
+            p = get_object_or_404(Product, ProductName=item['product'])
+            cart_item = CartItem.objects.create(quantity=item['quantity'],
+                                                active=True, cart_id=c.id, product_id=p.id)
+            cart_item.save()
+    print(cart)
     if request.POST:
         print("b")
         print(profile.Temple1)

@@ -28,9 +28,18 @@ def darshan(value):
 def product(value):
     return Product.objects.filter(TempleName_id=value)
 
+@register.filter("products1")
+def products1(value):
+    return Product.objects.filter(id=value)
+
 @register.filter("products")
-def Products(value):
+def products(value):
     return Product.objects.filter(ProductName=value)
+
+@register.simple_tag()
+def multiply(qty, unit_price, *args, **kwargs):
+    # you would need to do any localization of the result here
+    return qty * unit_price
 
 @register.filter("descend")
 def descend(value):

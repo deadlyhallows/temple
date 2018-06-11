@@ -1,12 +1,13 @@
 from django.db import models
 from shop.models import Product
 from django.contrib.auth.models import User
+from dirtyfields import DirtyFieldsMixin
 from decimal import Decimal
 from cart import cart
 
 
 
-class Order(models.Model):
+class Order(DirtyFieldsMixin, models.Model):
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)
     address = models.CharField(max_length=250)
     postal_code = models.CharField(max_length=20)

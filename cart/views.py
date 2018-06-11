@@ -5,6 +5,126 @@ from darshan.forms import SignUpForm, MobileForm
 from shop.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm
+from django.contrib.auth import get_user
+from decimal import Decimal
+from django.shortcuts import render_to_response, redirect
+from django.core.urlresolvers import reverse
+from .models import Carts, CartItem
+from shop.models import Product
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def get_user_cart(request):
+    """Retrieves the shopping cart for the current user."""
+    # If the user is logged in, then grab the user's cart info.
+    cart_id = None
+    cart = None
+    if request.user.is_authenticated and not request.user.is_anonymous:
+        try:
+            cart = Carts.objects.get(user=request.user)
+        except Carts.DoesNotExist:
+            cart = Carts(user=request.user)
+            cart.save()
+    else:
+        cart_id = request.session.get('cart_id')
+        if not cart_id:
+            cart = Carts()
+            cart.save()
+            request.session['cart_id'] = cart.id
+        else:
+            cart = Carts.objects.get(id=cart_id)
+    return cart
+
+@login_required
+def get_cart_count(request):
+    print(request.user)
+    cart = get_user_cart(request)
+    print(cart)
+    total_count = 0
+    cart_items = CartItem.objects.filter(cart=cart)
+    for item in cart_items:
+        total_count += item.quantity
+    return total_count
+
+@login_required
+def update_cart_info(request):
+    request.session['cart_count'] = get_cart_count(request)
+
+
+@login_required
+def view_cart(request):
+    b = None
+    user = request.user
+    print(user)
+    cart_form = CartAddProductForm()
+    cart = get_object_or_404(Carts, user_id=user.id)
+    print(cart)
+    cart_items = CartItem.objects.filter(cart_id=cart.id)
+    order_total = Decimal(0.0)
+    print("S")
+    for item in cart_items:
+        order_total += (item.product.Price * item.quantity)
+        a = Product.objects.filter(id=item.product_id)
+        for x in a:
+            b = item.quantity * x.Price
+
+    context = {    'loop_times': range(1, 21),
+                   'user':user,
+                   'cart': cart_items,
+                   'cart_form':cart_form,
+                   'total':b,
+                   'form': AuthenticationForm,
+                   'Mobile_form': MobileForm,
+                   'user_form': SignUpForm,
+                   }
+    return render(request, 'cart/detail.html', context)
+
+
+@login_required
+def add_to_cart(request, product_id):
+
+
+    form = CartAddProductForm(request.POST)
+    print("a")
+    if form.is_valid():
+        print("b")
+        cd = form.cleaned_data
+        cart = get_user_cart(request)
+        product = Product.objects.get(id=product_id)
+        quantity = str(cd['quantity'], )
+        # update_quantity = cd['update']
+        cart_item = CartItem(product=product, cart=cart, quantity=quantity)
+
+        cart_item.save()
+
+
+
+    print(get_cart_count(request))
+    return redirect('cart:view_cart')
+
+@login_required
+def update_quantity(request,product_id):
+    if request.method == 'POST' and 'quantity' in request.POST:
+        u = request.POST.get('quantity', None)
+        up = get_object_or_404(CartItem, product_id=product_id)
+        up.quantity = u
+        up.save()
+
+    return redirect('cart:view_cart')
+
+@login_required
+def remove_from_cart(request, product_id):
+    print(product_id)
+
+    cart_item = get_object_or_404(CartItem, id=product_id)
+    quantity = cart_item.quantity
+    cart_item.delete()
+    if request.session.get('cart_count'):
+        request.session['cart_count'] -= quantity
+    else:
+        request.session['cart_count'] = 0
+    update_cart_info(request)
+    return redirect('cart:view_cart')
 
 
 @require_POST
@@ -46,11 +166,12 @@ def cart_detail(request):
 
     }
 
-    return render(request, 'cart/detail.html', context)
+    return render(request, 'cart/ses_cart_detail.html', context)
 
 
 
 
 
 
-# Create your views here.
+
+

@@ -18,12 +18,21 @@
         <img src="{{ p.Photo.url }}"><br>
         {{ p.ProductName }}<br>
         <p>Rs.{{ p.Price }}</p>
-        <form action="{% url 'cart:cart_add' p.id %}" method="post">
+        {% if user.is_authenticated and not user.is_superuser %}
+        <form action="{% url 'cart:add_to_cart' p.id %}" method="post">
             {{ cart_product_form }}
             {% csrf_token %}
             <input type="submit" value="Add to Cart">
         <!--add Product Description-->
          </form>
+        {% elif not user.is_authenticated and not user.is_superuser %}
+            <form action="{% url 'cart:cart_add' p.id %}" method="post">
+            {{ cart_product_form }}
+            {% csrf_token %}
+            <input type="submit" value="Add to Cart">
+        <!--add Product Description-->
+         </form>
+        {% endif %}
     {% endfor %}
 </div>
 {% endblock %}

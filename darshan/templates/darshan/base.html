@@ -55,15 +55,17 @@
 
                 <ul class="nav navbar-nav navbar-right down">
 
-                        <li><a href="{% url 'cart:cart_detail' %}">Cart</a></li>
-                        <li id="google_translate_element" style="margin-top: 10px;"></li>
 
-                    {% if user.is_authenticated %}
+                        <li id="google_translate_element" style="margin-top: 10px;"></li>
+                        <li><a  href="{% url 'shop:allproducts' %}">Add Items</a></li>
+
+                    {% if user.is_authenticated  and not user.is_superuser %}
+                        <li><a href="{% url 'cart:view_cart' %}">Cart</a></li>
                         <li><a href="{% url 'notifications:all' %}">Notification({{ user|notifications_unread }})</a></li>
                         <li><a  href="{% url 'darshan:logout' %}">logout</a></li>
-                        <li><a  href="{% url 'shop:allproducts' %}">Add Items</a></li>
                         <li><a  href="{% url 'darshan:accounts' %}">Welcome {{ set }}</a></li>
                     {% else %}
+                        <li><a href="{% url 'cart:cart_detail' %}">Cart</a></li>
                         <li><a href="#darshan" >Darshan</a></li>
                         <li><a href="#shop">Shop</a></li>
                         <li><a class=" launch-modal" href="{% url 'darshan:home' %}" style="margin-left: 20px" data-modal-id="modal">Signup
@@ -79,16 +81,28 @@
 
     <div class="content container-fluid">
         <div class="row">
-            {% with total_items=cart|length %}
-                {% if cart|length > 0 %}
+             {% if user.is_authenticated and not user.is_superuser %}
+                 {% if total_items > 0 %}
                     Your cart :
-                    <a href="{% url "cart:cart_detail" %}">
-                        {{ total_items }} item{{total_items|pluralize}}, Rs.{{ cart.get_total_price }}
+                    <a href="{% url "cart:view_cart" %}">
+                        {{ total_items }} item{{total_items|pluralize}}, Rs.{{ order_total }}
                     </a>
                 {% else %}
                     Your cart is empty
                 {% endif %}
-            {% endwith %}
+            {% elif not user.is_authenticated and not user.is_superuser %}
+                 {% with total_items=cart|length %}
+                    {% if cart|length > 0 %}
+                        Your cart :
+                        <a href="{% url "cart:cart_detail" %}">
+                            {{ total_items }} item{{total_items|pluralize}}, Rs.{{ cart.get_total_price }}
+                        </a>
+                    {% else %}
+                        Your cart is empty
+                    {% endif %}
+                 {% endwith %}
+             {% endif %}
+
         </div>
 
 
@@ -112,6 +126,7 @@ function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
 }
 </script>
+
 
 <script src="{% static "notify/notifyX.min.js" %}"></script>
 
