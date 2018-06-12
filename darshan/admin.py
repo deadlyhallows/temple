@@ -1,10 +1,14 @@
-from .models import Picture, Profile, Temples, Darshans, Mobile
+from .models import Picture, Profile, Temples, Darshans, Mobile, OnlineDonation
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from notify.signals import notify
 from pagedown.widgets import AdminPagedownWidget
 from django.db import models
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from .views import send_verification_mail
+from django.utils.http import urlsafe_base64_decode
 
 
 class TempleAdmin(admin.ModelAdmin):
@@ -13,7 +17,7 @@ class TempleAdmin(admin.ModelAdmin):
     }
 
 class PictureAdmin(admin.ModelAdmin):
- #u r doing a great job
+
     def save_model(self, request, obj, form, change):
         u=[]
 
@@ -41,6 +45,7 @@ admin.site.register(Mobile)
 admin.site.register(Darshans)
 admin.site.register(Picture, PictureAdmin)
 admin.site.register(Profile)
+admin.site.register(OnlineDonation)
 #class ProfileInline(admin.StackedInline):
  #   model = Profile
   #  can_delete = False

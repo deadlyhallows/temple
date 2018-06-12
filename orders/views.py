@@ -85,7 +85,7 @@ def payment(request):
     hash_string = get_hash_string(request, txnid)
     # use constants file to store constant values.
     # use test URL for testing
-    data["action"] = settings.PAYMENT_URL_TEST #LIVE for production
+    data["action"] = settings.PAYMENT_URL_LIVE #LIVE for production
     data["amount"] = float(settings.PAID_FEE_AMOUNT)
     data["productinfo"] = settings.PAID_FEE_PRODUCT_INFO
     data["key"] = settings.KEY

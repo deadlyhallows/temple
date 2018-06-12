@@ -23,7 +23,8 @@ class Order(DirtyFieldsMixin, models.Model):
         ordering = ('-created',)
 
     def __str__(self):
-        return 'Order {}'.format(self.id)
+        return 'Order {}'.format(self.id) + "," + str(self.buyer)
+
 
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
@@ -36,7 +37,7 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField(default=None)
 
     def __str__(self):
-        return '{}'.format(self.id)
+        return '{}'.format(self.id) + ',' + str(self.order)
 
     def get_cost(self):
         return self.price * self.quantity

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile,Temples, Mobile
+from .models import Profile, Temples, Mobile, OnlineDonation
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django_select2.forms import (
@@ -48,6 +48,7 @@ class MobileForm(forms.ModelForm):
 
 
 class TempleForm(forms.ModelForm):
+    #comment it while migration
     OPTIONS = []
     a = Temples.objects.all()
     for x in a:
@@ -64,6 +65,12 @@ class TempleForm(forms.ModelForm):
     class Meta:
         model=Profile
         fields = ('Temple1',)
+
+class DonationForm(forms.ModelForm):
+    class Meta:
+        model=OnlineDonation
+        fields=('Amount','Purpose')
+
 
 
 

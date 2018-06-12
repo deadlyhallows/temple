@@ -1,13 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Picture, Profile, Temples, Mobile, Darshans
+from .models import Picture, Profile, Temples, Mobile, Darshans, OnlineDonation
 from django.contrib.auth import login
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
-from darshan.forms import SignUpForm, TempleForm, MobileForm
+from darshan.forms import SignUpForm, TempleForm, MobileForm, DonationForm
 from darshan.tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.utils.encoding import force_text
@@ -135,6 +135,7 @@ def activate(request, uidb64, token,):
         return render(request, 'darshan/account_activation_invalid.html')
 
 
+#Do change this when in production
 email_address = 'amishaameyanish@gmail.com'
 email_password = 'deployment123456789'
 
@@ -291,5 +292,24 @@ def detail(request, temp1):
         }
     return render(request, 'darshan/detail.html', context)
 
+def Online_Donation(request, v):
+    if request.method == "POST":
+        t = get_object_or_404(Temples,temple2 = v)
+        form = DonationForm(request.POST)
+        print("Aw")
+        if form.is_valid():
+            print("Ab")
+            donation = form.save(commit=False)
+            donation.donor = request.user
+            donation.temple = t
+            donation.Amount = form.cleaned_data.get('Amount')
+            donation.Purpose = form.cleaned_data.get('Purpose')
+            donation.status=True
+            donation.save()
+            return redirect('orders:payment')
+    else:
+        form = DonationForm()
 
+    context = {'form':form,}
+    return render(request,'darshan/Online_Donation.html', context)
 

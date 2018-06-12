@@ -12,9 +12,20 @@ class OrderItemInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
-        if Order().is_dirty():
-            user = User.objects.get(id=obj.buyer_id)
-            notify.send(sender=self, target=obj, recipient=user, verb="accepted")
+        tm = Order().is_dirty()
+        if tm:
+            t = Order().get_dirty_fields()
+            print(t)
+            for z in t:
+                if z=='is_delivered' and z!='is_accepted' and obj.is_delivered==True:
+                    obj.is_accepted=False
+                    obj.save()
+                    user = User.objects.get(id=obj.buyer_id)
+                    notify.send(sender=self, target=obj, recipient=user, verb="delivered")
+                if z=='is_accepted' and z!='is delivered' and obj.is_accepted==True:
+                    user = User.objects.get(id=obj.buyer_id)
+                    notify.send(sender=self, target=obj, recipient=user, verb="accepted")
+
         obj.save()
 
 admin.site.register(Order,OrderAdmin)

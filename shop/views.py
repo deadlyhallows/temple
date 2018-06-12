@@ -39,11 +39,6 @@ class ProductSearch(SearchView):
     form_name = CustomSearchForm
 
 
-
-
-
-
-
 def allproducts(request):
     print(request.user)
     list = None

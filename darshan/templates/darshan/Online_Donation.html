@@ -1,0 +1,22 @@
+{% extends 'darshan/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+     {% block style %}
+         <style>
+             html,body{
+                 padding-top: 45px;}
+         </style>
+     {% endblock style %}
+
+    <h2>Online Donation Form</h2>
+    <form method="post" action="">
+     {% csrf_token %}
+     {{ form.as_p }}
+     <button type="submit">Donate</button>
+    </form>
+
+    {% if form.status %}
+        Click on <strong><a href="{% url 'orders:payment' %}">Pay</a></strong> to Proceed
+    {% endif %}
+{% endblock %}

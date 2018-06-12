@@ -19,7 +19,7 @@ urlpatterns = [
     url(r'^details/(?P<temp>.+)$',views.details, name='details'),
     url(r'^detail/(?P<temp1>.+)$', views.detail, name='detail'),
     url(r'^delete/(?P<value>.+)/$',views.delete, name='delete'),
-
+    url(r'^online_donation/(?P<v>.+)/$',views.Online_Donation, name='Online_Donation'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^account_activation_sent/$', views.account_activation_sent, name='account_activation_sent'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',

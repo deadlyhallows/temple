@@ -143,4 +143,14 @@ class Darshans(models.Model):
     def __str__(self):
         return self.temple.temple2
 
+class OnlineDonation(models.Model):
+    donor=models.ForeignKey(User,on_delete=models.CASCADE)
+    temple=models.ForeignKey(Temples,on_delete=models.CASCADE)
+    Amount=models.PositiveIntegerField(default=0)
+    Purpose=models.TextField(blank=True)
+    status=models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.donor) + "," + str(self.temple)
+
 

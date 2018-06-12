@@ -44,7 +44,10 @@
         <button style="margin-bottom: 20px;width: 200px;height:50px;"><a href="">Book Pooja</a></button><br>
         <button style="margin-bottom: 20px;width: 200px;height:50px;"><a {% if q.OnlinePrasadStatus %} href= "{{ q.OnlinePrasad }}" {% else %}
         href = "{% url 'shop:allproducts' %}"{% endif %}>Order Prasad</a></button><br>
-        <button style="margin-bottom: 20px;width: 200px;height:50px;"><a href="{{ q.OnlineDonation }}">Make Donation</a></button><br>
+
+        <button style="margin-bottom: 20px;width: 200px;height:50px;"><a  {% if q.OnlineDonationStatus %} href= "{{ q.OnlinePrasad }}" {% else %}
+        href = "{% url 'darshan:Online_Donation'  v=q.temple2  %}" {% endif %}>Make Donation</a></button><br>
+
         <button style="margin-bottom: 20px;width: 200px;height:50px;"><a href="">Visit Temple</a></button><br>
     </div>
 

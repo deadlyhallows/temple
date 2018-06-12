@@ -1,10 +1,10 @@
 from django.db import models
 from darshan.models import Temples
 from django.contrib.postgres.fields import ArrayField
-
+from dirtyfields import DirtyFieldsMixin
 # Create your models here.
 
-class Product(models.Model):
+class Product(DirtyFieldsMixin, models.Model):
     ProductName=models.CharField(max_length=250, default=None)
     TempleName=models.ForeignKey(Temples, on_delete=models.CASCADE)
     OutofStock=models.BooleanField(default=False)
@@ -16,7 +16,7 @@ class Product(models.Model):
     height_field = models.IntegerField(default=None, null=True, blank=True)
     width_field = models.IntegerField(default=None, null=True, blank=True)
     OfferorDiscount= models.CharField(max_length=50, default=None, blank=True)
-
+    #Add Available field if needed
     def __str__(self):
         return self.ProductName
 
