@@ -6,5 +6,5 @@ db.sqlite3
 /static
 .DS_Store
 .idea/
-venv
+
 temple@localhost
