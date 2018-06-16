@@ -2,7 +2,7 @@ from .models import Carts,CartItem
 from .cart import Cart
 from decimal import Decimal
 from django.shortcuts import render, redirect, get_object_or_404
-from .cart import Cart
+
 
 
 
@@ -24,6 +24,6 @@ def cart(request):
         'total_items':total_items,
         }
 
-    elif not request.user.is_authenticated and not request.user.is_superuser:
+    elif not request.user.is_authenticated and not request.user.is_superuser and request.user.is_manager:
             return {'set':user,
                 'cart': Cart(request)}

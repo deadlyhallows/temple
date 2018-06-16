@@ -1,4 +1,4 @@
-from .models import Picture, Profile, Temples, Darshans, Mobile, OnlineDonation
+from .models import Picture, Profile, Temples, Darshans, Mobile, OnlineDonation, TempleManager
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -39,7 +39,7 @@ class PictureAdmin(admin.ModelAdmin):
 
 
 
-
+admin.site.register(TempleManager)
 admin.site.register(Temples, TempleAdmin)
 admin.site.register(Mobile)
 admin.site.register(Darshans)

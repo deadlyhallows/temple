@@ -4,33 +4,33 @@
 
 {% block content %}
 
-    <div class="row ">
-     <div class="col-md-12 ">
+    <div class="row " style="margin-top: 82.5px;">
+     
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators --><!-- Wrapper for slides -->
         <div class="carousel-inner">
             <div class="item active">
                 <img src="{% static  'images/Badrinath Temple.jpg' %}" alt="Internship"
-                     style="width:100%; height: 650px;" class="img-responsive">
+                     style="width:100%; height: 450px;" class="img-responsive">
             </div>
             <div class="item">
-                <img src="{% static  'images/Somnath Temple.jpg' %}" alt="Idea" style="width:100%; height: 650px;"
+                <img src="{% static  'images/Somnath Temple.jpg' %}" alt="Idea" style="width:100%; height: 450px;"
                      class="img-responsive">
             </div>
             <div class="item">
-                <img src="{% static 'images/Kedar Nath.jpg' %}" alt="Inspire" style="width:100%; height: 650px;"
+                <img src="{% static 'images/Kedar Nath.jpg' %}" alt="Inspire" style="width:100%; height: 450px;"
                      class="img-responsive">
             </div>
             <div class="item">
-                <img src="{% static 'images/maxresdefault.jpg' %}" alt="Different And Cool" style="width:100%; height: 650px;"
+                <img src="{% static 'images/maxresdefault.jpg' %}" alt="Different And Cool" style="width:100%; height: 450px;"
                      class="img-responsive">
             </div>
             <div class="item">
-                <img src="{% static 'images/bankey-bihari-vrindavan.png' %}" alt="Different And Cool" style="width:100%; height:650px;"
+                <img src="{% static 'images/bankey-bihari-vrindavan.png' %}" alt="Different And Cool" style="width:100%; height:450px;"
                      class="img-responsive">
             </div>
              <div class="item">
-                <img src="{% static 'images/ganesha.jpg' %}" alt="Different And Cool" style="width:100%; height:650px;"
+                <img src="{% static 'images/ganesha.jpg' %}" alt="Different And Cool" style="width:100%; height:450px;"
                      class="img-responsive">
             </div>
 
@@ -48,8 +48,22 @@
 
 
         </div>
-     </div>
+     
  </div>
+
+ <div class="row">
+   <div class="col-md-12"> 
+     <div id="features" class="features uk-container uk-margin-large-top">
+       <h3 class="title-deco uk-text-center title-text color-black-a54" style="text-align: center;"> 
+       <span class="triangle-up"></span>
+       <span class="triangle-down"></span>
+       <span class="heading">SELECTED DARSHANS</span>
+       <span class="triangle-up"></span>
+       <span class="triangle-down"></span>
+      </h3>
+     </div>
+   </div> 
+ </div>   
 
 {% for s in pro %}
     {% for t in s.selected %}
@@ -57,11 +71,12 @@
             <div class="column">
                     <img src="{{ u.image.url }}" class="image-container img-responsive roundedCorner">
                     {% for z in u.Temple_id|darshan %}
-                        <a href="{% url 'darshan:details' temp=z %}" class="btn btn-default" style="margin-top:10px; ">
-                            {{ z.temple2 }}
-                        </a><br>
+                        <a href="{% url 'darshan:details' temp=z %}" class="btn btn-default" style="margin-top:10px;align-content: center;">
+                            {{ z.temple2 }}<br>
+                            {{ u.TimeD }}
+                        </a>
                     {% endfor %}
-                    {{ u.TimeD }}
+                    
             </div>
         {% endfor %}
     {% endfor %}

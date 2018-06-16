@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'notify',
 
     'pagedown',
+    'crispy_forms',
 
     'payu_biz', ## Package
     
@@ -64,7 +65,7 @@ INSTALLED_APPS = [
 
 ]
 
-
+CRISPY_TEMPLATE_TAG = 'bootstrap 3'
 
 HAYSTACK_CONNECTIONS = {
     'default': {
@@ -102,6 +103,7 @@ TEMPLATES = [
 
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
+                'darshan.context_processor.Manager'
                 #'cart.context_processors.cart',#comment it when logging in as Superuser
                 #'cart.context_processors.cart1',
             ],

@@ -14,9 +14,10 @@ import datetime
 
 
 
-     # Required
+     
 
 class Temples(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
     temple2 = models.CharField(max_length=250,default=None)
     Iconimages = models.ImageField(
         null=True, blank=True,
@@ -40,11 +41,11 @@ class Temples(models.Model):
     OnlineDonationStatus = models.BooleanField(default=False,blank=True)
     OnlineDonation = models.URLField(default=None,blank=True)
     LivePooja = models.BooleanField(default=False)
-    OnlinePooja = models.URLField(default=None,blank=True)
+    OnlinePooja = models.URLField(default=None,blank=True,null=True)
     OnlinePrasadStatus = models.BooleanField(default=False)
-    OnlinePrasad = models.URLField(default=None, blank=True)
+    OnlinePrasad = models.URLField(default=None, blank=True, null=True)
     OtherOnlineFacilityStatus = models.BooleanField(default=False)
-    OtherOnlineFacility = models.URLField(default=None,blank=True)
+    OnlineFacility = models.URLField(default=None,blank=True, null=True)
     Contacts = models.CharField(max_length=300, default=None)
     PhoneNumber = models.CharField(max_length=300, default=None)
     Email = models.EmailField()
@@ -96,7 +97,9 @@ class Picture(DirtyFieldsMixin,models.Model):
 
 
     def __str__(self):
-        return self.Temple.temple2
+        return str(self.Temple.temple2) + ',' + str(self.TimeD)
+
+    
 
 
 #class Meta:
@@ -104,7 +107,7 @@ class Picture(DirtyFieldsMixin,models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    Temple1 = ArrayField(models.CharField(max_length=250,default=None,blank=True,null=True),default=list,blank=True,null=True)
+    Select_Temple = ArrayField(models.CharField(max_length=250,default=None,blank=True,null=True),default=list,blank=True,null=True)
     selected = ArrayField(models.IntegerField(default=None),default=list,blank=True,null=True)
 
     def __str__(self):
@@ -134,6 +137,7 @@ class Mobile(models.Model):
 
 
 class Darshans(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE,default=None)
     temple = models.ForeignKey(Temples,on_delete= models.CASCADE)
     rituals = models.CharField(max_length=250,default=None)
     timings = models.CharField(max_length=250,default=None)
@@ -141,7 +145,7 @@ class Darshans(models.Model):
     #timings = ArrayField(models.CharField(max_length=250,default=None,blank=True,null=True),default=list,blank=True,null=True)
 
     def __str__(self):
-        return self.temple.temple2
+        return str(self.temple.temple2) + ','+ str(self.rituals)
 
 class OnlineDonation(models.Model):
     donor=models.ForeignKey(User,on_delete=models.CASCADE)
@@ -153,4 +157,10 @@ class OnlineDonation(models.Model):
     def __str__(self):
         return str(self.donor) + "," + str(self.temple)
 
+class TempleManager(models.Model):
+    user=models.OneToOneField(User, on_delete=models.CASCADE)
+    is_manager=models.BooleanField(default=False)
+    Temple_Name=models.CharField(max_length=100,default=None)
 
+    def __str__(self):
+        return  self.user.username

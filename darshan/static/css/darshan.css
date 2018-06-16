@@ -1,8 +1,28 @@
 @import url(//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext);
 @import url(//fonts.googleapis.com/css?family=Roboto);
+html,body{
 
+                width:100%;
+                height: 100%;
+                -moz-background-size: cover;
+                -webkit-background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                margin:0;
+                padding:0;
 
+                }
+               
 
+.navbar {
+   background-color:#FFC107;
+   background: #FFC107;
+   border-color: transparent;
+
+}
+
+.navbar li { color: #000 }
 
 
 .textarea{color:black;}
@@ -12,14 +32,17 @@
                  border-bottom:0px solid #eeeeee;
                  padding: 20px 20px 20px 25px;
                  margin: 0px 0px 40px 0px;
-                 background-color: #f4a621;}
-p,a{
+                 }
+/*p,a{font-family: 'Carter One', cursive;color:white;
     color:black;
-}
-p,a:hover{color: gray;}
+}*/
+
+.heading{font-family: 'Carter One', cursive;color:white;color:black;}
+
+.link:hover{color: :blue;}
 .page-header h1 a {float:top;
                     color:white;}
-a:hover{color:white;}
+
 
 .logs{
       font-family: 'Lobster', cursive;
@@ -128,10 +151,7 @@ input#abc{
 }
 
 
-.nav{padding-top: 10px;}
-.abc{background-color: #f4bb0a;
-    color:brown;
-}
+
 
 .column {
     float: left;
@@ -245,12 +265,25 @@ input#abc{
 
 #darshan td{ text-align: center;
             border: 1px solid #dddddd;
-            padding: 8px;}
+            padding: 8px;
+          font-family: 'Capriola', sans-serif;}
 
 #darshan th{ border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;}
+            text-align: center;
+            padding: 8px;
+          font-family: 'Carter One', cursive;
+          color:black;}
 
+#detail td{ 
+            border: 1px solid #dddddd;
+            padding: 8px;
+          font-family: 'Capriola', sans-serif;}
+
+#detail th{ border: 1px solid #dddddd;
+            
+            padding: 8px;
+          font-family: 'Carter One', cursive;
+          color:black;}
 @media screen and (min-width:1024px) and (max-width:1250px) {
    .abce {
        margin-top: 50px;
@@ -261,3 +294,51 @@ input#abc{
 }
 
 .down{margin-top: 25px;}
+.triangle-up{width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 16px solid #607D8B;
+    position: relative;
+    top: -27px;
+    margin: 4px;
+}
+.triangle-down{
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 16px solid #009688;
+    position: relative;
+    top: 27px;
+    margin: 4px;
+}
+
+@media screen and (min-width:1024px) and (max-width:1250px) {
+   .abce {
+       margin-top: 50px;
+       margin-right: 100px;
+       margin-left: 100px;
+   }
+
+}
+@media screen and (min-width:302px) and (max-width:1000px) {
+   .mark_button {
+       margin-top: 40px;
+   }
+
+}
+
+
+
+#myNavbar a:hover {
+    
+    color: blue;
+}
+
+.wmd-panel{
+  margin:0px !important;
+}
+/*div {background-image: linear-gradient(to right, transparent 40%, rgba(255, 255, 255, .8));}*/
+
+

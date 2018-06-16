@@ -19,7 +19,7 @@
 <div class=" row display">
 
     <div class="col-md-5">
-        <img class=" img-responsive roundedCorner image" src="{{ q.images.url }}" style="margin-left:10px;">
+        <img class=" img-responsive roundedCorner image" src="{{ q.images.url }}" >
 
     </div>
 
@@ -58,7 +58,7 @@
 <hr>
 
 
-  <h2 class="text-center">Temple details</h2>
+  <h2 class="text-center" style="font-family: 'Carter One', cursive;color: black">Temple details</h2>
 
 
   <ul class="nav nav-tabs row">
@@ -71,14 +71,14 @@
   </ul>
 
  <!-- tab contents -->
-  <div class="tab-content" style="margin: 25px 50px">
+  <div class="tab-content" id="detail" style="margin: 25px 50px">
 
     <div id="menu1" class="tab-pane fade">
       <table class="table table-striped">
 
     <tbody>
       <tr>
-          <h2>{{ q.temple2 }}</h2>
+          <h2 style="font-family: 'Carter One', cursive;">{{ q.temple2 }}</h2>
 
       </tr>
       <tr>
@@ -197,7 +197,7 @@
     {% if q.OtherOnlineFacilityStatus %}
        <tr>
         <td>Other online facilities</td>
-        <td><a href="{{ q.OtherOnlineFacility }}">link</a></td>
+        <td><a href="{{ q.OnlineFacility }}">link</a></td>
       </tr>
     {% endif %}
 

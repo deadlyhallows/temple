@@ -1,87 +1,122 @@
 {% load staticfiles %}
 {% load notification_tags %}
-<html>
+<html xmlns="">
     <head>
         <title>Divya Krupa</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Capriola" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Carter+One" rel="stylesheet">
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="{% static 'css/darshan.css' %}">
-
+        <link rel="stylesheet" type="text/css" href="{% static 'css/darshan.css' %}">
 
         {% block style1 %}
-
-        <style>
-        html,body{
-
-                width:100%;
-                height: 100%;
-                overflow-x: hidden;
-                -moz-background-size: cover;
-                -webkit-background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                margin:0;
-                padding:0;
-
-                }
-
-
+            <style>
+            
             form {
                 width: 300px;
                 margin: 0 auto;}
-
-
-        </style>
-    {% endblock style1 %}
-
+            </style>
+        {% endblock style1 %}
+        {% block head_extra %} {% endblock head_extra %}
     </head>
-    <body>
-
-        <nav class="navbar navbar-default navbar-fixed-top" data-spy="affix" data-offset-top="600">
+ <body>
+    
+        
         <div class="container-fluid abc">
+        <div class="col-md-12"> 
+        <nav class="navbar navbar-default navbar-fixed-top" data-spy="affix" data-offset-top="600" >
+        
             <h1 class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="" style="font-size: 40px">Divya Kripa</a>
+                <a class="navbar-brand" href="" style="font-size: 30px ; font-family: 'Carter One', cursive;color:white; ">Divya Kripa</a>
             </h1>
+
             <div class="collapse navbar-collapse" id="myNavbar">
 
                 <ul class="nav navbar-nav navbar-right down">
 
 
                         <li id="google_translate_element" style="margin-top: 10px;"></li>
-                        <li><a  href="{% url 'shop:allproducts' %}">Add Items</a></li>
+                     {% if user.is_authenticated and user.templemanager.is_manager %}
+                       <li><a href="{% url 'darshan:manager_profile' %}" style="color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;">Home</a></li>
+                       <li><a  href="{% url 'darshan:logout' %}" style="color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;">logout</a></li>
+                       <li><a  href="#" style="color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;margin-right: 15px;">Welcome {{ set }}</a></li>
 
-                    {% if user.is_authenticated  and not user.is_superuser %}
-                        <li><a href="{% url 'cart:view_cart' %}">Cart</a></li>
-                        <li><a href="{% url 'darshan:user_profile' %}">Home</a></li>
-                        <li><a href="{% url 'notifications:all' %}">Notification({{ user|notifications_unread }})</a></li>
-                        <li><a  href="{% url 'darshan:logout' %}">logout</a></li>
-                        <li><a  href="{% url 'darshan:accounts' %}">Welcome {{ set }}</a></li>
-                    {% else %}
-                        <li><a href="{% url 'cart:cart_detail' %}">Cart</a></li>
-                        <li><a href="#darshan" >Darshan</a></li>
-                        <li><a href="#shop">Shop</a></li>
-                        <li><a class=" launch-modal" href="{% url 'darshan:home' %}" style="margin-left: 20px" data-modal-id="modal">Signup
-                        <span class="glyphicon glyphicon-user"></span></a></li>
+                     {% endif%}   
+                        
+    
+                    {% if user.is_authenticated  and not user.is_superuser and not user.templemanager.is_manager %}
 
-                        <li><a class=" launch-modal" href="{% url 'darshan:home' %}" data-modal-id="modal-login"> Login
-                            <span class="glyphicon glyphicon-log-in"></span></a></li>
+                      <li>
+                        {% if total_items > 0 %}
+                          
+                          <a href="{% url 'cart:view_cart' %}" style="color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;">
+                            Cart<br>
+                            ({{ total_items }} item{{total_items|pluralize}}, Rs.{{ order_total }})
+                          </a>
+                        {% else %}
+                          <a href="{% url 'cart:view_cart' %}" style="color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;">
+                            Cart<br>
+                            (Empty)
+                          </a>  
+                        {% endif %}
+                      </li>
+                        <li><a  href="{% url 'shop:allproducts' %}" style="color: white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;">Add Items</a></li>
+                        <li><a href="{% url 'darshan:user_profile' %}" style="color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;">Home</a></li>
+                        <li><a href="{% url 'notifications:all' %}" style="color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;">Notification({{ user|notifications_unread }})</a></li>
+                        <li><a  href="{% url 'darshan:logout' %}" style="color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;">logout</a></li>
+                        <li><a  href="{% url 'darshan:accounts' %}" style="color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;margin-right: 15px;">Welcome {{ set }}</a></li>
+                    {% elif not user.is_authenticated and not user.is_superuser %}
+                        <li><a  href="{% url 'shop:allproducts' %}" style="color: white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;">Add Items</a></li>
+                        <li><a href="{% url 'darshan:home' %}" style="color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;">Home</a></li>
+                        <li>
+                        {% with total_items=cart|length %}
+                        {% if cart|length > 0 %}
+                         <a href="{% url 'cart:cart_detail' %}" style="color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;">
+                           Cart <br>
+                           ({{ total_items }} item{{total_items|pluralize}}, Rs.{{ cart.get_total_price }})
+                         </a>
+                        {% else %}
+                         <a href="{% url 'cart:cart_detail' %}" style="color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;">
+                            Cart<br>
+                            (Empty)
+                          </a>  
+                       {% endif %}
+                       {% endwith %}
+                       </li>
+                        <li><a href="#darshan"style="color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;" >Darshan</a></li>
+                        <li><a href="#shop" style="color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;">Shop</a></li>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style=" color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;">SignUp<b class="caret"></b></a>
+                          <ul class="dropdown-menu backcolor">
+                            <li><a class=" launch-modal" href="{% url 'darshan:home' %}" style=" color:black;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;" data-modal-id="modal1">Signup as Manager</a></li>
+
+                            <li><a class=" launch-modal" href="{% url 'darshan:home' %}" style=" color:black;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;" data-modal-id="modal">Signup as User</a></li>
+
+                            <li><a class=" launch-modal" href="{% url 'darshan:home' %}" style=" color:black;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;" data-modal-id="modal">Link 3</a></li>
+                          </ul>
+                        </li> 
+
+                       
+
+                        <li><a class=" launch-modal" href="{% url 'darshan:home' %}" data-modal-id="modal-login" style="color:white;font-weight: 200;font-size: 16px;font-weight: 230;font-family: 'Capriola', sans-serif;margin-right: 15px;"> Login</a></li>
                     {% endif %}
                 </ul>
             </div>
-        </div>
         </nav>
+      </div>
+        </div>
+    
 
     <div class="content container-fluid">
-        <div class="row">
+        <!--<div class="row">
              {% if user.is_authenticated and not user.is_superuser %}
                  {% if total_items > 0 %}
                     Your cart :
@@ -89,7 +124,7 @@
                         {{ total_items }} item{{total_items|pluralize}}, Rs.{{ order_total }}
                     </a>
                 {% else %}
-                    Your cart is empty
+                    Empty
                 {% endif %}
             {% elif not user.is_authenticated and not user.is_superuser %}
                  {% with total_items=cart|length %}
@@ -99,20 +134,18 @@
                             {{ total_items }} item{{total_items|pluralize}}, Rs.{{ cart.get_total_price }}
                         </a>
                     {% else %}
-                        Your cart is empty
+                        
                     {% endif %}
                  {% endwith %}
              {% endif %}
+        </div>-->
 
-        </div>
+    {% block content %}
 
-
-                        {% block content %}
-
-                        {% endblock %}
-
+    {% endblock %}
 
     </div>
+
 <script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -128,25 +161,17 @@ function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
 }
 </script>
-
-
 <script src="{% static "notify/notifyX.min.js" %}"></script>
-
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-
-
-
 <script>
                 $(document).ready(function() {
                 $('.has-popover').popover({'trigger':'hover'})});
 
                  $(document).ready(function() {
-                 $('#id_Temple1').select2();});
+                 $('#id_Select_Temple').select2();});
 
                  $(document).ready(function() {
                 $('.django-select').select2();});
-
 </script>
 <script>
 $(document).ready(function(){
@@ -174,8 +199,8 @@ $(document).ready(function(){
   });
 });
 </script>
+
 <script src="{% static 'js/scripts.js' %}"></script>
 
-    </body>
-
+</body>
 </html>

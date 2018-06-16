@@ -1,0 +1,29 @@
+{% extends 'darshan/base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+      {% block style %}
+        <style>
+        html,body{
+
+                padding-top: 65px;
+
+                }
+
+        </style>
+    {% endblock style %}
+    {% block head_extra %}
+    {{ add_form.media }} 
+  {% endblock head_extra %}
+<div class="row">
+  <div class="col-sm-s" style="float: left;margin-left:20px;">  
+  
+  <h2>Temple Form</h2>
+  <form method="Post" role="form" enctype="multipart/form-data" > 
+  	{% csrf_token%}
+  	{{ add_form.as_p }}
+  	<input type="submit" value="Save" class="btn btn-default">
+  </form>
+  </div>
+</div>  
+
+{% endblock content %} 
