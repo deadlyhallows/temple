@@ -34,3 +34,6 @@ social-auth-core==1.7.0
 twilio==6.7.0
 urllib3==1.22
 Whoosh==2.7.4
+django-crispy-forms==1.7.2
+django-widget-tweaks==1.4.2
+
