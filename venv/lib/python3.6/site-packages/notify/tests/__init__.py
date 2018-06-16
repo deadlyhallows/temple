@@ -1,1 +1,0 @@
-from notify.tests import *
