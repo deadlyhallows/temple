@@ -57,12 +57,13 @@
                             style="float:left;width: 428px;">
                             {% with temp=y|picture %}
                             {% for z in temp %}
-                                <option value="{{ z.id }}"{% for x1 in t.selected %}{% if x1 == z.id %} selected {% endif %}{% endfor %}>{{ z.TimeD }}</option>
+                                <option  class="persist" value="{{ z.id }}" {% for x1 in t.selected %}{% if x1 == z.id %} selected {% endif %}{% endfor %}>{{ z.TimeD }} </option>
+                                
                             {% endfor %}
                             {% endwith %}
                             </select>
                             </td>
-                            <td><button id="my_button" type="submit" style="margin-left: 10px;">Add</button></td>
+                            <td><button id="my_button" type="submit" style="margin-left: 10px;" >Add</button></td>
                             <br>
                         {% endfor %}
                     </tr>
