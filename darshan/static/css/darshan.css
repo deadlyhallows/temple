@@ -1,70 +1,75 @@
-@import url(//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext);
-@import url(//fonts.googleapis.com/css?family=Roboto);
-html,body{
-
-                width:100%;
-                height: 100%;
-                -moz-background-size: cover;
-                -webkit-background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                margin:0;
-                padding:0;
-
-                }
-               
-
-.navbar {
-   background-color:#FFC107;
-   background: #FFC107;
-   border-color: transparent;
-
+html, body {
+    width: 100%;
+    height: 100%;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
 }
 
-.navbar li { color: #000 }
+.navbar-default {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: transparent;
+    background-image: none;
+    box-shadow: none;
+}
+.navbar{
+    margin-bottom: unset!important;
+}
 
+.navbar li {
+    color: #000
+}
 
-.textarea{color:black;}
+.textarea {
+    color: black;
+}
+
 .page-header {
 
-                 color: #110302;
-                 border-bottom:0px solid #eeeeee;
-                 padding: 20px 20px 20px 25px;
-                 margin: 0px 0px 40px 0px;
-                 }
+    color: #110302;
+    border-bottom: 0px solid #eeeeee;
+    padding: 20px 20px 20px 25px;
+    margin: 0px 0px 40px 0px;
+}
+
 /*p,a{font-family: 'Carter One', cursive;color:white;
     color:black;
 }*/
 
-.heading{font-family: 'Carter One', cursive;color:white;color:black;}
 
-.link:hover{color: :blue;}
-.page-header h1 a {float:top;
-                    color:white;}
+.link:hover {
+    color: blue;
+}
 
+.page-header h1 a {
+    float: top;
+    color: white;
+}
 
-.logs{
-      font-family: 'Lobster', cursive;
-      font-size:20px;
+.logs {
+    font-family: 'Lobster', cursive;
+    font-size: 20px;
 
-      padding-top: 35px;}
+    padding-top: 35px;
+}
 
 .modal-dialog {
     width: 500px;
     margin: auto;
 
-    padding: 20px;}
-
-
+    padding: 20px;
+}
 
 .page-header h1 a {
 
     font-family: 'Lobster';
-    color:white;
+    color: white;
 }
-
-
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
 
@@ -74,20 +79,22 @@ html,body{
 
 .content {
 
-    margin-right:0px;
+    margin-right: 0px;
 }
 
 h1, h2, h3, h4 {
     font-family: 'Roboto', sans-serif;
 
 }
-h2{text-align:center;
-padding-bottom:40px;}
+
+h2 {
+    text-align: center;
+    padding-bottom: 40px;
+}
 
 .date {
     color: black;
 }
-
 
 .save {
     float: right;
@@ -106,8 +113,8 @@ padding-bottom:40px;}
 
 .post {
     margin-bottom: 70px;
-    padding:0px 30px;
-    color:black;
+    padding: 0px 30px;
+    color: black;
 }
 
 .post h1 a, .post h1 a:visited {
@@ -116,42 +123,49 @@ padding-bottom:40px;}
 
 .comment {
     margin: 20px 0px 20px 20px;
-    color:black;
+    color: black;
 }
 
-.container{
-    margin-left:0px;
-    margin-right:0px;
+.container {
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
-.glyphicon{
-    margin:5px 12px 10px 5px;
+.glyphicon {
+    margin: 5px 12px 10px 5px;
 }
 
-input{float:right;}
+input {
+    float: right;
+}
 
-input[type="checkbox"]{
+input[type="checkbox"] {
     float: left;
 }
-.ab {color: blue;}
-.ab:hover{color: purple;}
 
+.ab {
+    color: blue;
+}
 
-select#id_Temple{    float: right;
-    width: 180px;}
+.ab:hover {
+    color: purple;
+}
 
-input#abc{
+select#id_Temple {
+    float: right;
+    width: 180px;
+}
+
+input#abc {
     margin-right: 80px;
 }
+
 .close {
 
-  right: 0;
-  top: 0;
+    right: 0;
+    top: 0;
 
 }
-
-
-
 
 .column {
     float: left;
@@ -167,90 +181,90 @@ input#abc{
 }
 
 .dot {
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
 
 }
 
-.image-container{
- height: 175px;
- width: 100%;
- background-size: cover;
+.image-container {
+    height: 175px;
+    width: 100%;
+    background-size: cover;
 }
 
 .hovereffect {
-  width: 100%;
+    width: 100%;
 
-  float: left;
-  overflow: hidden;
-  position: relative;
-  text-align: center;
-  cursor: default;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    cursor: default;
 }
 
 .hovereffect .overlay {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  overflow: hidden;
-  top: 0;
-  left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
 }
 
 .hovereffect img {
-  display: block;
-  position: relative;
-  -webkit-transition: all 0.4s ease-in;
-  transition: all 0.4s ease-in;
-  border-radius:5px;
+    display: block;
+    position: relative;
+    -webkit-transition: all 0.4s ease-in;
+    transition: all 0.4s ease-in;
+    border-radius: 5px;
 }
 
 .hovereffect:hover img {
-  filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feColorMatrix type="matrix" color-interpolation-filters="sRGB" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0" /><feGaussianBlur stdDeviation="3" /></filter></svg>#filter');
-  filter: grayscale(1) blur(3px);
-  -webkit-filter: grayscale(1) blur(3px);
-  -webkit-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  transform: scale(1.2);
+    filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feColorMatrix type="matrix" color-interpolation-filters="sRGB" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0" /><feGaussianBlur stdDeviation="3" /></filter></svg>#filter');
+    filter: grayscale(1) blur(3px);
+    -webkit-filter: grayscale(1) blur(3px);
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
 }
 
 .hovereffect h2 {
-  text-transform: uppercase;
-  text-align: center;
-  position: relative;
-  font-size: 17px;
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.6);
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    font-size: 17px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.6);
 }
 
 .hovereffect a.info {
-  display: inline-block;
-  text-decoration: none;
-  padding: 7px 14px;
-  border: 1px solid #fff;
-  margin: 50px 0 0 0;
-  background-color: transparent;
+    display: inline-block;
+    text-decoration: none;
+    padding: 7px 14px;
+    border: 1px solid #fff;
+    margin: 50px 0 0 0;
+    background-color: transparent;
 }
 
 .hovereffect a.info:hover {
-  box-shadow: 0 0 5px #fff;
+    box-shadow: 0 0 5px #fff;
 }
 
 .hovereffect a.info, .hovereffect h2 {
-  -webkit-transform: scale(0.7);
-  -ms-transform: scale(0.7);
-  transform: scale(0.7);
-  -webkit-transition: all 0.4s ease-in;
-  transition: all 0.4s ease-in;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  color: #fff;
-  text-transform: uppercase;
+    -webkit-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    transform: scale(0.7);
+    -webkit-transition: all 0.4s ease-in;
+    transition: all 0.4s ease-in;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    color: #fff;
+    text-transform: uppercase;
 }
 
 .hovereffect:hover a.info, .hovereffect:hover h2 {
@@ -261,40 +275,50 @@ input#abc{
     transform: scale(1);
 }
 
+#darshan td {
+    text-align: center;
+    border: 1px solid #dddddd;
+    padding: 8px;
+    font-family: 'Capriola', sans-serif;
+}
 
+#darshan th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+    font-family: 'Carter One', cursive;
+    color: black;
+}
 
-#darshan td{ text-align: center;
-            border: 1px solid #dddddd;
-            padding: 8px;
-          font-family: 'Capriola', sans-serif;}
+#detail td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    font-family: 'Capriola', sans-serif;
+}
 
-#darshan th{ border: 1px solid #dddddd;
-            text-align: center;
-            padding: 8px;
-          font-family: 'Carter One', cursive;
-          color:black;}
+#detail th {
+    border: 1px solid #dddddd;
 
-#detail td{ 
-            border: 1px solid #dddddd;
-            padding: 8px;
-          font-family: 'Capriola', sans-serif;}
+    padding: 8px;
+    font-family: 'Carter One', cursive;
+    color: black;
+}
 
-#detail th{ border: 1px solid #dddddd;
-            
-            padding: 8px;
-          font-family: 'Carter One', cursive;
-          color:black;}
-@media screen and (min-width:1024px) and (max-width:1250px) {
-   .abce {
-       margin-top: 50px;
-       margin-right: 100px;
-       margin-left: 100px;
-   }
+@media screen and (min-width: 1024px) and (max-width: 1250px) {
+    .abce {
+        margin-top: 50px;
+        margin-right: 100px;
+        margin-left: 100px;
+    }
 
 }
 
-.down{margin-top: 25px;}
-.triangle-up{width: 0;
+.down {
+    margin-top: 25px;
+}
+
+.triangle-up {
+    width: 0;
     height: 0;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
@@ -303,42 +327,58 @@ input#abc{
     top: -27px;
     margin: 4px;
 }
-.triangle-down{
+
+.triangle-down {
     width: 0;
     height: 0;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
-    border-top: 16px solid #009688;
+    border-top: 16px solid #428bca;
     position: relative;
     top: 27px;
     margin: 4px;
 }
 
-@media screen and (min-width:1024px) and (max-width:1250px) {
-   .abce {
-       margin-top: 50px;
-       margin-right: 100px;
-       margin-left: 100px;
-   }
-
-}
-@media screen and (min-width:302px) and (max-width:1000px) {
-   .mark_button {
-       margin-top: 40px;
-   }
+@media screen and (min-width: 1024px) and (max-width: 1250px) {
+    .abce {
+        margin-top: 50px;
+        margin-right: 100px;
+        margin-left: 100px;
+    }
 
 }
 
+@media screen and (min-width: 302px) and (max-width: 1000px) {
+    .mark_button {
+        margin-top: 40px;
+    }
 
+}
 
 #myNavbar a:hover {
-    
+
     color: blue;
 }
 
-.wmd-panel{
-  margin:0px !important;
+.wmd-panel {
+    margin: 0px !important;
 }
+
+.affix{
+    background-color: #ee860c;
+}
+
 /*div {background-image: linear-gradient(to right, transparent 40%, rgba(255, 255, 255, .8));}*/
 
+.thumbnail{
+    width : 100% !important;
+    height: 250px;
+    overflow: auto;
+}
+
+.thumbnail img{
+    width: 100% !important;
+    height: 175px !important;
+    display: block;
+}
 

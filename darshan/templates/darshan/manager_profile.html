@@ -1,39 +1,85 @@
-{% extends 'darshan/base.html' %}
-
-
-
+{% extends 'darshan/otherBase.html' %}
 {% block content %}
-      {% block style %}
-        <style>
-        html,body{
-
-                padding-top: 65px;
-
-                }
-
-        </style>
+    {% block style %}
     {% endblock style %}
-<div class="row">
+    <div class="container" style="padding-top: 15px;">
+        <div class="row">
+            <div class="col-md-4 mark_button" align="center">
+                TEMPLES
+                <span>
+            <a href="{% url 'darshan:temple_add' %}">
+                <button class="btn btn-primary">
+                    Add Temples <strong> +</strong>
+                </button>
+            </a>
+            </span>
+                <br>
+                <br>
+                <br>
+                <br>
+                {% for x1 in temples %}
+                    <p>
+                        <a href="{% url 'darshan:temple_update' s=x1.temple2 %}">{{ x1.temple2 }}</a>
+                        <span>
+                 <a href="{% url 'darshan:temple_remove' s=x1.temple2 %}">
+                     <button>Remove</button>
+                 </a>
+             </span>
+                    </p>
+                {% endfor %}
+            </div>
+            <div class="col-md-4 mark_button" align="center">
+                PICTURES
+                <span>
+            <a href="{% url 'darshan:picture_add' %}">
+                <button class="btn btn-primary">
+                    Add Pictures<strong> +</strong>
+                </button>
+            </a>
+        </span>
+                <br>
+                <br>
+                <br>
+                <br>
+                {% for x2 in pictures %}
+                    <p>
+                        <a href="{% url 'darshan:picture_update' s1=x2.id %}">
+                            {{ x2.TimeD }}
+                        </a>
+                        <span>
+                 <a href="{% url 'darshan:picture_remove' s1=x2.id %}">
+                     <button>Remove</button>
+                 </a>
+             </span>
+                    </p>
+                {% endfor %}
+            </div>
 
-    <div class="col-md-4 mark_button">TEMPLES<span><a href="{% url 'darshan:temple_add'%}"><button style="margin-left: 20px;">Add Temples <strong> +</strong></button></a></span>
-     <br><br><br><br>
-      {% for x1 in temples %}
-         <p><a href="{% url 'darshan:temple_update' s=x1.temple2 %}">{{ x1.temple2 }}</a> <span><a href="{% url 'darshan:temple_remove' s=x1.temple2 %}"><button>Remove</button></a></span></p>
-      {% endfor %}  
+            <div class="col-md-4 mark_button" align="center">
+                DARSHANS
+                <span>
+            <a href="{% url 'darshan:darshan_add' %}">
+                <button class="btn btn-primary">Add Darshans<strong> +</strong>
+                </button>
+            </a>
+        </span>
+                <br>
+                <br>
+                <br>
+                <br>
+                {% for x3 in darshans %}
+                    <p>
+                        <a href="{% url 'darshan:darshan_update' s2=x3.id %}">
+                            {{ x3.rituals }}, {{ x3.timings }}
+                        </a>
+                        <span>
+                 <a href="{% url 'darshan:darshan_remove' s2=x3.id %}">
+                     <button>Remove</button>
+                 </a>
+             </span>
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-    <div class="col-md-4 mark_button">PICTURES<span><a href="{% url 'darshan:picture_add'%}"><button style="margin-left: 20px;">Add Pictures<strong> +</strong></button></a></span>
-      <br><br><br><br>
-      {% for x2 in pictures %}
-         <p><a href="{% url 'darshan:picture_update' s1=x2.id %}">{{ x2.TimeD }}</a> <span><a href="{% url 'darshan:picture_remove' s1=x2.id %}"><button>Remove</button></a></span></p>
-      {% endfor %}
-    </div>
-    <div class="col-md-4 mark_button">DARSHANS<span><a href="{% url 'darshan:darshan_add'%}"><button style="margin-left: 20px;">Add Darshans<strong> +</strong></button></a></span>
-    	 <br><br><br><br>
-      {% for x3 in darshans %}
-         <p><a href="{% url 'darshan:darshan_update' s2=x3.id %}">{{ x3.rituals }}, {{ x3.timings }}</a> <span><a href="{% url 'darshan:darshan_remove' s2=x3.id %}"><button>Remove</button></a></span></p>
-      {% endfor %}
-    </div>
-
-    
-</div>
 {% endblock content %}

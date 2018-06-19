@@ -8,16 +8,11 @@ from django_select2.forms import (
     ModelSelect2TagWidget, ModelSelect2Widget, Select2MultipleWidget,
     Select2Widget
 )
-
-
-
-
 class SignUpForm(UserCreationForm):
 
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
 
     class Meta:
-
         model = User
         fields = ('first_name', 'last_name', 'username', 'password1', 'password2', 'email',)
 
@@ -60,7 +55,7 @@ class TempleForm(forms.ModelForm):
     Select_Temple =forms.MultipleChoiceField(
             widget=Select2MultipleWidget(),
 
-            #queryset=Temples.objects.all()
+            # queryset=Temples.objects.all()
             choices=OPTIONS
             )
 

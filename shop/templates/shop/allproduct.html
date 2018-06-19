@@ -1,21 +1,13 @@
-{% extends 'darshan/base.html' %}
+{% extends 'darshan/otherBase.html' %}
 {% load staticfiles %}
 {% load temple_extra %}
 {% block content %}
     {% block style %}
-        <style xmlns="http://www.w3.org/1999/html">
-        html,body{
-
-                padding-top: 55px;
-
-                }
-
-        </style>
     {% endblock style %}
-<div style="width: 100%;">
+<div class="container-fluid" style="margin-top: 15px;">
+    <div style="width: 100%;">
     <div  style="float: left;width: 20%;">
-
-         <form method="GET" action="" style="border:0; padding:0; padding-bottom:10px; margin:0;float: left;">
+        <form method="GET" action="" style="border:0; padding:0; padding-bottom:10px; margin:0;float: left;">
              <input  type="text" name="q" placeholder="Search Temples..." value = "{{ request.GET.q }}"/>
              <input type="submit" value="Search" />
          </form>
@@ -55,5 +47,5 @@
 
 
 </div>
-
+</div>
 {% endblock %}
