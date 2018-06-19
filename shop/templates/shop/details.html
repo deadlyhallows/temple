@@ -1,19 +1,12 @@
-{% extends 'darshan/base.html' %}
+{% extends 'darshan/otherBase.html' %}
 {% load staticfiles %}
 {% load temple_extra %}
 {% block content %}
     {% block style %}
-        <style>
-        html,body{
-
-                padding-top: 45px;
-
-                }
-
-        </style>
     {% endblock style %}
 
-<div>
+<div class="container-fluid">
+    <div>
     {% for p in product %}
         <img src="{{ p.Photo.url }}"><br>
         {{ p.ProductName }}<br>
@@ -34,5 +27,6 @@
          </form>
         {% endif %}
     {% endfor %}
+</div>
 </div>
 {% endblock %}

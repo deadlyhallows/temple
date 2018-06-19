@@ -4,12 +4,6 @@ from django.contrib.auth import views as auth_views
 from darshan import views
 from django.conf import settings
 
-
-
-
-
-
-
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^signup/$', views.signup, name='signup'),
