@@ -10,8 +10,28 @@
     {% block style1 %}
         <style>
             form {
-                width: 300px;
+                width: 50%;
                 margin: 0 auto;
+            }
+
+            form #inputButton {
+                float: unset !important;
+            }
+
+            input[type=text] {
+                width: 42%;
+            }
+            input[type=url] {
+                width: 42%;
+            }
+            input[type=email] {
+                width: 42%;
+            }
+            input[type=file] {
+                width: 42%;
+            }
+            input[type="checkbox"] {
+                margin-right: 10px;
             }
         </style>
     {% endblock style1 %}
@@ -110,33 +130,41 @@
                         {% endwith %}
                     </li>
                     <li>
-                        <a href="#darshan" style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                        <a href="#darshan"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
                             Darshan
                         </a>
                     </li>
                     <li>
-                        <a href="#shop" style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                        <a href="#shop"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
                             Shop
                         </a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style=" color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                           style=" color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
                             SignUp
                             <b class="caret"></b></a>
                         <ul class="dropdown-menu backcolor">
                             <li>
-                                <a class=" launch-modal" href="{% url 'darshan:home' %}" style=" color:black;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;"
+                                <a class=" launch-modal" href="{% url 'darshan:home' %}"
+                                   style=" color:black;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;"
                                    data-modal-id="modal1">
                                     Manager
                                 </a>
                             </li>
                             <li>
-                                <a class=" launch-modal" href="{% url 'darshan:home' %}" style=" color:black;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;" data-modal-id="modal">
+                                <a class=" launch-modal" href="{% url 'darshan:home' %}"
+                                   style=" color:black;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;"
+                                   data-modal-id="modal">
                                     Shopkeeper
                                 </a>
                             </li>
                             <li>
-                                <a class=" launch-modal" href="{% url 'darshan:home' %}" style=" color:black;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;" data-modal-id="modal">
+                                <a class=" launch-modal" href="{% url 'darshan:home' %}"
+                                   style=" color:black;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;"
+                                   data-modal-id="modal">
                                     User
                                 </a>
                             </li>

@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 from payu_biz import views
-from payu_biz import views1
+
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()

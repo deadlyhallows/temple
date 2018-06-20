@@ -153,7 +153,7 @@ def payment_success(request):
     order.save()
     cart = get_object_or_404(Carts, user_id=user.id)
     print(cart)
-    cart_items = CartItem.objects.filter(cart_id=c1.id)
+    cart_items = CartItem.objects.filter(cart_id=cart.id)
     print(cart_items)
     for item in cart_items:
         item.delete()

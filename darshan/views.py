@@ -175,8 +175,8 @@ def Usertype(request):
         return redirect('darshan:manager_profile')
     if shopkeeper:
         return redirect('shop:seller_profile')
-
-    return redirect('darshan:user_profile')        
+    else:
+        return redirect('darshan:user_profile')
 
 
 
@@ -297,7 +297,7 @@ def details(request, temp):
     #pro = Profile.objects.get(user_id=user.id)
     user=request.user
     temple=get_object_or_404(Temples,temple2 = temp)
-    darshan = Darshans.objects.filter(temple_id=q.id)
+    darshan = Darshans.objects.filter(temple_id=temple.id)
     #b = Picture.objects.filter(Temple_id=q.id)
     context={
         'set':user,
@@ -310,7 +310,7 @@ def detail(request, temp1):
     #m = localtime().time()
     #FMT = '%H:%M:%S'
     temple = get_object_or_404(Temples,temple2 = temp1)
-    darshan = Darshans.objects.filter(temple_id=q.id)
+    darshan = Darshans.objects.filter(temple_id=temple.id)
     context={
         's':darshan,
         'q':temple,
