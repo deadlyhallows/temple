@@ -2,9 +2,20 @@ from django.db import models
 from darshan.models import Temples
 from django.contrib.postgres.fields import ArrayField
 from dirtyfields import DirtyFieldsMixin
+from django.contrib.auth.models import User
+
 # Create your models here.
 
+class Shopkeeper(models.Model):
+    user=models.OneToOneField(User, on_delete=models.CASCADE)
+    is_shopkeeper=models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.user)
+
+
 class Product(DirtyFieldsMixin, models.Model):
+    seller=models.ForeignKey(Shopkeeper, on_delete=models.CASCADE,default=None)
     ProductName=models.CharField(max_length=250, default=None)
     TempleName=models.ForeignKey(Temples, on_delete=models.CASCADE)
     OutofStock=models.BooleanField(default=False)
@@ -15,10 +26,10 @@ class Product(DirtyFieldsMixin, models.Model):
         width_field="width_field")
     height_field = models.IntegerField(default=None, null=True, blank=True)
     width_field = models.IntegerField(default=None, null=True, blank=True)
-    OfferorDiscount= models.CharField(max_length=50, default=None, blank=True)
-    #Add Available field if needed
+    OfferorDiscount= models.CharField(max_length=50, default=None, blank=True,null=True)
+    #Add 'Available' field if needed
     def __str__(self):
-        return self.ProductName
+        return str(self.ProductName) + ',' + str(self.TempleName)
 
     class Meta:
         ordering = [
@@ -42,3 +53,8 @@ class ProductSelected(models.Model):
 
     def __str__(self):
         return self.id
+
+
+
+
+

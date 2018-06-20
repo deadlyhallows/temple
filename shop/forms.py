@@ -9,8 +9,12 @@ from haystack.forms import ModelSearchForm
 
 
 
+class ProductAddForm(forms.ModelForm):
+    class Meta:
+        model=Product
+        fields = ('ProductName', 'TempleName', 'OutofStock', 'Price', 'Photo')
 
-
+    
 
 class CustomSearchForm(ModelSearchForm):
     order_choices=[('y', 'Descending'), ('n', 'Ascending')]

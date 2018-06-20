@@ -110,5 +110,13 @@ class DarshanAddForm(forms.ModelForm):
         model=Darshans
         fields=('rituals','timings')
 
+#class UserTypeForm(forms.Form):
+   
+ #   CHOICES = (
+  #      ('seller', 'Seller'),
+   #     ('user', 'User'),
+   # )
+    #choice = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect())
+
 
 

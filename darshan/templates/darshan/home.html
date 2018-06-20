@@ -43,28 +43,31 @@
                 </div>
             </div>
         </form>
-        <br>
-    </div>
-    <!--SignUp form-->
+    </div>    
+       
+
+ <!--SignUp form for user and  seller-->
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <form role="form" action="{% url 'darshan:signup' %}" method="post">
-            <div class="modal-dialog ">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h2 class="modal-title" id="myModalLabel">Sign Up</h2>
-
-                    </div>
-                    <div class="modal-body">
-                        {% csrf_token %}
-                        {{ user_form.as_p }}
-                        {{ Mobile_form.as_p }}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit">Sign Up</button>
-
-                    </div>
-                </div>
+          <form role="form" action="{% url 'darshan:signup' %}" method="post">
+           <div class="modal-dialog ">
+           <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h2 class="modal-title" id="myModalLabel">Sign Up</h2>
+            </div>
+            <div class="modal-body">
+                {% csrf_token %}
+                {{ user_form.as_p }}
+                {{ Mobile_form.as_p }}
+                <select  name="usertype" style="float:left;width: 428px;">
+                    <option value="seller">Seller</option>
+                    <option value="user">User</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="submit">Sign Up</button>
+            </div>
+            </div>
             </div>
         </form>
     </div>
@@ -92,20 +95,24 @@
             </div>
         </form>
     </div>
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-            <li data-target="#myCarousel" data-slide-to="3"></li>
-            <li data-target="#myCarousel" data-slide-to="4"></li>
-            <li data-target="#myCarousel" data-slide-to="5"></li>
+    
 
-        </ol>
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
+    <!--carousel -->
+ <div class="row ">
+     
+ <div id="myCarousel" class="carousel slide" data-ride="carousel" >
+        <!-- Indicators-->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+      <li data-target="#myCarousel" data-slide-to="3"></li>
+      <li data-target="#myCarousel" data-slide-to="4"></li>
+      <li data-target="#myCarousel" data-slide-to="5"></li>
+    </ol>
+     
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
             <div class="item active">
                 <img src="{% static  'images/canva-photo-editor (6).png' %}" alt="Temple"
                      style="width:100%; height: 700px; filter: brightness(50%);" class="img-responsive">
@@ -131,7 +138,7 @@
                      class="img-responsive">
             </div>
 
-        </div>
+    </div>
         <!-- Left and right controls -->
         <a class="left carousel-control" href="#myCarousel" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left"></span>
@@ -142,6 +149,7 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+
     <div class="container-fluid">
         <br>
         <div class="row">
@@ -160,7 +168,7 @@
         <br>
         <!-- HoverEffect Images -->
         <div class=" row display" id="darshan">
-            {% for y in t %}
+            {% for y in temples %}
                 <div class="col-sm-3" style="text-align:center;">
                     <div class='thumbnail'>
                         <img class="image-container img-responsive roundedCorner"
@@ -170,6 +178,7 @@
                     </div>
                 </div>
             {% endfor %}
+
         </div>
 
         <div class="pagination row">

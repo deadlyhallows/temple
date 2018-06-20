@@ -8,4 +8,7 @@ urlpatterns = [
 
     url(r'^payment/success$', views.payment_success, name="payment_success"),
     url(r'^payment/failure$', views.payment_failure, name="payment_failure"),
+
+    
+
 ]
