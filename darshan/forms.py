@@ -92,10 +92,10 @@ class TempleAddForm(forms.ModelForm):
     NoticeandUpdates = forms.CharField(widget=PagedownWidget(show_preview=False))
     class Meta:
         model=Temples
-        fields = ('Iconimages','images','Religion','Address','City','State','Country','Deity','Website','LiveDarshan','LiveDarshanlink','OnlinePrasadStatus','OnlineDonation'
-        ,'LivePooja', 'OnlinePooja','OnlinePrasadStatus','OtherOnlineFacilityStatus','OnlineFacility','Contacts','PhoneNumber','Email','AboutTemple','TempleHistory','TemplePurohit'
-        ,'Significance','Management','RelatedFaith','AboutCity','HowToReach','DoAndDont','Amenities','Celebration','PrecautionWhileVisiting','Tender','Recruitment','NoticeandUpdates',
-         'Accomodation','AccomodationLink','Annakshetra')
+        fields = ('Iconimages','images','Religion','City','State','Country','Deity','Website','LiveDarshan','LiveDarshanlink','OnlinePrasadStatus','OnlineDonation'
+        ,'LivePooja', 'OnlinePooja','OnlinePrasadStatus','OtherOnlineFacilityStatus','OnlineFacility','Contacts','PhoneNumber','Email','Accomodation','AccomodationLink','Annakshetra','TemplePurohit','Address','AboutTemple','TempleHistory'
+        ,'Significance','Management','RelatedFaith','AboutCity','HowToReach','DoAndDont','Amenities','Celebration','PrecautionWhileVisiting','Tender','Recruitment','NoticeandUpdates'
+         )
 
 
 class PictureAddForm(forms.ModelForm):

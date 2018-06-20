@@ -8,14 +8,18 @@
     {% endblock head_extra %}
     <div class="container-fluid" style="margin-top: 15px;">
         <div class="row">
-        <div class="col-sm-12">
-            <h2>Temple Form</h2>
-            <form method="Post" role="form" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ add_form.as_p }}
-                <input type="submit" value="Save" class="btn btn-default">
-            </form>
+            <div class="col-sm-12">
+                <h2>Add Temple Detail</h2>
+                <form method="Post" role="form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ add_form.as_p }}
+                    <input  type="submit" value="Save" class="btn btn-primary" align="center" id="inputButton">
+                </form>
+            </div>
         </div>
-    </div>
+        <br>
+        <br>
+        <br>
+        <br>
     </div>
 {% endblock content %}

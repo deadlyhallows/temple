@@ -382,3 +382,7 @@ input#abc {
     display: block;
 }
 
+input[type=file] {
+    display: unset;
+    float: right !important;
+}

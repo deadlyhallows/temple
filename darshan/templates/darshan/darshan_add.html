@@ -5,12 +5,14 @@
     {% endblock style %}
     <div class="container-fluid" style="margin-top: 15px">
         <div class="row">
-        <div class="col-sm-s" style="float: left;margin-left:20px;">
+        <div class="col-md-12">
             <h2>Darshan Form</h2>
             <form method="Post" role="form" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ dar_add_form.as_p }}
-                <input type="submit" value="Save" class="btn btn-default">
+                <button type="submit" value="Save" class="btn btn-primary">
+                    Save
+                </button>
             </form>
         </div>
     </div>
