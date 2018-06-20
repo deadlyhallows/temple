@@ -13,7 +13,7 @@ class Carts(models.Model):
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        return 'Cart #' + str(self.id)
+        return 'Cart #' + str(self.id) + ',' +str(self.user.username)
 
 
 class CartItem(models.Model):

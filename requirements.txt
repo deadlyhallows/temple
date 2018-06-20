@@ -9,7 +9,6 @@ django-haystack==2.8.1
 django-jsonfield==1.0.1
 django-model-utils==3.1.2
 django-multiselectfield==0.1.8
-django-notify-x==0.1.9
 django-otp==0.4.3
 django-otp-twilio==0.4.2
 django-pagedown==1.0.4
@@ -18,7 +17,6 @@ django-stringfield==0.3.0
 idna==2.6
 jsonfield==2.0.2
 oauthlib==2.0.7
-payu-biz==1.2.1
 Pillow==5.1.0
 psycopg2==2.7.4
 psycopg2-binary==2.7.4
@@ -36,4 +34,5 @@ urllib3==1.22
 Whoosh==2.7.4
 django-crispy-forms==1.7.2
 django-widget-tweaks==1.4.2
+
 

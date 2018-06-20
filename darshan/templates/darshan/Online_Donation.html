@@ -1,19 +1,13 @@
-{% extends 'darshan/base.html' %}
+{% extends 'darshan/otherBase.html' %}
 {% load staticfiles %}
-
 {% block content %}
-     {% block style %}
-         <style>
-             html,body{
-                 padding-top: 45px;}
-         </style>
-     {% endblock style %}
-
+    {% block style %}
+    {% endblock style %}
     <h2>Online Donation Form</h2>
     <form method="post" action="">
-     {% csrf_token %}
-     {{ form.as_p }}
-     <button type="submit">Donate</button>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Donate</button>
     </form>
 
     {% if form.status %}

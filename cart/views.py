@@ -13,6 +13,9 @@ from .models import Carts, CartItem
 from shop.models import Product
 from django.contrib.auth.decorators import login_required
 
+
+#----------------For Logged In User---------------
+
 @login_required
 def get_user_cart(request):
     """Retrieves the shopping cart for the current user."""
@@ -53,26 +56,26 @@ def update_cart_info(request):
 
 @login_required
 def view_cart(request):
-    b = None
+    cart_total_price = None
     user = request.user
     print(user)
-    cart_form = CartAddProductForm()
+    cart_form = CartAddProductForm()#to update the quantity
     cart = get_object_or_404(Carts, user_id=user.id)
     print(cart)
     cart_items = CartItem.objects.filter(cart_id=cart.id)
     order_total = Decimal(0.0)
     print("S")
-    for item in cart_items:
+    for item in cart_items:# getting the total price of the cart
         order_total += (item.product.Price * item.quantity)
-        a = Product.objects.filter(id=item.product_id)
-        for x in a:
-            b = item.quantity * x.Price
+        item_cart = Product.objects.filter(id=item.product_id)
+        for x in item_cart:
+            cart_total_price = item.quantity * x.Price
 
     context = {    'loop_times': range(1, 21),
                    'user':user,
                    'cart': cart_items,
                    'cart_form':cart_form,
-                   'total':b,
+                   'total':cart_total_price,
                    'form': AuthenticationForm,
                    'Mobile_form': MobileForm,
                    'user_form': SignUpForm,
@@ -105,10 +108,10 @@ def add_to_cart(request, product_id):
 @login_required
 def update_quantity(request,product_id):
     if request.method == 'POST' and 'quantity' in request.POST:
-        u = request.POST.get('quantity', None)
-        up = get_object_or_404(CartItem, product_id=product_id)
-        up.quantity = u
-        up.save()
+        get_updated_quantity = request.POST.get('quantity', None)
+        updated_item = get_object_or_404(CartItem, product_id=product_id)
+        updated_item.quantity = get_updated_quantity
+        updated_item.save()
 
     return redirect('cart:view_cart')
 
@@ -126,6 +129,7 @@ def remove_from_cart(request, product_id):
     update_cart_info(request)
     return redirect('cart:view_cart')
 
+#---------For Anonymous User's cart------------------
 
 @require_POST
 def cart_add(request, product_id):
@@ -167,8 +171,6 @@ def cart_detail(request):
     }
 
     return render(request, 'cart/ses_cart_detail.html', context)
-
-
 
 
 

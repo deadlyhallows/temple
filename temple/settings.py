@@ -180,7 +180,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 SESSION_ENGINE = 'cart.session_backend'
 
 
-LOGIN_REDIRECT_URL = 'user_profile/'
+LOGIN_REDIRECT_URL = 'Usertype/'
 SOCIAL_AUTH_FACEBOOK_KEY = '1807069346025106' # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = '4bfa177c57c8bb3fd92cc4cd59a58acd'
 MEDIA_URL = '/media/'

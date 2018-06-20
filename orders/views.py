@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from cart.models import Carts, CartItem
+from shop.models import Shopkeeper
 from .forms import OrderCreateForm
 from .models import OrderItem, Order
 from shop.models import Product
@@ -18,10 +19,13 @@ import requests
 from .admin import OrderAdmin
 from random import randint
 from decimal import Decimal
+from orders.admin import OrderAdmin
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user
 from django.views.decorators.csrf import csrf_exempt
 from notify.signals import notify
+from django.template.loader import render_to_string
+from darshan.views import send_verification_mail
 
 @login_required
 def order_create(request):
@@ -32,16 +36,16 @@ def order_create(request):
     print(user)
 
     #c = Carts.objects.get(user_id=user.id)
-    c = get_object_or_404(Carts, user_id=user.id)
+    user_cart = get_object_or_404(Carts, user_id=user.id)
     #print(c)
-    items = CartItem.objects.filter(cart_id=c.id)
+    items = CartItem.objects.filter(cart_id=user_cart.id)
     print("A")
     for item in items:
         #print(item)
         total_items += item.quantity
-        a = get_object_or_404(Product, id=item.product_id)
+        product = get_object_or_404(Product, id=item.product_id)
         #print(a)
-        total_cost += (item.quantity * a.Price)
+        total_cost += (item.quantity * product.Price)
     if request.method == 'POST':
         print("b")
         form = OrderCreateForm(request.POST)
@@ -55,11 +59,11 @@ def order_create(request):
             print("d")
             for item in items:
                 total_items+=item.quantity
-                a = get_object_or_404(Product, id=item.product_id)
-                total_cost += (item.quantity * a.Price)
+                products = get_object_or_404(Product, id=item.product_id)
+                total_cost += (item.quantity * products.Price)
                 OrderItem.objects.create(order=order,
-                                         product=a,
-                                         price=a.Price,
+                                         product=products,
+                                         price=products.Price,
                                          quantity=item.quantity)
                 #item.delete()
 
@@ -75,7 +79,7 @@ def order_create(request):
 def payment(request):
     print(request.user)
     user = request.user
-    a = get_object_or_404(User, username=user)
+    get_user = get_object_or_404(User, username=user)
     #b = Order.objects.filter(buyer_id=user.id).order_by('created').first()
     #c=get_object_or_404(OrderItem,order_id=b.id)
     #PAID_FEE_AMOUNT = c.price
@@ -92,9 +96,9 @@ def payment(request):
     data["txnid"] = txnid
     data["hash"] = hash_
     data["hash_string"] = hash_string
-    data["firstname"] = a.first_name
-    data["email"] = a.email
-    data["phone"] = a.mobile.Mobile_No
+    data["firstname"] = get_user.first_name
+    data["email"] = get_user.email
+    data["phone"] = get_user.mobile.Mobile_No
     data["service_provider"] = settings.SERVICE_PROVIDER
     data["furl"] = request.build_absolute_uri(reverse("orders:payment_failure"))
     data["surl"] = request.build_absolute_uri(reverse("orders:payment_success"))
@@ -144,15 +148,21 @@ def get_transaction_id(request):
 @csrf_exempt
 def payment_success(request):
     user = request.user
-    p = get_object_or_404(Order, buyer_id=user.id)
-    p.paid=True
-    p.save()
-    c1 = get_object_or_404(Carts, user_id=user.id)
-    items1 = CartItem.objects.filter(cart_id=c1.id)
-    for item in items1:
+    order = get_object_or_404(Order, buyer_id=user.id)
+    order.paid=True
+    order.save()
+    cart = get_object_or_404(Carts, user_id=user.id)
+    print(cart)
+    cart_items = CartItem.objects.filter(cart_id=c1.id)
+    print(cart_items)
+    for item in cart_items:
         item.delete()
-    #important:when paid is seen in database table mark is_accepted as True for for the product to notify
-    #order_delivered(OrderAdmin,request, obj, form, change )
+    #important:when paid is seen in database table mark is_accepted as True for the product to notify
+   
+    #if payment is successful notify the product seller
+  
+                
+            
     data = {}
     return render(request, "orders/order/paysuccess.html", data)
 
@@ -161,7 +171,7 @@ def payment_success(request):
 @login_required
 @csrf_exempt
 def payment_failure(request):
-    print(request.user)
+
     data = {}
     return render(request, "orders/order/payfail.html", data)
 
@@ -170,3 +180,4 @@ def order_delivered(self, request, obj, form, change):
         user = User.objects.filter(id=obj.buyer_id)
         notify.send(sender=self, target=obj, recipient_list=list(user), verb="accepted")
     obj.save()
+
