@@ -36,7 +36,7 @@ from notify.signals import notify
 def home(request):
 
     temples=Temples.objects.all()
-    paginator = Paginator(t, 4)
+    paginator = Paginator(temples, 4)
     page_change_var = 'page'  # change=request
     page = request.GET.get(page_change_var)
     print(type(page))
@@ -170,7 +170,7 @@ def send_verification_mail(email, msg,sub):
 @login_required
 def Usertype(request):
     temple_manager = TempleManager.objects.filter(user=request.user)
-    shokeeper = Shopkeeper.objects.filter(user=request.user)
+    shopkeeper = Shopkeeper.objects.filter(user=request.user)
     if temple_manager:
         return redirect('darshan:manager_profile')
     if shopkeeper:
