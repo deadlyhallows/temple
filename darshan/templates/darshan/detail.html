@@ -31,7 +31,7 @@
                 <button style="margin-bottom: 20px;width: 200px;height:50px;"><a href="">Book Pooja</a></button>
                 <br>
                 <button style="margin-bottom: 20px;width: 200px;height:50px;"><a {% if q.OnlinePrasadStatus %}
-                    href="{{ q.OnlinePrasad }}" {% else %}
+                    href="{{ q.Online_Prasad }}" {% else %}
                     href="{% url 'shop:allproducts' %}"{% endif %}>Order Prasad</a></button>
                 <br>
 
@@ -90,15 +90,15 @@
                     </tr>
                     <tr>
                         <td>About Temple</td>
-                        <td>{{ q.AboutTemple }}</td>
+                        <td>{{ q.About_Temple }}</td>
                     </tr>
                     <tr>
                         <td>Temple History</td>
-                        <td>{{ q.TempleHistory }}</td>
+                        <td>{{ q.Temple_History }}</td>
                     </tr>
                     <tr>
                         <td>Temple Purohit</td>
-                        <td>{{ q.TemplePurohit }}</td>
+                        <td>{{ q.Temple_Purohit }}</td>
                     </tr>
                     <tr>
                         <td>Significance</td>
@@ -110,19 +110,19 @@
                     </tr>
                     <tr>
                         <td>Related Faith</td>
-                        <td>{{ q.RelatedFaith }}</td>
+                        <td>{{ q.Related_Faith }}</td>
                     </tr>
                     <tr>
                         <td>About City</td>
-                        <td>{{ q.AboutCity }}</td>
+                        <td>{{ q.About_City }}</td>
                     </tr>
                     <tr>
                         <td>How to reach</td>
-                        <td>{{ q.HowToReach }}</td>
+                        <td>{{ q.How_To_Reach }}</td>
                     </tr>
                     <tr>
                         <td>Do's and Dont's</td>
-                        <td>{{ q.DoAndDont }}</td>
+                        <td>{{ q.Do_And_Dont }}</td>
                     </tr>
                     <tr>
                         <td>Amenities</td>
@@ -134,7 +134,7 @@
                     </tr>
                     <tr>
                         <td>Precaution while Visiting</td>
-                        <td>{{ q.PrecautionWhileVisiting }}</td>
+                        <td>{{ q.Precaution_While_Visiting }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -142,45 +142,45 @@
             <div id="menu2" class="tab-pane fade">
                 <table class="table table-striped">
                     <tbody>
-                    {% if q.LiveDarshan %}
+                    {% if q.Live_Darshan_Link %}
                         <tr>
                             <td>Live Darshan link</td>
-                            <td><a href="{{ q.LiveDarshanlink }}">Click Here</a></td>
+                            <td><a href="{{ q.Live_Darshan_link }}">Click Here</a></td>
                         </tr>
                     {% endif %}
 
-                    {% if q.OnlineDonationStatus %}
+                    {% if q.Online_Donation %}
                         <tr>
                             <td>Online Donation</td>
-                            <td><a href="{{ q.OnlineDonation }}">Click Here</a></td>
+                            <td><a href="{{ q.Online_Donation }}">Click Here</a></td>
                         </tr>
                     {% endif %}
 
-                    {% if q.OnlinePooja %}
+                    {% if q.Live_Pooja %}
                         <tr>
                             <td>Live Pooja</td>
-                            <td><a href="{{ q.LivePooja }}">Click Here</a></td>
+                            <td><a href="{{ q.Live_Pooja }}">Click Here</a></td>
                         </tr>
                     {% endif %}
 
-                    {% if q.OnlinePrasadStatus %}
+                    {% if q.Online_Prasad %}
                         <tr>
                             <td>Online Prasad</td>
-                            <td><a href="{{ q.OnlinePrasad }}">Click Here</a></td>
+                            <td><a href="{{ q.Online_Prasad }}">Click Here</a></td>
                         </tr>
                     {% endif %}
 
-                    {% if q.OtherOnlineFacilityStatus %}
+                    {% if q.Online_Facility %}
                         <tr>
                             <td>Other online facilities</td>
-                            <td><a href="{{ q.OnlineFacility }}">link</a></td>
+                            <td><a href="{{ q.Online_Facility }}">link</a></td>
                         </tr>
                     {% endif %}
 
-                    {% if q.Accomodation %}
+                    {% if q.Accomodation_Link %}
                         <tr>
                             <td>Other online facilities</td>
-                            <td><a href="{{ q.AccomodationLink }}">link</a></td>
+                            <td><a href="{{ q.Accomodation_Link }}">link</a></td>
                         </tr>
                     {% endif %}
 
@@ -196,7 +196,7 @@
 
                     <tr>
                         <td>Live Darshan</td>
-                        {% if q.LiveDarshan %}
+                        {% if q.Live_Darshan_Link %}
                             <td>Yes</td>
                         {% else %}
                             <td>No</td>
@@ -204,7 +204,7 @@
                     </tr>
                     <tr>
                         <td>Online Donation</td>
-                        {% if q.OnlineDonationStatus %}
+                        {% if q.Online_Donation %}
                             <td>Yes</td>
                         {% else %}
                             <td>No</td>
@@ -212,7 +212,7 @@
                     </tr>
                     <tr>
                         <td>Online Pooja</td>
-                        {% if q.OnlinePooja %}
+                        {% if q.Live_Pooja %}
                             <td>Yes</td>
                         {% else %}
                             <td>No</td>
@@ -220,7 +220,7 @@
                     </tr>
                     <tr>
                         <td>Online Prasad</td>
-                        {% if q.OnlinePrasadStatus %}
+                        {% if q.Online_Prasad %}
                             <td>Yes</td>
                         {% else %}
                             <td>No</td>
@@ -228,7 +228,7 @@
                     </tr>
                     <tr>
                         <td>Other Online Facilities</td>
-                        {% if q.OtherOnlineFacilityStatus %}
+                        {% if q.Online_Facility %}
                             <td>Yes</td>
                         {% else %}
                             <td>No</td>
@@ -236,7 +236,7 @@
                     </tr>
                     <tr>
                         <td>Accomodation</td>
-                        {% if q.Accomodation %}
+                        {% if q.Accomodation_Link %}
                             <td>Yes</td>
                         {% else %}
                             <td>No</td>
@@ -257,7 +257,7 @@
                     </tr>
                     <tr>
                         <td>Phone Numbers</td>
-                        <td>{{ q.PhoneNumber }}</td>
+                        <td>{{ q.Phone_Number }}</td>
                     </tr>
                     <tr>
                         <td>Email</td>
@@ -273,7 +273,7 @@
                     </tr>
                     <tr>
                         <td>Notices</td>
-                        <td>{{ q.NoticeandUpdates }}</td>
+                        <td>{{ q.Notice_and_Updates }}</td>
                     </tr>
                     </tbody>
 

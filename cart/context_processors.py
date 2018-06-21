@@ -8,9 +8,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 def cart(request):
     user = request.user
-    if request.user.is_authenticated and not request.user.is_superuser:
-
-        cart = get_object_or_404(Carts,user_id = request.user.id)
+    if user.is_authenticated:
+        try:
+            cart = Carts.objects.get(user_id = request.user.id)
+        except Carts.DoesNotExist:
+            cart  = None  
         cart_items = CartItem.objects.filter(cart=cart)
         total_items = 0
         order_total = Decimal(0.0)
@@ -24,6 +26,6 @@ def cart(request):
         'total_items':total_items,
         }
 
-    elif not request.user.is_authenticated and not request.user.is_superuser and request.user.is_manager:
+    elif not user.is_authenticated and not user.is_superuser:
             return {'set':user,
                 'cart': Cart(request)}

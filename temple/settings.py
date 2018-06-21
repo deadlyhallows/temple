@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'otp_twilio',
     'social_django',
 
+    'widget_tweaks',
     # ... Other apps
 
     'haystack',

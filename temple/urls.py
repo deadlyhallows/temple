@@ -18,6 +18,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.i18n import javascript_catalog
 
 app_name='darshan'
 urlpatterns = [
@@ -32,6 +33,7 @@ urlpatterns = [
     url(r'^search/', include('haystack.urls')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
 
+    url(r'^admin/jsi18n', javascript_catalog),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)

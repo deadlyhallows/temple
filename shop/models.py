@@ -16,9 +16,9 @@ class Shopkeeper(models.Model):
 
 class Product(DirtyFieldsMixin, models.Model):
     seller=models.ForeignKey(Shopkeeper, on_delete=models.CASCADE,default=None)
-    ProductName=models.CharField(max_length=250, default=None)
-    TempleName=models.ForeignKey(Temples, on_delete=models.CASCADE)
-    OutofStock=models.BooleanField(default=False)
+    Product_Name=models.CharField(max_length=250, default=None)
+    Temple_Name=models.ForeignKey(Temples, on_delete=models.CASCADE)
+    Out_of_Stock=models.BooleanField(default=False)
     Price=models.DecimalField(max_digits=4,decimal_places=2,default=None)
     Photo = models.ImageField(
         null=True, blank=True,
@@ -26,7 +26,7 @@ class Product(DirtyFieldsMixin, models.Model):
         width_field="width_field")
     height_field = models.IntegerField(default=None, null=True, blank=True)
     width_field = models.IntegerField(default=None, null=True, blank=True)
-    OfferorDiscount= models.CharField(max_length=50, default=None, blank=True,null=True)
+    Offeror_Discount= models.CharField(max_length=50, default=None, blank=True,null=True)
     #Add 'Available' field if needed
     def __str__(self):
         return str(self.ProductName) + ',' + str(self.TempleName)
