@@ -33,9 +33,9 @@
                        <div class="column">
                         <div class="thumbnail">
                             <img src="{{ y.Photo.url }}">
-                            {{ y.ProductName }}<br>
+                            {{ y.Product_Name }}<br>
                             {{ y.Price }}
-                            <button style="float: right;margin-bottom: 10px;"><a href="{% url 'shop:details1' val=y.ProductName %}">View</a></button>
+                            <button style="float: right;margin-bottom: 10px;"><a href="{% url 'shop:details1' val=y.Product_Name %}">View</a></button>
                         </div>
                        </div>
             {% endfor %}

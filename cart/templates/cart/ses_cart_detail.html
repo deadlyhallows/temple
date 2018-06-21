@@ -96,7 +96,7 @@
                             <img src="{{ x.Photo.url}}">
                         </a>
                     </td>
-                    <td>{{ x.ProductName }}</td>
+                    <td>{{ x.Product_Name }}</td>
                     <td>
                         <form action="{% url 'cart:cart_add' x.id %}" method="post">
                                 <select name="quantity" id="id_quantity">

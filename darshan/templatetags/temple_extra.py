@@ -26,7 +26,7 @@ def darshan(value):
 
 @register.filter("product")
 def product(value):
-    return Product.objects.filter(TempleName_id=value)
+    return Product.objects.filter(Temple_Name_id=value)
 
 @register.filter("products1")
 def products1(value):
@@ -34,7 +34,7 @@ def products1(value):
 
 @register.filter("products")
 def products(value):
-    return Product.objects.filter(ProductName=value)
+    return Product.objects.filter(Product_Name=value)
 
 @register.simple_tag()
 def multiply(qty, unit_price, *args, **kwargs):
@@ -43,7 +43,7 @@ def multiply(qty, unit_price, *args, **kwargs):
 
 @register.filter("descend")
 def descend(value):
-    return Product.objects.filter(TempleName_id=value).order_by('-Price')
+    return Product.objects.filter(Temple_Name_id=value).order_by('-Price')
 
 @register.filter("time")
 def time(value):
