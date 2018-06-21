@@ -6,16 +6,21 @@
     {% block style %}
     {% endblock style %}
     <div class="container-fluid" style="margin-top: 15px">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 style="text-align: center;">{{ q.temple2 }}</h1>
+                <br>
+            </div>
+        </div>
         <div class=" row display">
             <div class="col-md-5">
                 <img class=" img-responsive roundedCorner image" src="{{ q.images.url }}">
             </div>
-            <div class="col-md-4 col-sm-6">
-                <p style="font-size: 24px;color: black; text-align: center;">{{ q.temple2 }}</p><br>
-                <table id="darshan" width="430px">
+            <div class="col-md-4">
+                <table id="darshan" style="width: 100%">
                     <tr>
-                        <th>Rituals</th>
-                        <th>Timings</th>
+                        <th style="font-family: sans-serif">Rituals</th>
+                        <th style="font-family: sans-serif">Timings</th>
                     </tr>
 
                     {% for z in s %}
@@ -27,25 +32,42 @@
                 </table>
             </div>
 
-            <div class="col-md-3 col-sm-6 abce" style="margin-top:65px; ">
-                <button style="margin-bottom: 20px;width: 200px;height:50px;"><a href="">Book Pooja</a></button>
+            <div class="col-md-3">
+                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
+                    <a href="">
+                        Book Pooja
+                    </a>
+                </button>
                 <br>
-                <button style="margin-bottom: 20px;width: 200px;height:50px;"><a {% if q.OnlinePrasadStatus %}
-                    href="{{ q.OnlinePrasad }}" {% else %}
-                    href="{% url 'shop:allproducts' %}"{% endif %}>Order Prasad</a></button>
+                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
+                    <a
+                            {% if q.OnlinePrasadStatus %}
+                                href="{{ q.OnlinePrasad }}"
+                            {% else %}
+                                href="{% url 'shop:allproducts' %}"
+                            {% endif %}>
+                        Order Prasad
+                    </a>
+                </button>
                 <br>
 
-                <button style="margin-bottom: 20px;width: 200px;height:50px;"><a  {% if q.OnlineDonationStatus %}
-                    href="{{ q.OnlinePrasad }}" {% else %}
-                    href="{% url 'darshan:Online_Donation'  v=q.temple2 %}" {% endif %}>Make Donation</a></button>
+                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
+                    <a  {% if q.OnlineDonationStatus %}
+                        href="{{ q.OnlinePrasad }}" {% else %}
+                        href="{% url 'darshan:Online_Donation'  v=q.temple2 %}" {% endif %}>
+                        Make Donation
+                    </a>
+                </button>
                 <br>
 
-                <button style="margin-bottom: 20px;width: 200px;height:50px;"><a href="">Visit Temple</a></button>
+                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
+                    <a href="">Visit Temple</a>
+                </button>
                 <br>
             </div>
         </div>
         <hr>
-        <h2 class="text-center" style="font-family: 'Carter One', cursive;color: black">Temple details</h2>
+        <h2 class="text-center" style="font-family:'Carter One';color: black">Temple details</h2>
         <ul class="nav nav-tabs row">
             <li class="col-sm-3"><a data-toggle="tab" href="#menu1">Basic Information</a></li>
             <li class="col-sm-3"><a data-toggle="tab" href="#menu2">Bookings</a></li>
@@ -53,231 +75,237 @@
             <li class="col-sm-3"><a data-toggle="tab" href="#menu4">Contact</a></li>
         </ul>
         <!-- tab contents -->
-        <div class="tab-content" id="detail" style="margin: 25px 50px">
-            <div id="menu1" class="tab-pane fade">
-                <table class="table table-striped">
-                    <tbody>
-                    <tr>
-                        <h2 style="font-family: 'Carter One', cursive;">{{ q.temple2 }}</h2>
-                    </tr>
-                    <tr>
-                        <td>Religion</td>
-                        <td>{{ q.Religion }}</td>
-                    </tr>
-                    <tr>
-                        <td>Address</td>
-                        <td>{{ q.Address }}</td>
-                    </tr>
-                    <tr>
-                        <td>City</td>
-                        <td>{{ q.City }}</td>
-                    </tr>
-                    <tr>
-                        <td>State</td>
-                        <td>{{ q.State }}</td>
-                    </tr>
-                    <tr>
-                        <td>Country</td>
-                        <td>{{ q.Country }}</td>
-                    </tr>
-                    <tr>
-                        <td>Deity</td>
-                        <td>{{ q.Deity }}</td>
-                    </tr>
-                    <tr>
-                        <td>Website</td>
-                        <td>{{ q.Website }}</td>
-                    </tr>
-                    <tr>
-                        <td>About Temple</td>
-                        <td>{{ q.AboutTemple }}</td>
-                    </tr>
-                    <tr>
-                        <td>Temple History</td>
-                        <td>{{ q.TempleHistory }}</td>
-                    </tr>
-                    <tr>
-                        <td>Temple Purohit</td>
-                        <td>{{ q.TemplePurohit }}</td>
-                    </tr>
-                    <tr>
-                        <td>Significance</td>
-                        <td>{{ q.Significance }}</td>
-                    </tr>
-                    <tr>
-                        <td>Management</td>
-                        <td>{{ q.Management }}</td>
-                    </tr>
-                    <tr>
-                        <td>Related Faith</td>
-                        <td>{{ q.RelatedFaith }}</td>
-                    </tr>
-                    <tr>
-                        <td>About City</td>
-                        <td>{{ q.AboutCity }}</td>
-                    </tr>
-                    <tr>
-                        <td>How to reach</td>
-                        <td>{{ q.HowToReach }}</td>
-                    </tr>
-                    <tr>
-                        <td>Do's and Dont's</td>
-                        <td>{{ q.DoAndDont }}</td>
-                    </tr>
-                    <tr>
-                        <td>Amenities</td>
-                        <td>{{ q.Amenities }}</td>
-                    </tr>
-                    <tr>
-                        <td>Celebration</td>
-                        <td>{{ q.Celebration }}</td>
-                    </tr>
-                    <tr>
-                        <td>Precaution while Visiting</td>
-                        <td>{{ q.PrecautionWhileVisiting }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div id="menu2" class="tab-pane fade">
-                <table class="table table-striped">
-                    <tbody>
-                    {% if q.LiveDarshan %}
-                        <tr>
-                            <td>Live Darshan link</td>
-                            <td><a href="{{ q.LiveDarshanlink }}">Click Here</a></td>
-                        </tr>
-                    {% endif %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tab-content" id="detail" style="margin: 25px 50px">
+                        <div id="menu1" class="tab-pane fade">
+                            <table class="table table-striped">
+                                <tbody>
+                                <tr>
+                                    <h2 style="font-family: 'Carter One';">{{ q.temple2 }}</h2>
+                                </tr>
+                                <tr>
+                                    <td>Religion</td>
+                                    <td>{{ q.Religion }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <td>{{ q.Address }}</td>
+                                </tr>
+                                <tr>
+                                    <td>City</td>
+                                    <td>{{ q.City }}</td>
+                                </tr>
+                                <tr>
+                                    <td>State</td>
+                                    <td>{{ q.State }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Country</td>
+                                    <td>{{ q.Country }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Deity</td>
+                                    <td>{{ q.Deity }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Website</td>
+                                    <td>{{ q.Website }}</td>
+                                </tr>
+                                <tr>
+                                    <td>About Temple</td>
+                                    <td>{{ q.AboutTemple }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Temple History</td>
+                                    <td>{{ q.TempleHistory }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Temple Purohit</td>
+                                    <td>{{ q.TemplePurohit }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Significance</td>
+                                    <td>{{ q.Significance }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Management</td>
+                                    <td>{{ q.Management }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Related Faith</td>
+                                    <td>{{ q.RelatedFaith }}</td>
+                                </tr>
+                                <tr>
+                                    <td>About City</td>
+                                    <td>{{ q.AboutCity }}</td>
+                                </tr>
+                                <tr>
+                                    <td>How to reach</td>
+                                    <td>{{ q.HowToReach }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Do's and Dont's</td>
+                                    <td>{{ q.DoAndDont }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Amenities</td>
+                                    <td>{{ q.Amenities }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Celebration</td>
+                                    <td>{{ q.Celebration }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Precaution while Visiting</td>
+                                    <td>{{ q.PrecautionWhileVisiting }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="menu2" class="tab-pane fade">
+                            <table class="table table-striped">
+                                <tbody>
+                                {% if q.LiveDarshan %}
+                                    <tr>
+                                        <td>Live Darshan link</td>
+                                        <td><a href="{{ q.LiveDarshanlink }}">Click Here</a></td>
+                                    </tr>
+                                {% endif %}
 
-                    {% if q.OnlineDonationStatus %}
-                        <tr>
-                            <td>Online Donation</td>
-                            <td><a href="{{ q.OnlineDonation }}">Click Here</a></td>
-                        </tr>
-                    {% endif %}
+                                {% if q.OnlineDonationStatus %}
+                                    <tr>
+                                        <td>Online Donation</td>
+                                        <td><a href="{{ q.OnlineDonation }}">Click Here</a></td>
+                                    </tr>
+                                {% endif %}
 
-                    {% if q.OnlinePooja %}
-                        <tr>
-                            <td>Live Pooja</td>
-                            <td><a href="{{ q.LivePooja }}">Click Here</a></td>
-                        </tr>
-                    {% endif %}
+                                {% if q.OnlinePooja %}
+                                    <tr>
+                                        <td>Live Pooja</td>
+                                        <td><a href="{{ q.LivePooja }}">Click Here</a></td>
+                                    </tr>
+                                {% endif %}
 
-                    {% if q.OnlinePrasadStatus %}
-                        <tr>
-                            <td>Online Prasad</td>
-                            <td><a href="{{ q.OnlinePrasad }}">Click Here</a></td>
-                        </tr>
-                    {% endif %}
+                                {% if q.OnlinePrasadStatus %}
+                                    <tr>
+                                        <td>Online Prasad</td>
+                                        <td><a href="{{ q.OnlinePrasad }}">Click Here</a></td>
+                                    </tr>
+                                {% endif %}
 
-                    {% if q.OtherOnlineFacilityStatus %}
-                        <tr>
-                            <td>Other online facilities</td>
-                            <td><a href="{{ q.OnlineFacility }}">link</a></td>
-                        </tr>
-                    {% endif %}
+                                {% if q.OtherOnlineFacilityStatus %}
+                                    <tr>
+                                        <td>Other online facilities</td>
+                                        <td><a href="{{ q.OnlineFacility }}">link</a></td>
+                                    </tr>
+                                {% endif %}
 
-                    {% if q.Accomodation %}
-                        <tr>
-                            <td>Other online facilities</td>
-                            <td><a href="{{ q.AccomodationLink }}">link</a></td>
-                        </tr>
-                    {% endif %}
-
-
-                    </tbody>
-                </table>
-            </div>
-
-            <div id="menu3" class="tab-pane fade">
-                <table class="table table-striped">
-
-                    <tbody>
-
-                    <tr>
-                        <td>Live Darshan</td>
-                        {% if q.LiveDarshan %}
-                            <td>Yes</td>
-                        {% else %}
-                            <td>No</td>
-                        {% endif %}
-                    </tr>
-                    <tr>
-                        <td>Online Donation</td>
-                        {% if q.OnlineDonationStatus %}
-                            <td>Yes</td>
-                        {% else %}
-                            <td>No</td>
-                        {% endif %}
-                    </tr>
-                    <tr>
-                        <td>Online Pooja</td>
-                        {% if q.OnlinePooja %}
-                            <td>Yes</td>
-                        {% else %}
-                            <td>No</td>
-                        {% endif %}
-                    </tr>
-                    <tr>
-                        <td>Online Prasad</td>
-                        {% if q.OnlinePrasadStatus %}
-                            <td>Yes</td>
-                        {% else %}
-                            <td>No</td>
-                        {% endif %}
-                    </tr>
-                    <tr>
-                        <td>Other Online Facilities</td>
-                        {% if q.OtherOnlineFacilityStatus %}
-                            <td>Yes</td>
-                        {% else %}
-                            <td>No</td>
-                        {% endif %}
-                    </tr>
-                    <tr>
-                        <td>Accomodation</td>
-                        {% if q.Accomodation %}
-                            <td>Yes</td>
-                        {% else %}
-                            <td>No</td>
-                        {% endif %}
-                    </tr>
-
-                    </tbody>
-                </table>
-            </div>
+                                {% if q.Accomodation %}
+                                    <tr>
+                                        <td>Other online facilities</td>
+                                        <td><a href="{{ q.AccomodationLink }}">link</a></td>
+                                    </tr>
+                                {% endif %}
 
 
-            <div id="menu4" class="tab-pane fade">
-                <table class="table table-striped">
-                    <tbody>
-                    <tr>
-                        <td>Contacts Us</td>
-                        <td>{{ q.Contacts }}</td>
-                    </tr>
-                    <tr>
-                        <td>Phone Numbers</td>
-                        <td>{{ q.PhoneNumber }}</td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td>{{ q.Email }}</td>
-                    </tr>
-                    <tr>
-                        <td>Tender</td>
-                        <td>{{ q.Tender }}</td>
-                    </tr>
-                    <tr>
-                        <td>Recruitment</td>
-                        <td>{{ q.Recruitment }}</td>
-                    </tr>
-                    <tr>
-                        <td>Notices</td>
-                        <td>{{ q.NoticeandUpdates }}</td>
-                    </tr>
-                    </tbody>
+                                </tbody>
+                            </table>
+                        </div>
 
-                </table>
+                        <div id="menu3" class="tab-pane fade">
+                            <table class="table table-striped">
+
+                                <tbody>
+
+                                <tr>
+                                    <td>Live Darshan</td>
+                                    {% if q.LiveDarshan %}
+                                        <td>Yes</td>
+                                    {% else %}
+                                        <td>No</td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>Online Donation</td>
+                                    {% if q.OnlineDonationStatus %}
+                                        <td>Yes</td>
+                                    {% else %}
+                                        <td>No</td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>Online Pooja</td>
+                                    {% if q.OnlinePooja %}
+                                        <td>Yes</td>
+                                    {% else %}
+                                        <td>No</td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>Online Prasad</td>
+                                    {% if q.OnlinePrasadStatus %}
+                                        <td>Yes</td>
+                                    {% else %}
+                                        <td>No</td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>Other Online Facilities</td>
+                                    {% if q.OtherOnlineFacilityStatus %}
+                                        <td>Yes</td>
+                                    {% else %}
+                                        <td>No</td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>Accomodation</td>
+                                    {% if q.Accomodation %}
+                                        <td>Yes</td>
+                                    {% else %}
+                                        <td>No</td>
+                                    {% endif %}
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <div id="menu4" class="tab-pane fade">
+                            <table class="table table-striped">
+                                <tbody>
+                                <tr>
+                                    <td>Contacts Us</td>
+                                    <td>{{ q.Contacts }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Phone Numbers</td>
+                                    <td>{{ q.PhoneNumber }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>{{ q.Email }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tender</td>
+                                    <td>{{ q.Tender }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Recruitment</td>
+                                    <td>{{ q.Recruitment }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Notices</td>
+                                    <td>{{ q.NoticeandUpdates }}</td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

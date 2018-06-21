@@ -1,4 +1,4 @@
-{% extends 'darshan/base.html' %}
+{% extends 'darshan/otherBase.html' %}
 {% load staticfiles %}
 {% load temple_extra %}
 
@@ -8,138 +8,143 @@
 
 {% block content %}
     <!-- Login Form -->
-  <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <form method="post"  role="form" action= "{% url 'darshan:login' %}" >
-       <div class="modal-dialog ">
-           <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h2 class="modal-title" id="myModalLabel">Login</h2>
-
-            </div>
-            <div class="modal-body">
-                {% csrf_token %}
-                {{ form.as_p }}
-            </div>
-            <div class="modal-footer">
-                <button type="submit">Log in</button>
-                <a href="{% url 'darshan:home' %}" class="ab">New to My Site? Sign up</a>
-                <p><strong>-- OR --</strong></p>
-                <p><a href="{% url 'social:begin' 'facebook' %}" class="ab">Login with Facebook</a></p>
-                <p><a href="{% url 'social:begin' 'google-oauth2' %}" class="ab">Login with Gmail</a></p>
-            </div>
-           </div>
-       </div>
-      </form><br>
- </div>
-
- <!--SignUp form-->
-     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <form role="form" action="{% url 'darshan:signup' %}" method="post">
+    <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <form method="post" role="form" action="{% url 'darshan:login' %}">
             <div class="modal-dialog ">
-           <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h2 class="modal-title" id="myModalLabel">Sign Up</h2>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h2 class="modal-title" id="myModalLabel">Login</h2>
 
+                    </div>
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit">Log in</button>
+                        <a href="{% url 'darshan:home' %}" class="ab">New to My Site? Sign up</a>
+                        <p><strong>-- OR --</strong></p>
+                        <p><a href="{% url 'social:begin' 'facebook' %}" class="ab">Login with Facebook</a></p>
+                        <p><a href="{% url 'social:begin' 'google-oauth2' %}" class="ab">Login with Gmail</a></p>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                {% csrf_token %}
-                {{ user_form.as_p }}
-                {{ Mobile_form.as_p }}
-            </div>
-            <div class="modal-footer">
-                <button type="submit">Sign Up</button>
-
-            </div>
-           </div>
-       </div>
         </form>
-     </div>
+        <br>
+    </div>
+
+    <!--SignUp form-->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <form role="form" action="{% url 'darshan:signup' %}" method="post">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h2 class="modal-title" id="myModalLabel">Sign Up</h2>
+
+                    </div>
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {{ user_form.as_p }}
+                        {{ Mobile_form.as_p }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit">Sign Up</button>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 
     {% block head %}
-        <head><link rel="stylesheet" href="{% static 'css/cart.css' %}"></head>
+        <head>
+            <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+        </head>
     {% endblock %}
     {% block style %}
-        <style xmlns="http://www.w3.org/1999/html">
-        html,body{
-
-                padding-top: 55px;
-
-                }
-
-        </style>
     {% endblock style %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Your Shopping Cart</h2>
+                <table class="cart">
+                    <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Remove</th>
+                        <th>Unit Price</th>
+                        <th>Price</th>
+                    </tr>
 
-    <h2>Your Shopping Cart</h2>
-    <table class="cart">
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Remove</th>
-                <th>Unit Price</th>
-                <th>Price</th>
-            </tr>
 
+                    <!-- for unauthenticated user-->
+                    {% for item in cart %}
 
-        <!-- for unauthenticated user-->
-        {% for item in cart %}
+                        {% with product=item.product %}
+                            {% for x in product|products %}
 
-                {% with product=item.product %}
-                    {% for x in product|products %}
-
-                <tr>
-                    <td>
-                        <a href="#">
-                            <img src="{{ x.Photo.url}}">
-                        </a>
-                    </td>
-                    <td>{{ x.ProductName }}</td>
-                    <td>
-                        <form action="{% url 'cart:cart_add' x.id %}" method="post">
-                                <select name="quantity" id="id_quantity">
-                                <option value="1" selected>1</option>
-                                {% for x in loop_times %}
-                                    <option value={{ x }}>{{ x }}</option>
-                                {% endfor %}
-                                </select>
-                                <input type="submit" name="update" value="Update" id="id_update" style="margin-left:10px;"/>
-                                {% csrf_token %}
-                        </form>
-                    </td>
-                    <td><a href="{% url 'cart:cart_remove' x.id %}">Remove</a></td>
-                    <td class="num">Rs.{{ item.price }}</td>
-                    <td class="num">Rs.{{ item.total_price }}</td>
-                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="#">
+                                            <img src="{{ x.Photo.url }}">
+                                        </a>
+                                    </td>
+                                    <td>{{ x.ProductName }}</td>
+                                    <td>
+                                        <form action="{% url 'cart:cart_add' x.id %}" method="post">
+                                            <select name="quantity" id="id_quantity">
+                                                <option value="1" selected>1</option>
+                                                {% for x in loop_times %}
+                                                    <option value={{ x }}>{{ x }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <input type="submit" name="update" value="Update" id="id_update"
+                                                   style="margin-left:10px;"/>
+                                            {% csrf_token %}
+                                        </form>
+                                    </td>
+                                    <td><a href="{% url 'cart:cart_remove' x.id %}">Remove</a></td>
+                                    <td class="num">Rs.{{ item.price }}</td>
+                                    <td class="num">Rs.{{ item.total_price }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endwith %}
                     {% endfor %}
-                {% endwith %}
-            {% endfor %}
 
-        </thead>
-    </table>
+                    </thead>
+                </table>
 
-    <p>
-        <a href="{% url 'shop:allproducts' %}" class="btn">Continue Shopping</a><br>
-        {% if user.is_authenticated %}
-            <a href="{% url 'orders:order_create' %}" class="btn">Buy Now</a>
-        {% else %}
-            <a href="{% url 'cart:view_cart' %}" class="launch-modal btn" data-modal-id="modal-login">Login</a>/<a href="{% url 'cart:view_cart' %}" class="launch-modal btn" data-modal-id="modal">SignUp</a> to Buy
-        {% endif %}
-    </p>
+                <p>
+                    <a href="{% url 'shop:allproducts' %}" class="btn">Continue Shopping</a><br>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'orders:order_create' %}" class="btn">Buy Now</a>
+                    {% else %}
+                        <a href="{% url 'cart:view_cart' %}" class="launch-modal btn"
+                           data-modal-id="modal-login">Login</a>/
+                        <a href="{% url 'cart:view_cart' %}" class="launch-modal btn" data-modal-id="modal">SignUp</a>
+                        to Buy
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+
     <script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous"></script>
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script>
-        jQuery(document).ready(function() {
-	    $('.launch-modal').on('click', function(e){
-		e.preventDefault();
-		$( '#' + $(this).data('modal-id') ).modal();
-	});
+        jQuery(document).ready(function () {
+            $('.launch-modal').on('click', function (e) {
+                e.preventDefault();
+                $('#' + $(this).data('modal-id')).modal();
+            });
 
-});
+        });
     </script>
 
 {% endblock %}

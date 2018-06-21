@@ -4,48 +4,50 @@
 {% block content %}
     {% block style %}
     {% endblock style %}
-<div class="container-fluid" style="margin-top: 15px;">
-    <div style="width: 100%;">
-    <div  style="float: left;width: 20%;">
-        <form method="GET" action="" style="border:0; padding:0; padding-bottom:10px; margin:0;float: left;">
-             <input  type="text" name="q" placeholder="Search Temples..." value = "{{ request.GET.q }}"/>
-             <input type="submit" value="Search" />
-         </form>
-         <br>
-         <h3>Filter By Temples</h3>
-         <form method="Post" role="form">
-            {% csrf_token %}
-            <label for="id_temple0">Temples:</label><br>
-            {% for x in query_list %}
-                <input type="checkbox" name="temples" id="id_temple0" value="{{ x.id }}">{{ x }}<br>
-            {% endfor %}
-            <br>
-            <button type="submit">Apply</button>
-         </form><br>
-
-    </div>
-
-    <div style=" float:left;width:80%;">
-       
+    <div class="container-fluid" style="margin-top: 15px;">
         <div class="row">
-        {% for x in list %}
-            {% for y in x|product %}
-                       <div class="column">
-                        <div class="thumbnail">
-                            <img src="{{ y.Photo.url }}">
-                            {{ y.ProductName }}<br>
-                            {{ y.Price }}
-                            <button style="float: right;margin-bottom: 10px;"><a href="{% url 'shop:details1' val=y.ProductName %}">View</a></button>
+            <div class="col-md-12">
+                <form method="GET" action="">
+                    <input type="text" name="q" placeholder="Search Temples" value="{{ request.GET.q }}"
+                           style="float: unset!important;"/>
+                    <button class="btn btn-primary" type="submit">
+                        Search
+                    </button>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Filter By Temples</h3>
+                <form method="Post" role="form" style="width: 100% !important;">
+                    {% csrf_token %}
+                    <label for="id_temple0">Temples:</label><br>
+                    {% for x in query_list %}
+                        <input type="checkbox" name="temples" id="id_temple0" value="{{ x.id }}" style="float: left !important;">{{ x }}<br>
+                    {% endfor %}
+                    <br>
+                    <button class="btn btn-primary" type="submit">Apply</button>
+                </form>
+            </div>
+            <div class="col-md-8">
+                {% for x in list %}
+                    {% for y in x|product %}
+                        <div class="column">
+                            <div class="thumbnail">
+                                <img src="{{ y.Photo.url }}">
+                                {{ y.ProductName }}<br>
+                                {{ y.Price }}
+                                <button style="float: right;margin-bottom: 10px;">
+                                    <a href="{% url 'shop:details1' val=y.ProductName %}">
+                                        View
+                                    </a>
+                                </button>
+                            </div>
                         </div>
-                       </div>
-            {% endfor %}
-        {% endfor %}
+                    {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
-
-
-
-
-</div>
-</div>
 {% endblock %}

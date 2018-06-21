@@ -39,6 +39,7 @@ urlpatterns = [
     url(r'^darshan_add/$',views.darshan_add, name='darshan_add'),
     url(r'^darshan_update/(?P<s2>.+)/$',views.darshan_update, name='darshan_update'),
     url(r'^darshan_remove/(?P<s2>.+)/$',views.darshan_remove, name='darshan_remove'),
+    url(r'^alldarshan/$',views.allDarshan, name='alldarshan'),
 
 
 ]

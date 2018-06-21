@@ -1,34 +1,29 @@
-{% extends "darshan/base.html" %}
+{% extends "darshan/otherBase.html" %}
 {% load i18n %}
 {% load notification_tags %}
 {% block title %}{% trans "Notifications" %}{% endblock %}
 {% block content %}
-	 {% block style %}
-        <style>
-        html,body{
-
-                padding-top: 65px;
-
-                }
-
-        </style>
+    {% block style %}
     {% endblock style %}
-    
- <div class='row'>  
-    <div class="col-md-12 mark_button">
-      <form method = 'post' role='form' action="{% url 'notifications:mark_all' %}">
-        {% csrf_token %}
-        <button type='submit' class="mark-all-notifications" name='action' value="read">{% trans "Mark all as read" %}</button>
-        <button type='submit' class="mark-all-notifications" name='action' value='unread'>{% trans "Mark all as unread" %}</button>
-    </form>   
-    </div> 
-    <div class=col-md-12>
-   
-    <ul class="notifications list-group" style="margin-top: 20px;">
-    {% if notifications %}
-    {% render_notifications using notifications %}
-    {% endif %}
-    </ul>
+    <div class="container-fluid">
+        <div class='row'>
+            <div class="col-md-12 mark_button">
+                <form method='post' role='form' action="{% url 'notifications:mark_all' %}">
+                    {% csrf_token %}
+                    <button class="btn btn-primary" type='submit' class="mark-all-notifications" name='action'
+                            value="read">{% trans "Mark all as read" %}</button>
+                    <button class="btn btn-primary" type='submit' class="mark-all-notifications" name='action'
+                            value='unread'>{% trans "Mark all as unread" %}</button>
+                </form>
+            </div>
+            <div class=col-md-12>
+
+                <ul class="notifications list-group" style="margin-top: 20px;">
+                    {% if notifications %}
+                        {% render_notifications using notifications %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
     </div>
- </div>   
 {% endblock %}

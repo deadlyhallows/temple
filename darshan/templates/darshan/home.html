@@ -89,7 +89,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit">Sign Up</button>
-
                     </div>
                 </div>
             </div>
@@ -180,8 +179,9 @@
             {% endfor %}
 
         </div>
-
-        <div class="pagination row">
+        <div class="row">
+            <div class="col-md-12" align="center">
+                <div class="pagination ">
             <span class="step-links">
                 {% if object_list.has_previous %}
                     <a href="?{{ page_change_var }}=1">&laquo; first</a>
@@ -198,6 +198,9 @@
                 {% endif %}
             </span>
         </div>
+            </div>
+        </div>
+
         <hr>
         <div class="row">
             <div class="col-md-12">
