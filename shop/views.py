@@ -46,12 +46,12 @@ class ProductSearch(SearchView):
 
 def allproducts(request):
     print(request.user)
-    list = None
+    lists = None
 
     k = []
 
     if request.method == 'POST' and 'temples' in request.POST:
-        list = request.POST.getlist('temples', None)
+        lists = request.POST.getlist('temples', None)
         print(list)
 
     temple = Temples.objects.all()
@@ -67,7 +67,7 @@ def allproducts(request):
 
         'k': k,
         'query_list': queryset_list,
-        'list':list,
+        'list':lists,
         'b':temple,
     }
     return render(request, 'shop/allproduct.html', context)
@@ -75,7 +75,7 @@ def allproducts(request):
 def details1(request,val):
     print(val)
     user = request.user
-    product = Product.objects.filter(ProductName=val)
+    product = Product.objects.filter(Product_Name=val)
     cart_product_form = CartAddProductForm()
     context = {'product': product,
                'cart_product_form': cart_product_form,

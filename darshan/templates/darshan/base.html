@@ -81,6 +81,10 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{% url 'notifications:all' %}" style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">Notification({{ user|notifications_unread }})
+                        </a>
+                    </li>
+                    <li>
                         <a href="{% url 'darshan:logout' %}"
                            style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
                             logout
@@ -151,16 +155,23 @@
 </nav>
 {% block content %}
 {% endblock %}
-<script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script
+  src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+  integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+  crossorigin="anonymous"></script>
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/js/uikit.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/js/uikit-icons.min.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+ 
+
 <script type="text/javascript">
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');

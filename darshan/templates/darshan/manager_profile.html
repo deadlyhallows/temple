@@ -28,15 +28,17 @@
                     </p>
                 {% endfor %}
             </div>
+            
+        {% if temples %}
             <div class="col-md-4 mark_button" align="center">
                 PICTURES
-                <span>
+            <span>
             <a href="{% url 'darshan:picture_add' %}">
                 <button class="btn btn-primary">
                     Add Pictures<strong> +</strong>
                 </button>
             </a>
-        </span>
+            </span>
                 <br>
                 <br>
                 <br>
@@ -57,29 +59,30 @@
 
             <div class="col-md-4 mark_button" align="center">
                 DARSHANS
-                <span>
+            <span>
             <a href="{% url 'darshan:darshan_add' %}">
                 <button class="btn btn-primary">Add Darshans<strong> +</strong>
                 </button>
             </a>
-        </span>
+            </span>
                 <br>
                 <br>
                 <br>
                 <br>
                 {% for x3 in darshans %}
-                    <p>
-                        <a href="{% url 'darshan:darshan_update' s2=x3.id %}">
-                            {{ x3.rituals }}, {{ x3.timings }}
-                        </a>
-                        <span>
-                 <a href="{% url 'darshan:darshan_remove' s2=x3.id %}">
-                     <button class="btn btn-primary">Remove</button>
-                 </a>
-             </span>
-                    </p>
+                <p>
+                    <a href="{% url 'darshan:darshan_update' s2=x3.id %}">
+                        {{ x3.rituals }}, {{ x3.timings }}
+                    </a>
+                    <span>
+                    <a href="{% url 'darshan:darshan_remove' s2=x3.id %}">
+                        <button class="btn btn-primary">Remove</button>
+                    </a>
+                    </span>
+                </p>
                 {% endfor %}
             </div>
+        {% endif %}    
         </div>
     </div>
 {% endblock content %}
