@@ -158,7 +158,22 @@ def payment_success(request):
     for item in cart_items:
         item.delete()
     #important:when paid is seen in database table mark is_accepted as True for the product to notify
-   
+    orders = Order.objects.filter(buyer_id=user.id).order_by('-id').first()
+    print(order)
+    order_items = OrderItem.objects.filter(order_id=orders.id)
+    for item in order_items:
+        products=get_object_or_404(Product,id=item.product.id)
+        print(products)
+        users=get_object_or_404(User,username=products.seller)
+        print(users)
+        notify.send(sender=OrderAdmin, target=products, recipient=users, verb="paid")
+        subject = 'Notification'
+        verb="paid"
+        message = render_to_string('darshan/notification_email.html', {
+            'target':instance,'verb':verb })
+        users.email_user(subject, message)
+        send_verification_mail(users.email, message, subject)      
+    
     #if payment is successful notify the product seller
   
                 

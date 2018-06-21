@@ -91,6 +91,9 @@ def generate_hash(data):
     return hash.hexdigest().lower()
 
 def verify_hash(data, SALT):
+    keys = ('key', 'txnid', 'amount', 'productinfo', 'firstname', 'email',
+            'udf1', 'udf2', 'udf3', 'udf4', 'udf5',  'udf6',  'udf7', 'udf8',
+            'udf9',  'udf10')
     keys.reverse()
     hash = sha512(settings.PAYU_INFO.get('merchant_salt'))
     hash.update("%s%s" % ('|', str(data.get('status', ''))))

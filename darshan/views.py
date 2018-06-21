@@ -92,7 +92,7 @@ def signup(request):
                     print("b")
                     for item in cart:
                         print("c")
-                        cart_product = get_object_or_404(Product, ProductName=item['product'])
+                        cart_product = get_object_or_404(Product, Product_Name=item['product'])
                         print("d")
                         cart_item = CartItem.objects.create(quantity=item['quantity'],
                                                         active=True, cart_id=user_cart.id, product_id=cart_product.id)
@@ -175,8 +175,9 @@ def Usertype(request):
         return redirect('darshan:manager_profile')
     if shopkeeper:
         return redirect('shop:seller_profile')
-    else:
-        return redirect('darshan:user_profile')
+
+    return redirect('darshan:user_profile')        
+
 
 
 
@@ -186,12 +187,27 @@ def user_profile(request):
     user=request.user
     profile=Profile.objects.get(user_id=user.id)
     print(profile.Select_Temple)
+    if user.is_superuser:
+        cart = Cart(request)
+        if cart is not None:
+            try:
+                get_cart = Carts.objects.get(user_id = user.id)
+            except Carts.DoesNotExist:
+                get_cart = Carts.objects.create(active=True,user_id=user.id)
+    
+            for item in cart:
+                cart_product = get_object_or_404(Product, Product_Name=item['product'])
+                cart_item = CartItem.objects.create(quantity=item['quantity'],
+                                                active=True, cart_id=get_cart.id, product_id=cart_product.id)
+                cart_item.save()
+    
+    #--------For Authenticated user who is not superuser------------- 
     cart = Cart(request)
     if cart is not None:
         user_cart = get_object_or_404(Carts, user_id=user.id)
         for item in cart:
 
-            cart_product = get_object_or_404(Product, ProductName=item['product'])
+            cart_product = get_object_or_404(Product, Product_Name=item['product'])
             cart_item = CartItem.objects.create(quantity=item['quantity'],
                                                 active=True, cart_id=user_cart.id, product_id=cart_product.id)
             cart_item.save()
@@ -306,7 +322,7 @@ def details(request, temp):
         }
     return render(request, 'darshan/details.html', context)
 
-def detail(request, temp1):
+def detail(request, temp1):#----------------For Anonymous User-----------------------
     #m = localtime().time()
     #FMT = '%H:%M:%S'
     temple = get_object_or_404(Temples,temple2 = temp1)
@@ -395,7 +411,7 @@ def signup1(request):
 @user_is_temple_manager
 def manager_profile(request):
     #t = get_object_or_404(TempleManager, user=request.user)
-    darshan =Darshans.objects.all()
+    darshan =Darshans.objects.filter(user=request.user)
     picture = Picture.objects.filter(user=request.user)
     temples = Temples.objects.filter(user=request.user)
     context={
@@ -409,12 +425,12 @@ def manager_profile(request):
 @login_required
 @user_is_temple_manager
 def temple_add(request):
-    temple = get_object_or_404(TempleManager,user=request.user)
+    temple_manager = get_object_or_404(TempleManager,user=request.user)
     add_form = TempleAddForm(request.POST or None, request.FILES or None)
     if add_form.is_valid():
         instance = add_form.save(commit=False)
         instance.user=request.user
-        instance.temple2 = temple.Temple_Name
+        instance.temple2 = temple_manager.Temple_Name
         instance.save()
         
         return redirect('darshan:manager_profile')
