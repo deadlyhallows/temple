@@ -1,0 +1,27 @@
+{% extends 'darshan/base.html' %}
+
+
+
+{% block content %}
+      {% block style %}
+        <style>
+        html,body{
+
+                padding-top: 65px;
+
+                }
+
+        </style>
+    {% endblock style %}
+<div class="row">
+
+    <div class="col-md-12 mark_button">PRODUCTS<span><a href="{% url 'shop:product_add'%}"><button style="margin-left: 20px;">Add PRODUCTS<strong> +</strong></button></a></span>
+     <br><br><br><br>
+     {% for y in items %}
+         <p><a href="{% url 'shop:product_update' p=y.id %}">{{ y.ProductName }}, {{ y.TempleName }}</a> <span><a href="{% url 'shop:product_remove' p=y.id %}"><button>Remove</button></a></span></p>
+      {% endfor %}   
+    </div>
+
+</div>    
+
+{% endblock content %}
