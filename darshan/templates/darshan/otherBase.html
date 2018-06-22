@@ -33,6 +33,25 @@
             input[type="checkbox"] {
                 margin-right: 10px;
             }
+            input[type=time] {
+                width: 42%;
+            }
+            input[type=number] {
+                width: 42%;
+            }
+            .select2-container--default{
+                width: 50% !important;
+            }
+            .select2-search__field{
+                width: 375px !important;
+            }
+            textarea{
+                float: right;
+            }
+            #id_Temple_Name{
+                float: right;
+            }
+
         </style>
     {% endblock style1 %}
     {% block head_extra %} {% endblock head_extra %}
@@ -46,26 +65,38 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="" style="font-size: 30px ; font-family: 'Carter One';color:white; ">
+            <a class="navbar-brand" href="{% url 'darshan:home' %}" style="font-size: 30px ; font-family: 'Carter One';color:white; ">
                 Divya Kripa
             </a>
         </h1>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right down">
                 {% if user.is_authenticated and user.templemanager.is_manager %}
-                    <li><a href="{% url 'darshan:manager_profile' %}"
-                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">Home</a>
-                    </li>
-                    <li><a href="{% url 'darshan:logout' %}"
-                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">logout</a>
-                    </li>
-                    <li><a href="#"
-                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;margin-right: 15px;">Welcome {{ set }}</a>
-                    </li>
-
+                   <li>
+                       <a href="{% url 'darshan:manager_profile' %}" style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                           Profile
+                       </a>
+                   </li>
+                   <li>
+                       <a href="{% url 'darshan:logout' %}" style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                           logout
+                       </a>
+                   </li>
                 {% endif %}
                 {% if user.is_authenticated  and not user.is_superuser and not user.templemanager.is_manager %}
+                    <li>
+                        <a href="{% url 'darshan:alldarshan' %}"
+                           style="color: white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Darshan
+                        </a>
+                    </li>
 
+                    <li>
+                        <a href="{% url 'shop:allproducts' %}"
+                           style="color: white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Shop
+                        </a>
+                    </li>
                     <li>
                         {% if total_items > 0 %}
 
@@ -82,35 +113,34 @@
                         {% endif %}
                     </li>
                     <li>
-                        <a href="{% url 'shop:allproducts' %}"
-                           style="color: white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
-                            Add Items
+                        <a href="{% url 'notifications:all' %}" style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Notification({{ user|notifications_unread }})
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'darshan:user_profile' %}"
+                        <a href="{% url 'darshan:accounts' %}"
                            style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
-                            Home
+                            Welcome {{ set }}
                         </a>
                     </li>
-                    {#                        <li><a href="{% url 'notifications:all' %}" style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">Notification({{ user|notifications_unread }})</a></li>#}
                     <li>
                         <a href="{% url 'darshan:logout' %}"
                            style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
                             logout
                         </a>
                     </li>
+                {% elif not user.is_authenticated and not user.is_superuser %}
                     <li>
-                        <a href="{% url 'darshan:accounts' %}"
-                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;margin-right: 15px;">
-                            Welcome {{ set }}
+                        <a href="{% url 'darshan:alldarshan' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Darshan
                         </a>
                     </li>
-                {% elif not user.is_authenticated and not user.is_superuser %}
-
                     <li>
-                        <a href="{% url 'darshan:home' %}"
-                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">Home</a>
+                        <a href="{% url 'shop:allproducts' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Shop
+                        </a>
                     </li>
                     <li>
                         {% with total_items=cart|length %}
@@ -130,15 +160,9 @@
                         {% endwith %}
                     </li>
                     <li>
-                        <a href="#darshan"
+                        <a class=" launch-modal" href="{% url 'darshan:home' %}" data-modal-id="modal-login"
                            style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
-                            Darshan
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#shop"
-                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
-                            Shop
+                            Login
                         </a>
                     </li>
                     <li class="dropdown">
@@ -169,12 +193,6 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <a class=" launch-modal" href="{% url 'darshan:home' %}" data-modal-id="modal-login"
-                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;margin-right: 15px;">
-                            Login
-                        </a>
                     </li>
                 {% endif %}
                 <li id="google_translate_element" style="margin-top: 12px; width: 165px"></li>

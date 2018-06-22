@@ -37,7 +37,7 @@ from cart.models import CartItem
 from haystack.generic_views import SearchView
 from notify.signals import notify
 from darshan.views import send_verification_mail
-
+from cart.models import Carts
 
 class ProductSearch(SearchView):
     template = 'search/search.html'

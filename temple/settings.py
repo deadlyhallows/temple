@@ -104,8 +104,8 @@ TEMPLATES = [
 
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
-                'darshan.context_processor.Manager'
-                #'cart.context_processors.cart',#comment it when logging in as Superuser
+                'darshan.context_processor.Manager',
+                'cart.context_processors.cart'  #comment it when logging in as Superuser
                 #'cart.context_processors.cart1',
             ],
         },

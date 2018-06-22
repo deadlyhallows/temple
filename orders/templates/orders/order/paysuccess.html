@@ -1,4 +1,4 @@
-{% extends 'darshan/base.html' %}
+{% extends 'darshan/otherBase.html' %}
 {% load staticfiles %}
 
 {% block title %}
@@ -7,15 +7,8 @@
 
 {% block content %}
     {% block style %}
-        <style xmlns="http://www.w3.org/1999/html">
-        html,body{
-
-                padding-top: 55px;
-
-                }
-
-        </style>
     {% endblock style %}
     <h1>Thank You</h1>
+    <br>
     <p>Your order has been successfully completed.</p>
 {% endblock %}

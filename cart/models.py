@@ -23,6 +23,6 @@ class CartItem(models.Model):
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        return 'Order #' + str(self.id) + ' of ' + self.product.ProductName
+        return 'Order #' + str(self.id) + ' of ' + self.product.Product_Name
 
     

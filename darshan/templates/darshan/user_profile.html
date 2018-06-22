@@ -3,84 +3,114 @@
 {% load temple_extra %}
 {% block content %}
     {% block style %}
+
     {% endblock style %}
     <div class="container-fluid" style="margin-top:15px;">
         <div class="row">
-            <p>
-                <label>Name:</label>
-                <span>{{ u.first_name }}</span><span> {{ u.last_name }}</span>
-            </p>
-            <p>
-                <label>Mobile No.:</label>
-                <span>{{ v.Mobile_No }}</span>
-            </p>
-            <p>
-                <label>Email:</label>
-                <span>{{ u.email }}</span>
-            </p>
-            <p>
-            <form action="{% url 'darshan:user_profile' %}" method="post" role="form" style="float:left;">
-                {% csrf_token %}
-
-                {{ form.as_table }}
-                <button id="my_button" type="submit">Add</button>
-            </form>
-
-
+            <div class="col-md-12" align="right">
+                <p>
+                    <label>Name:</label>
+                    <span>{{ u.first_name }}</span><span> {{ u.last_name }}</span>
+                </p>
+                <p>
+                    <label>Mobile No.:</label>
+                    <span>{{ v.Mobile_No }}</span>
+                </p>
+                <p>
+                    <label>Email:</label>
+                    <span>{{ u.email }}</span>
+                </p>
+            </div>
         </div>
         <hr>
-        {% for t in query_list %}
-            {% for x in t.Select_Temple %}
-                <div class="row">
-                    <div class="col-md-6 col-md-3">
-                        <form action="" method="post"> {% csrf_token %}
-                            <table>
-                                <tr>
-                                    <td><label for="id_Temple1" style="width: 180px;">{{ x }}</label></td>
-                                    <td><a href="{% url 'darshan:delete' value=x %}" style="margin-right: 20px;"
-                                           class="btn btn-default">x</a></td>
-
-                                    {% for y in x|temple %}
-                                        <td>
-                                            <select class="django-select" name="{{ x }}" multiple="multiple"
-                                                    style="float:left;width: 428px;">
-                                                {% with temp=y|picture %}
-                                                    {% for z in temp %}
-                                                        <option value="{{ z.id }}"
-                                                                {% for x1 in t.selected %}{% if x1 == z.id %} selected
-                                                                {% endif %}{% endfor %}>{{ z.TimeD }}</option>
-                                                    {% endfor %}
-                                                {% endwith %}
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <button id="my_button" type="submit" style="margin-left: 10px;">Add</button>
-                                        </td>
-                                        <br>
-                                    {% endfor %}
-                                </tr>
-                            </table>
-                        </form>
-                    </div>
+        <div class="row">
+            <div class="col-md-12" align="center">
+                <form action="{% url 'darshan:user_profile' %}" method="post" role="form">
+                    {% csrf_token %}
+                    {{ form.as_table }}
+                    <button class="btn btn-primary" type="submit">Add</button>
+                </form>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {% for t in query_list %}
+                    {% for x in t.Select_Temple %}
+                        <div class="row">
+                            <div class="col-md-8 col-offset-4">
+                                <form action="" method="post" style="width: 100% !important;"> {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label for="id_Temple1">
+                                                {{ x }}
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button class="btn btn-primary">
+                                                <a href="{% url 'darshan:delete' value=x %}" style="color: white">
+                                                    Delete
+                                                </a>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-8">
+                                            {% for y in x|temple %}
+                                                <td>
+                                                    <select class="django-select" name="{{ x }}" multiple="multiple">
+                                                        {% with temp=y|picture %}
+                                                            {% for z in temp %}
+                                                                <option value="{{ z.id }}"{% for x1 in t.selected %}{% if x1 == z.id %} selected{% endif %}{% endfor %}>
+                                                                    {{ z.TimeD }}
+                                                                </option>
+                                                            {% endfor %}
+                                                        {% endwith %}
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-primary" type="submit">
+                                                        Add
+                                                    </button>
+                                                </td>
+                                                <br>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <br>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12" align="center">
+                <button class="btn btn-primary">
+                    <a href="{% url 'darshan:accounts' %}" style="color: white">
+                        Ready for Darshan
+                    </a>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" align="center">
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if object_list.has_previous %}
+                            <a href="?{{ page_change_var }}=1">&laquo; first</a>
+                            <a href="?{{ page_change_var }}={{ object_list.previous_page_number }} {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+                        {% endif %}
+                        <span class="current">
+                            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+                        </span>
+                        {% if object_list.has_next %}
+                            <a href="?{{ page_change_var }}={{ object_list.next_page_number }} {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+                            <a href="?{{ page_change_var }}={{ object_list.paginator.num_pages }} ">last &raquo;</a>
+                        {% endif %}
+                    </span>
                 </div>
-            {% endfor %}
-        {% endfor %}
-        <div class="pagination">
-    <span class="step-links">
-        {% if object_list.has_previous %}
-            <a href="?{{ page_change_var }}=1">&laquo; first</a>
-            <a href="?{{ page_change_var }}={{ object_list.previous_page_number }} {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
-        </span>
-
-        {% if object_list.has_next %}
-            <a href="?{{ page_change_var }}={{ object_list.next_page_number }} {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
-            <a href="?{{ page_change_var }}={{ object_list.paginator.num_pages }} ">last &raquo;</a>
-        {% endif %}
-    </span>
+            </div>
         </div>
     </div>
 {% endblock content %}

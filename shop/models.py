@@ -29,7 +29,7 @@ class Product(DirtyFieldsMixin, models.Model):
     Offeror_Discount= models.CharField(max_length=50, default=None, blank=True,null=True)
     #Add 'Available' field if needed
     def __str__(self):
-        return str(self.ProductName) + ',' + str(self.TempleName)
+        return str(self.Product_Name)
 
     class Meta:
         ordering = [

@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^login/$', auth_views.login,{'template_name':'darshan/home.html'}, name='login'),
     url(r'^user_profile/$',views.user_profile, name='user_profile'),
     url(r'^manager_profile/$',views.manager_profile, name='manager_profile'),
-    url(r'^accounts/$',views.accounts, name='accounts'),
+    url(r'^selectDarshan/$',views.accounts, name='accounts'),
     url(r'^details/(?P<temp>.+)$',views.details, name='details'),
     url(r'^detail/(?P<temp1>.+)$', views.detail, name='detail'),
     url(r'^delete/(?P<value>.+)/$',views.delete, name='delete'),
@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^darshan_add/$',views.darshan_add, name='darshan_add'),
     url(r'^darshan_update/(?P<s2>.+)/$',views.darshan_update, name='darshan_update'),
     url(r'^darshan_remove/(?P<s2>.+)/$',views.darshan_remove, name='darshan_remove'),
+    url(r'^alldarshan/$',views.allDarshan, name='alldarshan'),
 
 
 ]

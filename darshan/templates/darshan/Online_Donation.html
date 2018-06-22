@@ -3,14 +3,29 @@
 {% block content %}
     {% block style %}
     {% endblock style %}
-    <h2>Online Donation Form</h2>
-    <form method="post" action="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Donate</button>
-    </form>
-
-    {% if form.status %}
-        Click on <strong><a href="{% url 'orders:payment' %}">Pay</a></strong> to Proceed
-    {% endif %}
+    <div class="container-fluid" style="margin-top: 15px">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Online Donation Form</h2>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="row">
+                            <div class="col-md-2">
+                                {{ field.label }}
+                            </div>
+                            <div class="col-md-10">
+                                {{ field }}
+                            </div>
+                        </div>
+                        <br>
+                    {% endfor %}
+                    <button class="btn btn-primary" type="submit" style="float: right">Donate</button>
+                </form>
+                {% if form.status %}
+                    Click on <strong><a href="{% url 'orders:payment' %}">Pay</a></strong> to Proceed
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

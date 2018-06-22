@@ -21,7 +21,7 @@
 
                         <div class="thumbnail">
                             <img src="{{ result.object.Photo.url }}">
-                            {{ result.object.ProductName }}<br>
+                            {{ result.object.Product_Name }}<br>
                             {{ result.object.Price }}
                             <button style="float: right;margin-bottom: 10px;"><a href="{% url 'shop:details1' val=result.object.ProductName %}">View</a></button>
                         </div>

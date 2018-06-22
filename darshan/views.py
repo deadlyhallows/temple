@@ -57,6 +57,26 @@ def home(request):
              }
     return render(request, 'darshan/home.html', context)
 
+def allDarshan(request):
+    temples = Temples.objects.all()
+    paginator = Paginator(temples, 4)
+    page_change_var = 'page'  # change=request
+    page = request.GET.get(page_change_var)
+    print(type(page))
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        queryset = paginator.page(1)
+    except EmptyPage:
+        queryset = paginator.page(paginator.num_pages)
+
+    context = {'temples': temples,
+               'object_list': queryset,
+               'page_change_var': page_change_var
+               }
+    return render(request, 'darshan/alldarshan.html', context)
+
+
 #------------For Users -------------
 def signup(request):
     print("D")
@@ -184,6 +204,8 @@ def Usertype(request):
 @login_required
 def user_profile(request):
     b=[]
+    temp=Temples.objects.all()
+    print(temp)
     user=request.user
     profile=Profile.objects.get(user_id=user.id)
     print(profile.Select_Temple)

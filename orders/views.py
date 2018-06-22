@@ -170,7 +170,7 @@ def payment_success(request):
         subject = 'Notification'
         verb="paid"
         message = render_to_string('darshan/notification_email.html', {
-            'target':instance,'verb':verb })
+            'target':products,'verb':verb })
         users.email_user(subject, message)
         send_verification_mail(users.email, message, subject)      
     

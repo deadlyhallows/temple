@@ -2,10 +2,6 @@ from haystack import indexes
 from shop.models import Product
 
 
-
-
-
-
 class ProductIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     ProductName = indexes.CharField(model_attr='ProductName')
