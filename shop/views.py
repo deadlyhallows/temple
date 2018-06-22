@@ -47,7 +47,6 @@ class ProductSearch(SearchView):
 def allproducts(request):
     print(request.user)
     lists = None
-
     k = []
 
     if request.method == 'POST' and 'temples' in request.POST:
