@@ -18,31 +18,35 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <h3>Filter By Temples</h3>
                 <form method="Post" role="form" style="width: 100% !important;">
                     {% csrf_token %}
                     <label for="id_temple0">Temples:</label><br>
                     {% for x in query_list %}
-                        <input type="checkbox" name="temples" id="id_temple0" value="{{ x.id }}" style="float: left !important;">{{ x }}<br>
+                        <input type="checkbox" name="temples" id="id_temple0" value="{{ x.id }}"
+                               style="float: left !important;">{{ x }}<br>
                     {% endfor %}
                     <br>
                     <button class="btn btn-primary" type="submit">Apply</button>
                 </form>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-10">
                 {% for x in list %}
                     {% for y in x|product %}
-                        <div class="column">
+                        <div class="col-sm-3">
                             <div class="thumbnail">
-                                <img src="{{ y.Photo.url }}">
-                                {{ y.ProductName }}<br>
+                                {% if y.Photo.url %}
+                                    <img src="{{ y.Photo.url }}">
+                                {% endif %}
+                                {{ y.Product_Name }}<br>
                                 {{ y.Price }}
-                                <button style="float: right;margin-bottom: 10px;">
-                                    <a href="{% url 'shop:details1' val=y.ProductName %}">
+                                <a href="{% url 'shop:details1' val=y.Product_Name %}">
+                                    <button class="btn btn-default" style="float: right;margin-bottom: 10px;">
                                         View
-                                    </a>
-                                </button>
+                                    </button>
+                                </a>
+
                             </div>
                         </div>
                     {% endfor %}

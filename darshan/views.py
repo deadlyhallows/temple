@@ -204,6 +204,8 @@ def Usertype(request):
 @login_required
 def user_profile(request):
     b=[]
+    temp=Temples.objects.all()
+    print(temp)
     user=request.user
     profile=Profile.objects.get(user_id=user.id)
     print(profile.Select_Temple)

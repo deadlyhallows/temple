@@ -39,7 +39,7 @@
                     </a>
                 </button>
                 <br>
-                <button style="margin-bottom: 20px;width: 200px;height:50px;"><a {% if q.OnlinePrasadStatus %}
+                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;"><a {% if q.OnlinePrasadStatus %}
                     href="{{ q.Online_Prasad }}" {% else %}
                     href="{% url 'shop:allproducts' %}"{% endif %}>Order Prasad</a></button>
 

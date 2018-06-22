@@ -1,4 +1,4 @@
-{% extends 'darshan/otherBase.html' %}
+{% extends 'darshan/base.html' %}
 {% load staticfiles %}
 {% load temple_extra %}
 
@@ -66,8 +66,7 @@
     {% endblock %}
     {% block style %}
     {% endblock style %}
-
-    <div class="container">
+    <div class="container-fluid" style="margin-top: 15px">
         <div class="row">
             <div class="col-md-12">
                 <h2>Your Shopping Cart</h2>
@@ -95,7 +94,7 @@
                                             <img src="{{ x.Photo.url }}">
                                         </a>
                                     </td>
-                                    <td>{{ x.ProductName }}</td>
+                                    <td>{{ x.Product_Name }}</td>
                                     <td>
                                         <form action="{% url 'cart:cart_add' x.id %}" method="post">
                                             <select name="quantity" id="id_quantity">
@@ -119,7 +118,6 @@
 
                     </thead>
                 </table>
-
                 <p>
                     <a href="{% url 'shop:allproducts' %}" class="btn">Continue Shopping</a><br>
                     {% if user.is_authenticated %}
@@ -134,7 +132,6 @@
             </div>
         </div>
     </div>
-
     <script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
             integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -144,7 +141,6 @@
                 e.preventDefault();
                 $('#' + $(this).data('modal-id')).modal();
             });
-
         });
     </script>
 

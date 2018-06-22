@@ -1,4 +1,4 @@
-{% extends 'darshan/base.html' %}
+{% extends 'darshan/otherBase.html' %}
 {% load staticfiles %}
 
 {% block title %}
@@ -7,18 +7,24 @@
 
 {% block content %}
     {% block style %}
-        <style xmlns="http://www.w3.org/1999/html">
-        html,body{
-
-                padding-top: 55px;
-
-                }
-
-        </style>
     {% endblock style %}
-    <h1>Thank You</h1>
-    <p>Your order has been successfully completed.Your order number is <strong>
-    {{ order.id }}.Now click on pay to proceed</strong>
-    </p>
-    <p><a href="{% url 'orders:payment' %}">Pay</a></p>
+    <div class="container-fluid" style="margin-top: 15px">
+        <div class="row">
+            <div class="col-md-12" align="center">
+                <h1>Thank You</h1>
+                <p>
+                    Your order has been successfully completed.Your order number is
+                    <br>
+                    <strong>
+                        {{ order.id }}.Now click on pay to proceed
+                    </strong>
+                </p>
+                <a href="{% url 'orders:payment' %}">
+                    <button class="btn btn-primary">
+                        Pay
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

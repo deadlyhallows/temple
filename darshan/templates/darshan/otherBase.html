@@ -33,11 +33,23 @@
             input[type="checkbox"] {
                 margin-right: 10px;
             }
+            input[type=time] {
+                width: 42%;
+            }
+            input[type=number] {
+                width: 42%;
+            }
             .select2-container--default{
                 width: 50% !important;
             }
             .select2-search__field{
                 width: 375px !important;
+            }
+            textarea{
+                float: right;
+            }
+            #id_Temple_Name{
+                float: right;
             }
 
         </style>
@@ -60,15 +72,16 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right down">
                 {% if user.is_authenticated and user.templemanager.is_manager %}
-                    <li><a href="{% url 'darshan:manager_profile' %}"
-                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">Home</a>
-                    </li>
-                    <li><a href="#"
-                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;margin-right: 15px;">Welcome {{ set }}</a>
-                    </li>
-                    <li><a href="{% url 'darshan:logout' %}"
-                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">logout</a>
-                    </li>
+                   <li>
+                       <a href="{% url 'darshan:manager_profile' %}" style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                           Profile
+                       </a>
+                   </li>
+                   <li>
+                       <a href="{% url 'darshan:logout' %}" style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                           logout
+                       </a>
+                   </li>
                 {% endif %}
                 {% if user.is_authenticated  and not user.is_superuser and not user.templemanager.is_manager %}
                     <li>
@@ -106,7 +119,7 @@
                     </li>
                     <li>
                         <a href="{% url 'darshan:accounts' %}"
-                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;margin-right: 15px;">
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
                             Welcome {{ set }}
                         </a>
                     </li>
@@ -148,7 +161,7 @@
                     </li>
                     <li>
                         <a class=" launch-modal" href="{% url 'darshan:home' %}" data-modal-id="modal-login"
-                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;margin-right: 15px;">
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
                             Login
                         </a>
                     </li>
