@@ -1,4 +1,4 @@
-{% extends 'darshan/base.html' %}
+{% extends 'darshan/otherBase.html' %}
 {% load staticfiles %}
 {% load temple_extra %}
 
@@ -89,9 +89,9 @@
                             {% for x in product|products %}
 
                                 <tr>
-                                    <td>
+                                    <td style="max-width: 375px;">
                                         <a href="#">
-                                            <img src="{{ x.Photo.url }}">
+                                            <img src="{{ x.Photo.url }}" style="max-width: 350px;">
                                         </a>
                                     </td>
                                     <td>{{ x.Product_Name }}</td>
@@ -132,7 +132,7 @@
             </div>
         </div>
     </div>
-    <script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
             integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script>
