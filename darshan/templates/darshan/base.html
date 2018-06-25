@@ -32,6 +32,19 @@
         </h1>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right down">
+                {% if user.is_authenticated and user.shopkeeper.is_shopkeeper %}
+                    <li><a href="{% url 'darshan:home' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">Home</a>
+                    </li>
+                    <li><a href="{% url 'notifications:all' %}" style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">Notification({{ user|notifications_unread }})</a></li>
+                    <li><a  href="{% url 'darshan:logout' %}"  style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">logout</a>
+                    </li>
+                     <li><a href="{% url 'shop:seller_profile' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;margin-right: 15px;">Profile</a>
+                    </li>   
+
+                {% endif%} 
+
                 {% if user.is_authenticated and user.templemanager.is_manager %}
                     <li>
                         <a href="{% url 'darshan:manager_profile' %}"
@@ -46,7 +59,7 @@
                         </a>
                     </li>
                 {% endif %}
-                {% if user.is_authenticated  and not user.is_superuser and not user.templemanager.is_manager %}
+                {% if user.is_authenticated and not user.is_superuser and not user.templemanager.is_manager and not user.shopkeeper.is_shopkeeper %}
                     <li>
                         <a href="{% url 'darshan:alldarshan' %}"
                            style="color: white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
@@ -105,7 +118,7 @@
                     </li>
                     <li>
                         {% with total_items=cart|length %}
-                            {% if cart|length > 0 %}
+                            {% if total_items > 0 %}
                                 <a href="{% url 'cart:cart_detail' %}"
                                    style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
                                     Cart <br>
@@ -132,8 +145,8 @@
                             <b class="caret"></b></a>
                         <ul class="dropdown-menu backcolor">
                             <li>
-                                <a class=" launch-modal" href="{% url 'darshan:home' %}" style=" color:black;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;"
-                                   data-modal-id="modal1">
+                                <a class=" launch-modal" href="{% url 'darshan:home' %}"  style=" color:black;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;"
+                                   data-modal-id="modal1" data-backdrop="static">
                                     Manager
                                 </a>
                             </li>
@@ -155,6 +168,7 @@
         </div>
     </div>
 </nav>
+
 {% block content %}
 {% endblock %}
 

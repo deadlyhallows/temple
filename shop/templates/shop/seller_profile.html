@@ -22,10 +22,31 @@
                             </a>
                             <span>
                                 <a href="{% url 'shop:product_remove' p=y.id %}">
-                                    <button class="btn btn-primary">Remove</button>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal5" backdrop='static'>Remove</button>
                                 </a>
                             </span>
                         </h4>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal5" role="dialog">
+                          <div class="modal-dialog">
+                          
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Warning</h4>
+                              </div>
+                              <div class="modal-body">
+                                <p>Do you want to delete it???</p>
+                              </div>
+                              <div class="modal-footer">
+                               <a href="{% url 'shop:product_remove' p=y.id %}"><button type="button" class="btn btn-default" >Yes</button></a>
+                               <a href="{% url 'shop:seller_profile' %}"><button type="button" class="btn btn-default" > No </button></a>
+                              </div>
+                            </div>
+                            
+                          </div>
+                        </div>  
                     {% endfor %}
                 </div>
             </div>

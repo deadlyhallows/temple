@@ -23,7 +23,8 @@ urlpatterns = [
         views.activate, name='activate'),
 
     
-    
+    url(r'^accounts/login/$',views.Usertype, name='Usertype1'),
+
     #------------ For knowing the type of users-------------
     url(r'^login/Usertype/$',views.Usertype, name='Usertype'),
 

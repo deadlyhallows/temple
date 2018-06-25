@@ -35,26 +35,32 @@
         <br>
     </div>
 
-    <!--SignUp form-->
+    
+     <!--SignUp form for user and  seller-->
+
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <form role="form" action="{% url 'darshan:signup' %}" method="post">
-            <div class="modal-dialog ">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h2 class="modal-title" id="myModalLabel">Sign Up</h2>
-
-                    </div>
-                    <div class="modal-body">
-                        {% csrf_token %}
-                        {{ user_form.as_p }}
-                        {{ Mobile_form.as_p }}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit">Sign Up</button>
-
-                    </div>
-                </div>
+           <div class="modal-dialog ">
+           <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h2 class="modal-title" id="myModalLabel">Sign Up</h2>
+            </div>
+            <div class="modal-body">
+                {% csrf_token %}
+               
+               {{ user_form.as_p}}
+               {{ Mobile_form.as_p }}
+               <label>Role:</label>
+                <select  name="usertype" style="float:left;width: 428px;">
+                    <option value="user" active>User</option>
+                    <option value="seller">Seller</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="submit">Sign Up</button>
+            </div>
+            </div>
             </div>
         </form>
     </div>
@@ -117,7 +123,32 @@
                 <p>
                     <a href="{% url 'shop:allproducts' %}" class="btn">Continue Shopping</a><br>
                     {% if user.is_authenticated %}
-                        <a href="{% url 'orders:order_create' %}" class="btn">Buy Now</a>
+                        {% if quantity > 0 %} 
+                            <a href="{% url 'orders:order_create' %}" class="btn">Buy Now</a>
+                        {% elif quantity == 0 %}
+                            <a class="launch-modal" data-toggle="modal" data-modal-id="myModal7" >Buy Now</a>
+
+                                  <!-- Modal -->
+                                  <div class="modal fade" id="myModal7" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                          <h4 class="modal-title">Warning</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                          <p>Add Products to cart to buy</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">OK</button></a>
+                                        </div>
+                                      </div>
+                                      
+                                    </div>
+                                  </div>  
+                        {% endif %}          
+                        
                     {% else %}
                         <a href="{% url 'cart:view_cart' %}" class="launch-modal btn"
                            data-modal-id="modal-login">Login</a>/
@@ -128,6 +159,7 @@
             </div>
         </div>
     </div>
+
 
     <script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"

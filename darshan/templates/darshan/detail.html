@@ -5,6 +5,67 @@
 {% block content %}
     {% block style %}
     {% endblock style %}
+   <!-- Login Form -->
+    <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <form method="post" role="form" action="{% url 'darshan:login' %}">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h2 class="modal-title" id="myModalLabel">Login</h2>
+                    </div>
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-md-12" align="center">
+                            <button type="submit" style="width: 200px;text-align: center;">Log in</button>
+                        </div>
+                        <br><br>
+                        <div class="col-md-12" style="text-align: center;">
+                            <a href="{% url 'darshan:home' %}" class="ab">New to My Site? Sign up</a>
+                            <p><strong>-- OR --</strong></p>
+                            <p><a href="{% url 'social:begin' 'facebook' %}" class="ab">Login with Facebook</a></p>
+                            <p><a href="{% url 'social:begin' 'google-oauth2' %}" class="ab">Login with Gmail</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>    
+       
+
+ <!--SignUp form for user and  seller-->
+
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <form role="form" action="{% url 'darshan:signup' %}" method="post">
+           <div class="modal-dialog ">
+           <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h2 class="modal-title" id="myModalLabel">Sign Up</h2>
+            </div>
+            <div class="modal-body">
+                {% csrf_token %}
+               
+               {{ user_form.as_p}}
+               {{ Mobile_form.as_p }}
+               <label>Role:</label>
+                <select  name="usertype" style="float:left;width: 428px;">
+                    <option value="user" active>User</option>
+                    <option value="seller">Seller</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="submit">Sign Up</button>
+            </div>
+            </div>
+            </div>
+        </form>
+    </div>
+
     <div class="container-fluid" style="margin-top: 15px">
         <div class="row">
             <div class="col-md-12">
@@ -39,24 +100,42 @@
                     </a>
                 </button>
                 <br>
-                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;"><a {% if q.OnlinePrasadStatus %}
-                    href="{{ q.Online_Prasad }}" {% else %}
+
+
+                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;"><a {% if q.Online_Prasad %} href="{{ q.Online_Prasad }}" {% else %}
                     href="{% url 'shop:allproducts' %}"{% endif %}>Order Prasad</a></button>
 
                 <br>
 
-                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
-                    <a  {% if q.OnlineDonationStatus %}
-                        href="{{ q.OnlinePrasad }}" {% else %}
-                        href="{% url 'darshan:Online_Donation'  v=q.temple2 %}" {% endif %}>
-                        Make Donation
-                    </a>
-                </button>
+
+                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;"><a class="launch-modal" data-toggle="modal" data-modal-id="myModal4">Make Donation</a></button>
+
+                    <!-- Modal -->
+                      <div class="modal fade" id="myModal4" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">Warning</h4>
+                            </div>
+
+                            <div class="modal-body">
+                              <p><strong>Signup or login as USER</strong></p>
+                            </div>
+                            
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">OK</button></a>
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </div>  
+
                 <br>
 
-                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
-                    <a href="">Visit Temple</a>
-                </button>
+                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;"><a class="launch-modal" data-toggle="modal" data-modal-id="myModal4">Visit Temple</a></button>
+
                 <br>
             </div>
         </div>

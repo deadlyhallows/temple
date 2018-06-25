@@ -23,31 +23,25 @@ class SignUpForm(UserCreationForm):
 
         super(SignUpForm, self).__init__(*args, **kwargs)
         for field in self.fields:
+            username="username"
             help_text = self.fields[field].help_text
             self.fields[field].help_text = None
             if help_text != '':
                 self.fields[field].widget.attrs.update(
                     {'class': 'has-popover', 'data-content': help_text, 'data-placement': 'right',
                      'data-container': 'body'})
+                self.fields[username].widget.attrs.update(
+                    {'id': username})    
+
+  
 
 
-# is_verified = forms.BooleanField(initial=False)
 class MobileForm(forms.ModelForm):
     class Meta:
         model = Mobile
         fields = ('Mobile_No',)
 
-    def __init__(self, *args, **kwargs):
-
-        super(MobileForm, self).__init__(*args, **kwargs)
-        for field in self.fields:
-            help_text = self.fields[field].help_text
-            self.fields[field].help_text = None
-            if help_text != '':
-                self.fields[field].widget.attrs.update(
-                    {'class': 'has-popover', 'data-content': help_text, 'data-placement': 'right',
-                     'data-container': 'body'})
-
+    
 
 class TempleForm(forms.ModelForm):
     # comment it while migration
@@ -84,31 +78,29 @@ class TempleManagerForm(forms.ModelForm):
 class TempleAddForm(forms.ModelForm):
     Icon_images = forms.ImageField(required=True)
     images = forms.ImageField(required=True)
-    Religion = forms.CharField(max_length=200, required=True)
-    City = forms.CharField(max_length=200, required=True)
-    State = forms.CharField(max_length=200, required=True)
-    Country = forms.CharField(max_length=200, required=True)
-    Deity = forms.CharField(max_length=200, required=True)
-    Website = forms.URLField(required=True)
-    Contacts = forms.CharField(max_length=200, required=True)
-    Phone_Number = forms.CharField(max_length=200, required=True)
-    Temple_Purohit = forms.CharField(max_length=200, required=True)
-    Address = forms.CharField(widget=PagedownWidget(show_preview=False), required=True)
-    About_Temple = forms.CharField(widget=PagedownWidget(show_preview=False), required=True)
-    Temple_History = forms.CharField(widget=PagedownWidget(show_preview=False), required=True)
-    Significance = forms.CharField(widget=PagedownWidget(show_preview=False), required=True)
-    Management = forms.CharField(widget=PagedownWidget(show_preview=False), required=True)
-    Related_Faith = forms.CharField(widget=PagedownWidget(show_preview=False), required=True)
-    About_City = forms.CharField(widget=PagedownWidget(show_preview=False), required=True)
-    How_To_Reach = forms.CharField(widget=PagedownWidget(show_preview=False), required=True)
-    Do_And_Dont = forms.CharField(widget=PagedownWidget(show_preview=False), required=True)
-    Amenities = forms.CharField(widget=PagedownWidget(show_preview=False), required=True)
-    Celebration = forms.CharField(widget=PagedownWidget(show_preview=False), required=True)
-    Precaution_While_Visiting = forms.CharField(widget=PagedownWidget(show_preview=False), required=True)
-    Tender = forms.CharField(widget=PagedownWidget(show_preview=False), required=True)
-    Recruitment = forms.CharField(widget=PagedownWidget(show_preview=False), required=True)
-    Notice_and_Updates = forms.CharField(widget=PagedownWidget(show_preview=False), required=True)
-
+    Religion = forms.CharField(max_length=200,required=True)
+    City = forms.CharField(max_length=200,required=True)
+    State = forms.CharField(max_length=200,required=True)
+    Country = forms.CharField(max_length=200,required=True)
+    Deity = forms.CharField(max_length=200,required=True)
+    Contacts = forms.CharField(max_length=200,required=True)
+    Phone_Number = forms.CharField(max_length=200,required=True)
+    Temple_Purohit = forms.CharField(max_length=200,required=True)
+    Address = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
+    About_Temple = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
+    Temple_History= forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
+    Significance= forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
+    Management= forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
+    Related_Faith= forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
+    About_City = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
+    How_To_Reach = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
+    Do_And_Dont = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
+    Amenities = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
+    Celebration = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
+    Precaution_While_Visiting = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
+    Tender = forms.CharField(widget=PagedownWidget(show_preview=False),required=False)
+    Recruitment = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
+    Notice_and_Updates = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
     class Meta:
         model = Temples
         fields = ('Icon_images', 'images', 'Religion', 'City', 'State', 'Country', 'Deity', 'Website',
@@ -123,12 +115,12 @@ class TempleAddForm(forms.ModelForm):
 
 class PictureAddForm(forms.ModelForm):
     image = forms.ImageField(required=True)
-    publish = forms.DateField(widget=SelectDateWidget, required=True)
-    TimeD = forms.TimeField(required=True)
-
+    publish = forms.DateField(widget=SelectDateWidget,required=True)  
+    Time = forms.TimeField(required=True)
     class Meta:
-        model = Picture
-        fields = ('image', 'TimeD', 'publish')
+        model=Picture
+        fields=('image','Time','publish')
+
 
 
 class DarshanAddForm(forms.ModelForm):

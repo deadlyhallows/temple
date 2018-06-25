@@ -4,4 +4,7 @@ from .models import TempleManager
 
 def Manager(request):
 	set = request.user
-	return {'set':set}
+	return {'set':set,}
+	    # 'form': AuthenticationForm,
+     #           'Mobile_form': MobileForm,
+     #           'user_form': SignUpForm,}

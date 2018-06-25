@@ -27,9 +27,10 @@ from notify.signals import notify
 from django.template.loader import render_to_string
 from darshan.views import send_verification_mail
 
+PAID_FEE_AMOUNT = 0
 @login_required
 def order_create(request):
-
+    global PAID_FEE_AMOUNT
     total_cost=Decimal(0.0)
     total_items=0
     user = get_user(request)
@@ -46,6 +47,8 @@ def order_create(request):
         product = get_object_or_404(Product, id=item.product_id)
         #print(a)
         total_cost += (item.quantity * product.Price)
+        PAID_FEE_AMOUNT =total_cost
+
     if request.method == 'POST':
         print("b")
         form = OrderCreateForm(request.POST)
@@ -66,7 +69,7 @@ def order_create(request):
                                          price=products.Price,
                                          quantity=item.quantity)
                 #item.delete()
-
+                
             #launch asynchronous task
             #order_created.delay(order.id)
             return render(request, 'orders/order/created.html', {'order': order})
@@ -78,11 +81,18 @@ def order_create(request):
 @login_required
 def payment(request):
     print(request.user)
+    
     user = request.user
     get_user = get_object_or_404(User, username=user)
-    #b = Order.objects.filter(buyer_id=user.id).order_by('created').first()
-    #c=get_object_or_404(OrderItem,order_id=b.id)
-    #PAID_FEE_AMOUNT = c.price
+    # b = Order.objects.filter(buyer_id=user.id).order_by('created').first()
+    # items=OrderItem.objects.filter(order_id=b.id)
+    # for item in items:
+    #     #print(item)
+    #     total_items += item.quantity
+    #     product = get_object_or_404(Product, id=item.product_id)
+    #     #print(a)
+    #     total_cost += (item.quantity * product.Price)
+    #     PAID_FEE_AMOUNT = total_cost
     data = {}
     txnid = get_transaction_id(request)
     hash_ = generate_hash(request, txnid)
@@ -90,7 +100,7 @@ def payment(request):
     # use constants file to store constant values.
     # use test URL for testing
     data["action"] = settings.PAYMENT_URL_LIVE #LIVE for production
-    data["amount"] = float(settings.PAID_FEE_AMOUNT)
+    data["amount"] = float(PAID_FEE_AMOUNT)
     data["productinfo"] = settings.PAID_FEE_PRODUCT_INFO
     data["key"] = settings.KEY
     data["txnid"] = txnid
@@ -112,6 +122,7 @@ def generate_hash(request, txnid):
         # get keys and SALT from dashboard once account is created.
         #hashSequence = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10"
         hash_string = get_hash_string(request, txnid)
+        print(hash_string)
         generated_hash = hashlib.sha512(hash_string.encode('utf-8')).hexdigest().lower()
         return generated_hash
     except Exception as e:
@@ -126,7 +137,8 @@ def get_hash_string(request, txnid):
     a = get_object_or_404(User, username=request.user)
     print(request.user)
     hash_string = settings.KEY + "|" + txnid + "|" + str(
-        float(settings.PAID_FEE_AMOUNT)) + "|" + settings.PAID_FEE_PRODUCT_INFO + "|"
+        float(PAID_FEE_AMOUNT)) + "|" + settings.PAID_FEE_PRODUCT_INFO + "|"
+
     hash_string += a.first_name + "|" + a.email + "|"
     hash_string += "||||||||||" + settings.SALT
 
@@ -186,13 +198,16 @@ def payment_success(request):
 @login_required
 @csrf_exempt
 def payment_failure(request):
-
+    user=request.user
+    # get_order = Order.objects.filter(buyer_id=user.id).order_by('-id').first()
+    # print(get_order)
+    # get_order.delete()
     data = {}
-    return render(request, "orders/order/payfail.html", data)
+    return redirect('orders:payment')#render(request, "orders/order/payfail.html", data)
 
-def order_delivered(self, request, obj, form, change):
-    if Order().is_dirty():
-        user = User.objects.filter(id=obj.buyer_id)
-        notify.send(sender=self, target=obj, recipient_list=list(user), verb="accepted")
-    obj.save()
+# def order_delivered(self, request, obj, form, change):
+#     if Order().is_dirty():
+#         user = User.objects.filter(id=obj.buyer_id)
+#         notify.send(sender=self, target=obj, recipient_list=list(user), verb="accepted")
+#     obj.save()
 

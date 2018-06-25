@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from darshan.forms import SignUpForm, MobileForm
 from shop.models import Product
 from .cart import Cart
-from .forms import CartAddProductForm
+from .forms import CartAddProductForm, CartAddProductForms
 from django.contrib.auth import get_user
 from decimal import Decimal
 from django.shortcuts import render_to_response, redirect
@@ -56,6 +56,7 @@ def update_cart_info(request):
 
 @login_required
 def view_cart(request):
+    quantity=0
     cart_total_price = None
     user = request.user
     print(user)
@@ -67,11 +68,13 @@ def view_cart(request):
     print("S")
     for item in cart_items:# getting the total price of the cart
         order_total += (item.product.Price * item.quantity)
+        quantity+=item.quantity
         item_cart = Product.objects.filter(id=item.product_id)
         for x in item_cart:
             cart_total_price = item.quantity * x.Price
 
     context = {    'loop_times': range(1, 21),
+                   'quantity':quantity,
                    'user':user,
                    'cart': cart_items,
                    'cart_form':cart_form,
@@ -135,15 +138,15 @@ def remove_from_cart(request, product_id):
 def cart_add(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
-    form = CartAddProductForm(request.POST)
+    
     print("a")
+    form = CartAddProductForms(request.POST)
     if form.is_valid():
-        print("b")
         cd = form.cleaned_data
-        cart.add(product=product,
-                 quantity=cd['quantity'],
-                 update_quantity=cd['update'])
+        cart.add(product=product, quantity=cd['quantity'], update_quantity=cd['update'])
     return redirect('cart:cart_detail')
+    
+    
 
 def cart_remove(request, product_id):
     cart = Cart(request)
@@ -153,17 +156,11 @@ def cart_remove(request, product_id):
     return redirect('cart:cart_detail')
 
 def cart_detail(request):
-    print(request)
     cart = Cart(request)
-    print("c")
-    for item in cart:
-        print(type(item))
-        item['update_quantity_form'] = CartAddProductForm(initial={'quantity':str(item['quantity']),
-                                                                   'update':True})
-        item['update_quantity_form'] = str(item['update_quantity_form'])
-
+    
     context = {'loop_times': range(2, 21),
                'cart': cart,
+
                'form': AuthenticationForm,
                'Mobile_form': MobileForm,
                'user_form': SignUpForm,

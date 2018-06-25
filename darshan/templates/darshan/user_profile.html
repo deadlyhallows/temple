@@ -23,6 +23,7 @@
             </div>
         </div>
         <hr>
+
         <div class="row">
             <div class="col-md-12" align="center">
                 <form action="{% url 'darshan:user_profile' %}" method="post" role="form">
@@ -33,6 +34,19 @@
                 <br>
             </div>
         </div>
+
+        {% if messages %}
+        
+            <ul class="messages" style="text-align: left;color: green; margin-bottom: 0px;">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        
+      <!-- -----------For telling users that time is added---------- -->
+        {% endif %}
+
+        <p style="text-align: center;">  ADD TIME FROM DROPDOWN </p>
         <div class="row">
             <div class="col-md-12">
                 {% for t in query_list %}
@@ -48,10 +62,35 @@
                                         </div>
                                         <div class="col-md-2">
                                             <button class="btn btn-primary">
-                                                <a href="{% url 'darshan:delete' value=x %}" style="color: white">
+                                                <a style="color: white" class="launch-modal" 
+                                            data-toggle="modal" data-target="#myModal6">
                                                     Delete
                                                 </a>
                                             </button>
+
+                                             
+                                         <!-- Modal -->
+                                          <div class="modal fade" id="myModal6" role="dialog">
+                                            <div class="modal-dialog">
+                                            
+                                              <!-- Modal content-->
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                  <h4 class="modal-title" style="color: red">Warning</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <p>Do you want to delete it???</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                 <a href="{% url 'darshan:delete' value=x %}"><button type="button" class="btn btn-default" >Yes</button></a>
+                                                 <a href="{% url 'darshan:user_profile' %}"><button type="button" class="btn btn-default" > No </button></a>
+                                                </div>
+                                              </div>
+                                              
+                                            </div>
+                                          </div> 
+
                                         </div>
                                         <div class="col-md-8">
                                             {% for y in x|temple %}
@@ -60,7 +99,7 @@
                                                         {% with temp=y|picture %}
                                                             {% for z in temp %}
                                                                 <option value="{{ z.id }}"{% for x1 in t.selected %}{% if x1 == z.id %} selected{% endif %}{% endfor %}>
-                                                                    {{ z.TimeD }}
+                                                                    {{ z.Time }}
                                                                 </option>
                                                             {% endfor %}
                                                         {% endwith %}
@@ -111,6 +150,7 @@
                     </span>
                 </div>
             </div>
+
         </div>
     </div>
 {% endblock content %}

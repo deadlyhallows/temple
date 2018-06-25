@@ -38,7 +38,7 @@ import random
 def home(request):
     temples = Temples.objects.all()
     product_num_entities = Product.objects.all().count()
-    product_rand_entities = random.sample(range(product_num_entities), 12)
+    product_rand_entities = random.sample(range(product_num_entities), 0)#12)
     product = Product.objects.filter(id__in=product_rand_entities)[:8]
     paginator = Paginator(temples, 4)
     page_change_var = 'page'  # change=request
@@ -126,7 +126,6 @@ def signup(request):
                         print("E")
                         cart_item.save()
                         print("f")
-                        # send_mail(subject,message,from_email,to_list,fail_silently=True)
             current_site = get_current_site(request)
             subject = 'Activate Your MySite Account'
             message = render_to_string('darshan/account_activation_email.html', {
@@ -138,6 +137,14 @@ def signup(request):
             user.email_user(subject, message)
             send_verification_mail(user.email, message, subject)
             return render(request, 'darshan/account_activation_sent.html')
+        else:
+            
+            arr = []
+            for field in user_form:
+                arr.append(field.errors)
+                print(field.errors)
+                print("\n")
+            messages.error(request, user_form.errors) 
     else:
         print("abc")
         user_form = SignUpForm()
@@ -233,6 +240,7 @@ def user_profile(request):
         user_cart = get_object_or_404(Carts, user_id=user.id)
         for item in cart:
             cart_product = get_object_or_404(Product, Product_Name=item['product'])
+            
             cart_item = CartItem.objects.create(quantity=item['quantity'],
                                                 active=True, cart_id=user_cart.id, product_id=cart_product.id)
             cart_item.save()
@@ -271,6 +279,7 @@ def user_profile(request):
                     pic = Picture.objects.get(id=z)
                     profile.selected.append(pic.id)
                     profile.save()
+                    messages.success(request,"Time is added") 
     for n in query_list:
         for m in n.Select_Temple:
             b.append(m)
@@ -356,13 +365,16 @@ def detail(request, temp1):  # ----------------For Anonymous User---------------
     # FMT = '%H:%M:%S'
     temple = get_object_or_404(Temples, temple2=temp1)
     darshan = Darshans.objects.filter(temple_id=temple.id)
-    context = {
-        's': darshan,
-        'q': temple,
-    }
+    context={
+        's':darshan,
+        'q':temple,
+        'form': AuthenticationForm,
+        'Mobile_form': MobileForm,
+        'user_form': SignUpForm,
+        }
     return render(request, 'darshan/detail.html', context)
 
-
+@login_required
 def Online_Donation(request, v):
     if request.method == "POST":
         temple = get_object_or_404(Temples, temple2=v)
@@ -389,6 +401,7 @@ def Online_Donation(request, v):
 
 def signup1(request):
     print("D")
+    arr = []
     if request.method == 'POST':
         print("p")
         user_form = SignUpForm(request.POST)
@@ -423,6 +436,16 @@ def signup1(request):
             user.email_user(subject, message)
             send_verification_mail(user.email, message, subject)
             return render(request, 'darshan/account_activation_sent.html')
+        else:
+            user_form = SignUpForm(request.POST)
+            mobile_form = MobileForm(request.POST)
+            manager_form =TempleManagerForm(request.POST)
+            for field in user_form:
+                arr.append(field.errors)
+                print(field.errors)
+                print("\n")
+            messages.error(request, user_form.errors)
+        
     else:
         print("abc")
         user_form = SignUpForm()
@@ -433,6 +456,7 @@ def signup1(request):
         "user_form": user_form,
         "Mobile_form": mobile_form,
         "manager_form": manager_form,
+
 
     }
     return render(request, 'darshan/home.html', context)
@@ -495,11 +519,30 @@ def temple_update(request, s=None):
 
 @login_required
 @user_is_temple_manager
-def temple_remove(request, s):
-    instance = get_object_or_404(Temples, temple2=s)
-    instance.delete()
+def temple_remove(request,s):
 
-    return redirect('darshan:manager_profile')
+    instance = get_object_or_404(Temples,temple2=s)
+    profiles = User.objects.filter(is_superuser=False)
+
+    for i in profiles:#-----deleting temple from all profiles and also from their selected -----------------
+        print(i)
+        for x in i.profile.Select_Temple:
+            print(x)
+            temp = Temples.objects.get(temple2=x)
+            if(temp.id==instance.id):
+                i.profile.Select_Temple.remove(x)
+                print("d")
+                i.profile.save()
+    img=Picture.objects.filter(Temple_id=instance.id)
+    for m in profiles:
+        for y in m.profile.selected:
+            for j in img:
+                if y==j.id:
+                    m.profile.selected.remove(y)
+                    m.profile.save()
+        
+    instance.delete()
+    return redirect('darshan:manager_profile')              
 
 
 # ---------For Pictures-----------------
