@@ -29,8 +29,8 @@
                         {{ form.as_p }}
                     </div>
                     <div class="modal-footer">
-                        <div class="col-md-12">
-                            <button type="submit" style="width: 428px;text-align: center;float: left;">Log in</button>
+                        <div class="col-md-12" align="center">
+                            <button type="submit" style="width: 200px;text-align: center;">Log in</button>
                         </div>
                         <br><br>
                         <div class="col-md-12" style="text-align: center;">
@@ -43,39 +43,42 @@
                 </div>
             </div>
         </form>
-    </div>    
-       
+    </div>
 
- <!--SignUp form for user and  seller-->
+
+
+    <!--SignUp form for user and  seller-->
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <form role="form" action="{% url 'darshan:signup' %}" method="post">
-           <div class="modal-dialog ">
-           <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h2 class="modal-title" id="myModalLabel">Sign Up</h2>
-            </div>
-            <div class="modal-body">
-                {% csrf_token %}
-                {{ user_form.as_p }}
-                {{ Mobile_form.as_p }}
-                <select  name="usertype" style="float:left;width: 428px;">
-                    <option value="seller">Seller</option>
-                    <option value="user">User</option>
-                </select>
-            </div>
-            <div class="modal-footer">
-                <button type="submit">Sign Up</button>
-            </div>
-            </div>
+        <form role="form" action="{% url 'darshan:signup' %}" method="post">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h2 class="modal-title" id="myModalLabel">Sign Up</h2>
+                    </div>
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {{ user_form.as_p }}
+                        {{ Mobile_form.as_p }}
+                        <select name="usertype" style="float:left;width: 428px;">
+                            <option value="seller">Seller</option>
+                            <option value="user">User</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit">Sign Up</button>
+                    </div>
+                </div>
+
             </div>
         </form>
     </div>
-    <!-- TempleManager SignUp form-->
+
+   <!-- TempleManager SignUp form-->
     <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <form role="form" action="{% url 'darshan:signup1' %}" method="post">
+        <form role="form" action="{% url 'darshan:signup1' %}" method="post" id="manager_signup">
             <div class="modal-dialog ">
-                <div class="modal-content">
+                <div class="modal-content modal-custom">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <h2 class="modal-title" id="myModalLabel">Sign Up</h2>
@@ -84,56 +87,168 @@
                     <div class="modal-body">
                         {% csrf_token %}
                         {{ manager_form.as_p }}
-                        {{ user_form.as_p }}
-                        {{ Mobile_form.as_p }}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit">Sign Up</button>
 
+                        
+
+
+                         <p><label for="id_first_name">First name:</label>
+                            <input type="text"
+                                   name="first_name"
+                                   
+                                   id="{{ user_form.first_name.id_for_label }}1"
+                                   value="{% if user_form.first_name.value %}{{ user_form.first_name.value }}{% endif %}">
+
+                            {% if user_form.first_name.errors %}
+                                <div class="alert alert-danger">
+                                    {{ user_form.first_name.errors }}
+                                </div>
+                            {% endif %}
+                                 
+                        </p>
+                        <p><label for="id_last_name">Last name:</label>
+                            <input type="text"
+                                   name="last_name"
+                                  
+                                   id="{{ user_form.last_name.id_for_label }}1"
+                                   value="{% if user_form.last_name.value %}{{ user_form.last_name.value }}{% endif %}">
+                            {% if user_form.last_name.errors %}
+                                <div class="alert alert-danger">
+                                    {{ user_form.last_name.errors }}
+                                </div>
+                            {% endif %}
+                            
+
+                        </p>
+                        <p> <label for="id_username">Username:</label>
+                            <input type="text"
+                                   name="username"
+                                   
+                                   id="username1"
+                                   value="{% if user_form.username.value %}{{ user_form.username.value }}{% endif %}" required
+                                 onblur="ValidateUsername();">
+                            <span style="display: none;" id="susername1">username is invalid
+                            </span> 
+                            {% if user_form.username.errors %}
+                                <div class="alert alert-danger">
+                                    {{ user_form.username.errors }}
+                                </div>
+                            {% endif %}
+                                   
+                           
+                        </p>
+                        <p >
+                            <label for="id_email">Email:</label>
+                            <input type="text"
+                                   name="email"
+                                   id="id_email1"
+                                   value="{% if user_form.email.value %}{{ user_form.email.value }}{% endif %}" required
+                                   onblur="ValidateEmail();">
+                            <span style="display: none;" id="semail1">email is invalid</span>
+                            {% if user_form.email.errors %}
+                                <div class="alert alert-danger">
+                                    {{ user_form.email.errors }}
+                                </div>
+                            {% endif %}
+                                 
+                           
+                        </p>
+                        <p >
+                            <label for="id_password1">Password:</label>
+                            <input type="password"
+                                   name="password1"
+                                                  
+                                   id="password1"
+                                   value="{% if user_form.password1.value %}{{ user_form.password1.value }}{% endif %}" required
+                                   onblur="Validatepassword1();">
+                            <span style="display: none;" id="spassword1"></span>
+                            {% if user_form.password1.errors %}
+                               <div class="alert alert-danger">
+                                    {{ user_form.password1.errors }}
+                                </div>
+                               
+                            {% endif %}
+                                   
+                            
+                        </p>
+                        <p >
+                            <label for="id_password2">Confirm Password:</label>
+                            <input type="password"
+                                   name="password2"
+                                   
+                                   id="password2"
+                                   value="{% if user_form.password2.value %}{{ user_form.password2.value }}{% endif %}" required
+                                   onblur="Validatepassword2();">
+                            <span style="display: none;" id="spassword2">Both Passwords don't match.</span>
+                            {% if user_form.password2.errors %}
+                                <div class="alert alert-danger">
+                                    {{ user_form.password2.errors }}
+                                </div>
+                            {% endif %}
+                                  
+                           
+                        </p>
+                        <p>
+                            <label for="id_Mobile_No">Mobile No.:</label>
+                            <input type="text"
+                                   name="Mobile No."
+                                  
+                                   id="mobile_number"
+                                   value="{% if Mobile_form.Mobile_No.value %}{{ Mobile_form.Mobile_No.value }}{% endif %}" required
+                                   onblur="Validatemobile();">
+                                 <span style="display: none;" id="smobile">Mobile number is invalid.</span>   
+                            {% if Mobile_form.Mobile_No.errors %}
+                                <div class="alert alert-danger">
+                                    {{ Mobile_form.Mobile_No.errors }}
+                                </div>
+                            {% endif %}
+                                 
+                           
+                        </p>
+                    </div>
+                    
+                    <div class="modal-footer">
+
+                        <button type="submit">Sign Up</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-    
 
     <!--carousel -->
-
-     
- <div id="myCarousel" class="carousel slide" data-ride="carousel" >
-        <!-- Indicators-->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators-->
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
       <li data-target="#myCarousel" data-slide-to="1"></li>
       <li data-target="#myCarousel" data-slide-to="2"></li>
       <li data-target="#myCarousel" data-slide-to="3"></li>
       <li data-target="#myCarousel" data-slide-to="4"></li>
-      <li data-target="#myCarousel" data-slide-to="5"></li>
     </ol>
      
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
             <div class="item active">
-                <img src="{% static  'images/canva-photo-editor (6).png' %}" alt="Temple"
+                <img src="{% static  'images/canva-photo-editor (6).png' %}" alt="Temple1"
                      style="width:100%; height: 700px; filter: brightness(50%);" class="img-responsive">
             </div>
             <div class="item">
-                <img src="{% static  'images/canva-photo-editor (3).png' %}" alt="Temple"
+                <img src="{% static  'images/canva-photo-editor (3).png' %}" alt="Temple2"
                      style="width:100%; height: 700px; filter: brightness(50%)"
                      class="img-responsive">
             </div>
             <div class="item">
-                <img src="{% static 'images/canva-photo-editor (1).png' %}" alt="Temple"
+                <img src="{% static 'images/canva-photo-editor (1).png' %}" alt="Temple3"
                      style="width:100%; height: 700px; filter: brightness(50%)"
                      class="img-responsive">
             </div>
             <div class="item">
-                <img src="{% static 'images/canva-photo-editor (7).png' %}" alt="Temple"
+                <img src="{% static 'images/canva-photo-editor (7).png' %}" alt="Temple4"
                      style="width:100%; height: 700px; filter: brightness(50%)"
                      class="img-responsive">
             </div>
             <div class="item">
-                <img src="{% static 'images/canva-photo-editor.png' %}" alt="Temple"
+                <img src="{% static 'images/canva-photo-editor.png' %}" alt="Temple5"
                      style="width:100%; height: 700px; filter: brightness(50%)"
                      class="img-responsive">
             </div>
@@ -158,7 +273,7 @@
                     <h3 class="title-deco uk-text-center title-text color-black-a54" style="text-align: center;">
                         <span class="triangle-up"></span>
                         <span class="triangle-down"></span>
-                        <span class="heading" style="font-family: sans-serif;">DARSHANS</span>
+                        <span class="heading" style="color:#555; font-weight: 700; font-family: 'Roboto', sans-serif;">DARSHANS</span>
                         <span class="triangle-up"></span>
                         <span class="triangle-down"></span>
                     </h3>
@@ -167,21 +282,24 @@
         </div>
         <br>
         <!-- HoverEffect Images -->
-        <div class=" row display" id="darshan">
+        <div class="row">
             {% for y in temples %}
                 <div class="col-sm-3" style="text-align:center;">
                     <div class='thumbnail'>
-                        <img class="image-container img-responsive roundedCorner"
-                             src="{{ y.Icon_images.url }}" style="min-width: 150px">
+                        <a href="{% url 'darshan:detail' temp1=y.temple2 %}" class="link">
+                        <img class="image-container img-responsive roundedCorner" src="{{ y.Icon_images.url }}"
+                             style="min-width: 150px">
                         <br>
-                        <a href="{% url 'darshan:detail' temp1=y.temple2 %}" class="link">{{ y.temple2 }}</a>
+                        {{ y.temple2 }}
+                        </a>
                     </div>
                 </div>
             {% endfor %}
-
         </div>
-
-        <div class="pagination row">
+        <hr>
+        <div class="row">
+            <div class="col-md-12" align="center">
+                <div class="pagination ">
             <span class="step-links">
                 {% if object_list.has_previous %}
                     <a href="?{{ page_change_var }}=1">&laquo; first</a>
@@ -197,100 +315,86 @@
                     <a href="?{{ page_change_var }}={{ object_list.paginator.num_pages }} ">last &raquo;</a>
                 {% endif %}
             </span>
+                </div>
+            </div>
         </div>
-        <hr>
         <div class="row">
             <div class="col-md-12">
                 <div id="features" class="features uk-container uk-margin-large-top">
                     <h3 class="title-deco uk-text-center title-text color-black-a54" style="text-align: center;">
                         <span class="triangle-up"></span>
                         <span class="triangle-down"></span>
-                        <span class="heading" style="font-family: sans-serif">PRODUCTS</span>
+                        <span class="heading" style="color:#555; font-weight: 700; font-family: 'Roboto', sans-serif;">PRODUCTS</span>
                         <span class="triangle-up"></span>
                         <span class="triangle-down"></span>
                     </h3>
                 </div>
             </div>
         </div>
-
+        <br>
         <!--Shop Images -->
         <div class=" row display" id="shop">
-            <div class="column">
-                <div class="hovereffect ">
-                    <img src="http://via.placeholder.com/350x150" class="image-container img-responsive roundedCorner"
-                         style="width: 100%;">
-                    <div class="overlay">
-                        <h2>Product</h2>
+            {% for prod in product %}
+                <div class="col-md-3" style="margin-bottom: 15px;">
+                    <div class="hovereffect ">
+                        <img src="{{ prod.Photo.url }}"
+                             class="image-container img-responsive roundedCorner"
+                             style="width: 100%;">
+                        <div class="overlay">
+                            <h2>{{ prod.Product_Name }}</h2>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="column">
-                <div class="hovereffect ">
-                    <img src="http://via.placeholder.com/350x150" class="image-container img-responsive roundedCorner"
-                         style="width: 100%;">
-                    <div class="overlay">
-                        <h2>Product</h2>
-                    </div>
-                </div>
-
-            </div>
-            <div class="column">
-                <div class="hovereffect ">
-                    <img src="http://via.placeholder.com/350x150" class="image-container img-responsive roundedCorner"
-                         style="width: 100%;">
-                    <div class="overlay">
-                        <h2>Product</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="hovereffect ">
-                    <img src="http://via.placeholder.com/350x150" class="image-container img-responsive roundedCorner"
-                         style="width: 100%;">
-                    <div class="overlay">
-                        <h2>Product</h2>
-                    </div>
-                </div>
-            </div>
-
+            {% endfor %}
         </div>
-        <div class=" row display">
-            <div class="column">
-                <div class="hovereffect ">
-                    <img src="http://via.placeholder.com/350x150" class="image-container img-responsive roundedCorner"
-                         style="width: 100%;">
-                    <div class="overlay">
-                        <h2>Product</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="hovereffect ">
-                    <img src="http://via.placeholder.com/350x150" class="image-container img-responsive roundedCorner"
-                         style="width: 100%;">
-                    <div class="overlay">
-                        <h2>Product</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="hovereffect ">
-                    <img src="http://via.placeholder.com/350x150" class="image-container img-responsive roundedCorner"
-                         style="width: 100%;">
-                    <div class="overlay">
-                        <h2>Product</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="column">
+        <br>
+        <div class="row">
+            <div class="col-md-12" align="center">
                 <a href="{% url 'shop:allproducts' %}" style="color: white">
-                    <button class="btn btn-primary" style="margin-left:60px;margin-top:50px;">
+                    <button class="btn btn-primary">
                         View all
                     </button>
                 </a>
-
             </div>
-
+            <br>
+            <br>
+        </div>
+        <hr>
+        <div id="contact" class="container-fluid bg-grey contact">
+            <h2 class="text-center" style="padding-bottom: unset;">
+                <strong style="color: #555;">
+                    CONTACT
+                </strong>
+            </h2>
+            <h4 style="text-align: center;margin: 0 auto; color: #888;">We'd love your feedback!</h4>
+            <br>
+            <div class="row">
+                <div class="col-sm-5 contactP">
+                    <p>Contact us and we'll get back to you.</p>
+                    <p><span class="glyphicon glyphicon-map-marker"></span> Ahmedabad, India</p>
+                    <p><span class="glyphicon glyphicon-phone"></span> +91 9408593432</p>
+                    <p><span class="glyphicon glyphicon-envelope"></span> ankurranjan19972016@gmail.com</p>
+                </div>
+                <div class="col-sm-7">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <input class="form-control cred" id="name" name="name" placeholder="Name" type="text"
+                                   required="" style="background-color:#ffffff;border-color:#3333338a">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <input class="form-control cred" id="email" name="email" placeholder="Email" type="email"
+                                   required="" style="background-color:#ffffff;border-color:#3333338a">
+                        </div>
+                    </div>
+                    <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"
+                              style="background-color:#ffffff; border-color:#3333338a"></textarea><br>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <button class="btn btn-default pull-right" type="submit">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

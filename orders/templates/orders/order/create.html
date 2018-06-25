@@ -1,32 +1,32 @@
-{% extends 'darshan/base.html' %}
+{% extends 'darshan/otherBase.html' %}
 {% load staticfiles %}
 {% load temple_extra %}
 
 {% block content %}
     {% block style %}
-        <style xmlns="http://www.w3.org/1999/html">
-        html,body{
-                padding-top: 55px;
-                }
-        </style>
     {% endblock style %}
-    <h1> Checkout</h1>
-
-    <div>
-        <h3>Your Order</h3>
-        <ul>
-            {% for item in items %}
-                {% for x in item.product_id|products %}
-                    <li>{{ item.quantity }}  x  {{ x.ProductName }} ({{ x.Price }})  =  <span>Rs.{% multiply item.quantity  x.Price %}</span></li>
-                {% endfor %}
-            {% endfor %}
-        </ul>
-        <p>Total: Rs.{{ total_cost }}</p>
+    <div class="container-fluid" style="margin-top: 15px">
+        <div class="row">
+            <div class="col-md-12">
+                <h1> Checkout</h1>
+                <div>
+                    <h3>Your Order</h3>
+                    <ul>
+                        {% for item in items %}
+                            {% for x in item.product_id|products %}
+                                <li>{{ item.quantity }} x {{ x.Product_Name }} ({{ x.Price }}) =
+                                    <span>Rs.{% multiply item.quantity x.Price %}</span></li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                    <p>Total: Rs.{{ total_cost }}</p>
+                </div>
+                <form method="post" action="{% url 'orders:order_create' %}">
+                    {{ form.as_p }}
+                    <p><input class="btn btn-primary" type="submit" value="Place order"></p>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
     </div>
-
-    <form method="post" action="{% url 'orders:order_create' %}">
-        {{ form.as_p }}
-        <p><input type="submit" value="Place order"></p>
-        {% csrf_token %}
-    </form>
 {% endblock %}

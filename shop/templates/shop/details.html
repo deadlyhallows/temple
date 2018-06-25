@@ -4,29 +4,44 @@
 {% block content %}
     {% block style %}
     {% endblock style %}
+    <div class="container-fluid" style="margin-top: 15px">
+        <div class="row">
+            <div class="col-md-12">
+                {% for p in product %}
+                    <div class="col-md-5">
+                        <img src="{{ p.Photo.url }}" class="img-responsive" style="max-width: 100% !important;">
+                    </div>
+                    <div class="col-md-7">
+                        <h3>
+                           {{ p.Product_Name }}
+                        </h3>
+                        <p>
+                            <br>
+                            Rs.{{ p.Price }}
+                        </p>
+                        <p>
+                            {% if user.is_authenticated and not user.is_superuser %}
+                                <form action="{% url 'cart:add_to_cart' p.id %}" method="post">
+                                    {{ cart_product_form }}
+                                    {% csrf_token %}
+                                    <input type="submit" value="Add to Cart">
+                                    <!--add Product Description-->
+                                </form>
+                            {% elif not user.is_authenticated and not user.is_superuser %}
+                                <form action="{% url 'cart:cart_add' p.id %}" method="post">
+                                    {{ cart_product_forms }}
+                                    {% csrf_token %}
+                                    <input class="btn btn-primary" type="submit" value="Add to Cart">
+                                    <!--add Product Description-->
+                                </form>
+                            {% endif %}
+                        </p>
 
-<div class="container-fluid">
-    <div>
-    {% for p in product %}
-        <img src="{{ p.Photo.url }}"><br>
-        {{ p.ProductName }}<br>
-        <p>Rs.{{ p.Price }}</p>
-        {% if user.is_authenticated and not user.is_superuser %}
-        <form action="{% url 'cart:add_to_cart' p.id %}" method="post">
-            {{ cart_product_form }}
-            {% csrf_token %}
-            <input type="submit" value="Add to Cart">
-        <!--add Product Description-->
-         </form>
-        {% elif not user.is_authenticated and not user.is_superuser %}
-            <form action="{% url 'cart:cart_add' p.id %}" method="post">
-            {{ cart_product_form }}
-            {% csrf_token %}
-            <input type="submit" value="Add to Cart">
-        <!--add Product Description-->
-         </form>
-        {% endif %}
-    {% endfor %}
-</div>
-</div>
+
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

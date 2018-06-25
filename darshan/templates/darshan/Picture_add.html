@@ -1,32 +1,27 @@
 {% extends 'darshan/otherBase.html' %}
 {% load crispy_forms_tags %}
-
-
-
 {% block content %}
     {% block style %}
     {% endblock style %}
     {% block head_extra %}
         {{ pic_add_form.media }}
     {% endblock head_extra %}
-
     <div class="container-fluid" style="margin-top: 15px;">
         <div class="row">
             <div class="col-md-12">
                 <h2>Picture Form</h2>
                 <form method="Post" role="form" enctype="multipart/form-data">
                     {% csrf_token %}
-                    
                     {% for field in pic_add_form %}
-                    <p> 
-                    <label for="{{ field.auto_id }}">{{ field.label_tag }}
-                    {% if field.field.required %}
-                        <span class="required" style="color: red;">*</span>
-                    {% endif %}
-                    </label>
-                    
-                    {{ field }}
-                    </p><br>
+                        <p>
+                            <label for="{{ field.auto_id }}">{{ field.label_tag }}
+                                {% if field.field.required %}
+                                    <span class="required" style="color: red;">*</span>
+                                {% endif %}
+                            </label>
+                            {{ field }}
+                        </p>
+                        <br>
                     {% endfor %}
                     <button type="submit" class="btn btn-primary">
                         Save
@@ -35,6 +30,14 @@
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#id_TimeD').on('click', function () {
+                $(this).attr('type', 'time');
+            });
+        });
+    </script>
 {% endblock content %} 
 
 

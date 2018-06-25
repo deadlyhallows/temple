@@ -1,0 +1,32 @@
+{% extends 'darshan/otherBase.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% block style %}
+    {% endblock style %}
+    {% block head_extra %}
+        {{ item_add_form.media }}
+    {% endblock head_extra %}
+    <div class="container-fluid" style="margin-top: 15px;">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Temple Form</h2>
+                <form method="Post" role="form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p> 
+                    <label for="{{ field.auto_id }}">{{ field.label_tag }}
+                    {% if field.field.required or not field.field.blank %}
+                        <span class="required" style="color: red;">*</span>
+                    {% endif %}
+                    </label>
+                    
+                    {{ field }}
+                    </p><br>
+                    <button type="submit" value="Save" class="btn btn-primary">
+                        Save
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
