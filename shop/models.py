@@ -17,19 +17,19 @@ class Shopkeeper(models.Model):
 class Product(DirtyFieldsMixin, models.Model):
     seller=models.ForeignKey(Shopkeeper, on_delete=models.CASCADE,default=None)
     Product_Name=models.CharField(max_length=250, default=None)
-    Temple_Name=models.ForeignKey(Temples, on_delete=models.CASCADE)
+    Temple_Name=models.ForeignKey(Temples, on_delete=models.CASCADE,blank=False)
     Out_of_Stock=models.BooleanField(default=False)
-    Price=models.DecimalField(max_digits=4,decimal_places=2,default=None)
+    Price=models.DecimalField(max_digits=19,decimal_places=2,default=None)
     Photo = models.ImageField(
         null=True, blank=True,
         height_field="height_field",
         width_field="width_field")
     height_field = models.IntegerField(default=None, null=True, blank=True)
     width_field = models.IntegerField(default=None, null=True, blank=True)
-    Offeror_Discount= models.CharField(max_length=50, default=None, blank=True,null=True)
+    Offer_or_Discount = models.CharField(max_length=50, default=None, blank=True,null=True)
     #Add 'Available' field if needed
     def __str__(self):
-        return str(self.ProductName) + ',' + str(self.TempleName)
+        return str(self.Product_Name)
 
     class Meta:
         ordering = [

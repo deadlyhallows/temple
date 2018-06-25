@@ -8,8 +8,18 @@
         <div class="col-md-12">
             <h2>Darshan Form</h2>
             <form method="Post" role="form" enctype="multipart/form-data">
+                 {% for field in dar_add_form %}
+                <p> 
+                    <label for="{{ field.auto_id }}">{{ field.label_tag }}
+                    {% if field.field.required %}
+                        <span class="required" style="color: red;">*</span>
+                    {% endif %}
+                    </label>
+                    
+                    {{ field }}
+                </p><br>
+                {% endfor %}
                 {% csrf_token %}
-                {{ dar_add_form.as_p }}
                 <button type="submit" value="Save" class="btn btn-primary">
                     Save
                 </button>

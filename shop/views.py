@@ -14,7 +14,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
 from shop.forms import CustomSearchForm
-from cart.forms import CartAddProductForm
+from cart.forms import CartAddProductForm, CartAddProductForms
 from darshan.tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.utils.encoding import force_text
@@ -37,7 +37,7 @@ from cart.models import CartItem
 from haystack.generic_views import SearchView
 from notify.signals import notify
 from darshan.views import send_verification_mail
-
+from cart.models import Carts
 
 class ProductSearch(SearchView):
     template = 'search/search.html'
@@ -47,7 +47,6 @@ class ProductSearch(SearchView):
 def allproducts(request):
     print(request.user)
     lists = None
-
     k = []
 
     if request.method == 'POST' and 'temples' in request.POST:
@@ -77,8 +76,11 @@ def details1(request,val):
     user = request.user
     product = Product.objects.filter(Product_Name=val)
     cart_product_form = CartAddProductForm()
+    cart_product_forms = CartAddProductForms()
     context = {'product': product,
+                'loop_times': range(2, 21),
                'cart_product_form': cart_product_form,
+               'cart_product_forms': cart_product_forms,
                'user':user}
     return render(request, 'shop/details.html', context)
 

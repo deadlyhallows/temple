@@ -8,31 +8,30 @@
     {% endblock head_extra %}
     <div class="container-fluid" style="margin-top: 15px;">
         <div class="row">
-        <div class="col-sm-12">
-            <h2>Temple Form</h2>
-            <form method="Post" role="form" enctype="multipart/form-data">
-                {% for field in add_form %}
-                <p> 
-                    <label for="{{ field.auto_id }}">{{ field.label_tag }}
-                    {% if field.field.required %}
-                        <span class="required" style="color: red;">*</span>
-                    {% endif %}
-                    </label>
-                    
-                    {{ field }}
-                </p><br>
-                {% endfor %}
-                {% csrf_token %}
-                
-                <button type="submit" class="btn btn-primary">
-                    Save
-                </button>
-            </form>
+            <div class="col-sm-12">
+                <h2>Temple Form</h2>
+                <form method="Post" role="form" enctype="multipart/form-data">
+                    {% for field in add_form %}
+                        <p>
+                            <label for="{{ field.auto_id }}">{{ field.label_tag }}
+                                {% if field.field.required %}
+                                    <span class="required" style="color: red;">*</span>
+                                {% endif %}
+                            </label>
 
+                            {{ field }}
+                        </p><br>
+                    {% endfor %}
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" style="margin-left: 40%">
+                        Save
+                    </button>
+                </form>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
         </div>
-        <br>
-        <br>
-        <br>
-        <br>
     </div>
 {% endblock content %}

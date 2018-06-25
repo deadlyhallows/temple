@@ -13,3 +13,9 @@ class CartAddProductForm(forms.ModelForm):
         fields = ('quantity', )
 
 
+PRODUCT_QUANTITY_CHOICES1 = [(i, str(i)) for i in range(1, 26)]
+
+
+class CartAddProductForms(forms.Form):#--------For Anonymous User---------------------------
+    quantity = forms.TypedChoiceField(choices=PRODUCT_QUANTITY_CHOICES1, coerce=int)
+    update = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)

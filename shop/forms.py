@@ -10,9 +10,12 @@ from haystack.forms import ModelSearchForm
 
 
 class ProductAddForm(forms.ModelForm):
+    Product_Name = forms.CharField(required=True)
+    Price = forms.CharField(required=True)
     class Meta:
         model=Product
-        fields = ('Product_Name', 'Temple_Name', 'Out_of_Stock', 'Price', 'Photo')
+        fields = ('Temple_Name','Product_Name', 'Out_of_Stock', 'Price', 'Photo','Offer_or_Discount')
+
 
     
 

@@ -1,20 +1,16 @@
-{% extends 'darshan/base.html' %}
+{% extends 'darshan/otherBase.html' %}
 
 {% block content %}
-     {% block style %}
-        <style>
-        html,body{
 
-                padding-top: 55px;
-
-                }
-
-        </style>
+    {% block style %}
     {% endblock style %}
+    <div class="container" style="margin-top: 15px;">
+        <div class="row">
+            <div class="col-md-12">
+                <p>Please confirm your email address to complete the registration. </p>
+            </div>
+        </div>
+    </div>
 
-  <div class="row">
-  <p>Please confirm your email address to complete the registration. </p>
-  
-  </div>
-   
+
 {% endblock %}

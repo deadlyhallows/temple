@@ -1,76 +1,77 @@
-{% extends 'darshan/base.html' %}
+{% extends 'darshan/otherBase.html' %}
 {% load staticfiles %}
-
 {% block content %}
     {% block style %}
-        <style xmlns="http://www.w3.org/1999/html">
-        html,body{
-
-                padding-top: 55px;
-
-                }
-
-        </style>
     {% endblock style %}
-    <h1> Checkout</h1>
+    <div class="container-fluid" style="margin-top: 15px">
+        <div class="row">
+            <div class="col-md-12" align="center">
+                 <h1> Checkout</h1>
+            </div>
+        </div>
 
-    <form action="{{ action }}"  name="payuForm" method="post">
-    {% csrf_token %}
-    <input type="hidden" name="key" value="{{ key }}" />
-    <input type="hidden" name="hash" value="{{ hash }}"/>
-    <input type="hidden" name="txnid" value="{{ txnid }}" />
-    <input type="hidden" name="amount" value="{{ amount }}" />
-    <input type="hidden" name="email" value="{{ email }}" />
-    <input type="hidden" name="firstname" value="{{ firstname }}" />
-    <input type="hidden" name="phone" value="{{ phone }}" />
-    <input type="hidden" name="productinfo" value="{{ productinfo }}"/>
-    <input type="hidden" name="surl" value="{{ surl }}"/>
-    <input type="hidden" name="furl" value="{{ furl }}" />
-    <input type="hidden" name="service_provider" value="{{ service_provider }}" />
-
-    <div class="form-group">
-        <div class="col-md-12 col-sm-12">
-            Amount : {{amount}}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-12 col-sm-12">
-            Purpose : {{productinfo}}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-12 col-sm-12">
-            Name : {{firstname}}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-12 col-sm-12">
-            Email : {{email}}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-12 col-sm-12">
-            Mobile : {{phone}}
-        </div>
     </div>
 
-    <div class="form-group">
-        <div class="col-md-12 col-sm-12">
-            Transaction ID : {{txnid}}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-12 col-sm-12" style="padding-bottom:20px;padding-top:20px;">
-            After clicking 'Pay Now' button, you will be redirected to PayUMoney Secure Gateway.
-        </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-12 col-sm-12">
-            <input type="submit" class="btn btn-success btn-sm" value="Pay Now">
+    <form action="{{ action }}" name="payuForm" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="key" value="{{ key }}"/>
+        <input type="hidden" name="hash" value="{{ hash }}"/>
+        <input type="hidden" name="txnid" value="{{ txnid }}"/>
+        <input type="hidden" name="amount" value="{{ amount }}"/>
+        <input type="hidden" name="email" value="{{ email }}"/>
+        <input type="hidden" name="firstname" value="{{ firstname }}"/>
+        <input type="hidden" name="phone" value="{{ phone }}"/>
+        <input type="hidden" name="productinfo" value="{{ productinfo }}"/>
+        <input type="hidden" name="surl" value="{{ surl }}"/>
+        <input type="hidden" name="furl" value="{{ furl }}"/>
+        <input type="hidden" name="service_provider" value="{{ service_provider }}"/>
+
+        <div class="form-group">
+            <div class="col-md-12 col-sm-12">
+                <strong>Amount: </strong>  {{ amount }}
+            </div>
         </div>
-    </div>
-</form>
+
+        <div class="form-group">
+            <div class="col-md-12 col-sm-12">
+                <strong>Purpose: </strong> {{ productinfo }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12 col-sm-12">
+                <strong>Name: </strong> {{ firstname }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12 col-sm-12">
+                <strong>Email: </strong>{{ email }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12 col-sm-12">
+                <strong>Mobile: </strong>{{ phone }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12 col-sm-12">
+                <strong>Transaction ID:</strong>{{ txnid }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12 col-sm-12" style="padding-bottom:20px;padding-top:20px;">
+                <strong>
+                    After clicking 'Pay Now' button, you will be redirected to PayUMoney Secure Gateway.
+                </strong>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12 col-sm-12" align="center">
+                <input type="submit" class="btn btn-success btn-sm" value="Pay Now">
+            </div>
+        </div>
+    </form>
 
 
 
