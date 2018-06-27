@@ -10,12 +10,11 @@
             <div class="col-md-5">
                 <img class=" img-responsive roundedCorner image" src="{{ q.images.url }}">
             </div>
-            <div class="col-md-4 col-sm-6">
-                <p style="font-size: 24px;color: black; text-align: center;">{{ q.temple2 }}</p><br>
-                <table id="darshan" width="430px">
+            <div class="col-md-4">
+                <table id="darshan" style="width: 100%">
                     <tr>
-                        <th>Rituals</th>
-                        <th>Timings</th>
+                        <th style="font-family: sans-serif">Rituals</th>
+                        <th style="font-family: sans-serif">Timings</th>
                     </tr>
 
                     {% for z in s %}
@@ -27,21 +26,69 @@
                 </table>
             </div>
 
-            <div class="col-md-3 col-sm-6 abce" style="margin-top:65px; ">
-                <button style="margin-bottom: 20px;width: 200px;height:50px;"><a href="">Book Pooja</a></button>
-                <br>
-                <button style="margin-bottom: 20px;width: 200px;height:50px;"><a {% if q.Online_Prasad %}
-                    href="{{ q.Online_Prasad }}" {% else %}
-                    href="{% url 'shop:allproducts' %}"{% endif %}>Order Prasad</a></button>
-                <br>
-
-                <button style="margin-bottom: 20px;width: 200px;height:50px;"><a  {% if q.Online_Donation %}
-                    href="{{ q.Online_Donation }}" {% else %}
-                    href="{% url 'darshan:Online_Donation'  v=q.temple2 %}" {% endif %}>Make Donation</a></button>
+            <div class="col-md-3">
+                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
+                    <a href="">
+                        Book Pooja
+                    </a>
+                </button>
                 <br>
 
-                <button style="margin-bottom: 20px;width: 200px;height:50px;"><a href="">Visit Temple</a></button>
+
+                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;"><a
+                        {% if q.Online_Prasad %} href="{{ q.Online_Prasad }}" {% else %}
+                                                 href="{% url 'shop:allproducts' %}"{% endif %}>Order Prasad</a>
+                </button>
+
                 <br>
+
+
+                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
+                    <a class="launch-modal" data-toggle="modal" data-modal-id="myModal4">
+                        Make Donation
+                    </a>
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal4" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Warning</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <p><strong>Signup or login as USER</strong></p>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <br>
+
+                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
+                    <a class="launch-modal" data-toggle="modal" data-modal-id="myModal4">
+                        Visit Temple
+                    </a>
+                </button>
+
+                <br>
+                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
+                    <a href="{% url 'darshan:selectedTemple' pk=q.id%}">
+                        Temple Gallery
+                    </a>
+                </button>
+
+                <br>
+
             </div>
         </div>
         <hr>
@@ -54,7 +101,7 @@
         </ul>
         <!-- tab contents -->
         <div class="tab-content" id="detail" style="margin: 25px 50px">
-            <div id="menu1" class="tab-pane fade" >
+            <div id="menu1" class="tab-pane fade">
                 <table class="table table-striped">
                     <tbody>
                     <tr>

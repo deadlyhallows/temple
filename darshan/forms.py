@@ -44,7 +44,7 @@ class MobileForm(forms.ModelForm):
     
 
 class TempleForm(forms.ModelForm):
-    # comment it while migration
+    # # comment it while migration
     OPTIONS = []
     a = Temples.objects.all()
     for x in a:

@@ -37,9 +37,20 @@ import random
 
 def home(request):
     temples = Temples.objects.all()
+    totalProduct = Product.objects.all()
+    arr=[]
+    for prod in totalProduct:
+        print("Product ID", prod.id)
+        arr.append(prod.id)
+    print(arr)
+    random.shuffle(arr)
+    print(arr)
     product_num_entities = Product.objects.all().count()
-    product_rand_entities = random.sample(range(product_num_entities), 0)#12)
+    print("product_num_entities",product_num_entities)
+    product_rand_entities = random.sample(arr, 14)[:8]
+    print("product_rand_entities", product_rand_entities)
     product = Product.objects.filter(id__in=product_rand_entities)[:8]
+    print("product", product)
     paginator = Paginator(temples, 4)
     page_change_var = 'page'  # change=request
     page = request.GET.get(page_change_var)
@@ -50,7 +61,7 @@ def home(request):
         queryset = paginator.page(1)
     except EmptyPage:
         queryset = paginator.page(paginator.num_pages)
-
+    print("queryset", paginator)
     context = {'temples': temples,
                'form': AuthenticationForm,
                'Mobile_form': MobileForm,
@@ -65,7 +76,7 @@ def home(request):
 
 def allDarshan(request):
     temples = Temples.objects.all()
-    paginator = Paginator(temples, 4)
+    paginator = Paginator(temples, 64)
     page_change_var = 'page'  # change=request
     page = request.GET.get(page_change_var)
     print(type(page))
@@ -303,7 +314,6 @@ def user_profile(request):
                }
     return render(request, 'darshan/user_profile.html', context)
 
-
 @login_required
 def accounts(request):
     # set = Profile.objects.all()
@@ -373,6 +383,17 @@ def detail(request, temp1):  # ----------------For Anonymous User---------------
         'user_form': SignUpForm,
         }
     return render(request, 'darshan/detail.html', context)
+
+def selectedTemple(request, pk):
+    print("jvn")
+    print("PK",pk)
+    picture= Picture.objects.filter(Temple_id=pk)
+    temple=Temples.objects.get(id=pk)
+    context={
+        'picture': picture,
+        'temple': temple.temple2
+    }
+    return render(request, 'darshan/selectedTemple.html', context)
 
 @login_required
 def Online_Donation(request, v):
