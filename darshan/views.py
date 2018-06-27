@@ -38,19 +38,20 @@ import random
 def home(request):
     temples = Temples.objects.all()
     totalProduct = Product.objects.all()
-    arr=[]
-    for prod in totalProduct:
-        print("Product ID", prod.id)
-        arr.append(prod.id)
-    print(arr)
-    random.shuffle(arr)
-    print(arr)
-    product_num_entities = Product.objects.all().count()
-    print("product_num_entities",product_num_entities)
-    product_rand_entities = random.sample(arr, 14)[:8]
-    print("product_rand_entities", product_rand_entities)
-    product = Product.objects.filter(id__in=product_rand_entities)[:8]
-    print("product", product)
+    # arr=[]
+    # for prod in totalProduct:
+    #     print("Product ID", prod.id)
+    #     arr.append(prod.id)
+    # print(arr)
+    # random.shuffle(arr)
+    # print(arr)
+    # product_num_entities = Product.objects.all().count()
+    # print("product_num_entities",product_num_entities)
+    # product_rand_entities = random.sample(arr, 1)[:1]
+    # print("product_rand_entities", product_rand_entities)
+    # product = Product.objects.filter(id__in=product_rand_entities)[:1]
+    # print("product", product)
+    product = Product.objects.all()
     paginator = Paginator(temples, 4)
     page_change_var = 'page'  # change=request
     page = request.GET.get(page_change_var)
