@@ -45,17 +45,17 @@ class MobileForm(forms.ModelForm):
 
 class TempleForm(forms.ModelForm):
     # # comment it while migration
-    OPTIONS = []
-    a = Temples.objects.all()
-    for x in a:
-        y = (x.temple2, x.temple2)
-        OPTIONS.append(y)
+    # OPTIONS = []
+    # a = Temples.objects.all()
+    # for x in a:
+    #     y = (x.temple2, x.temple2)
+    #     OPTIONS.append(y)
 
-    Select_Temple = forms.MultipleChoiceField(
+    Select_Temple = forms.ModelMultipleChoiceField(
         widget=Select2MultipleWidget(),
 
-        # queryset=Temples.objects.all()
-        choices=OPTIONS
+        queryset=Temples.objects.all()
+        # choices=OPTIONS
     )
 
     class Meta:
