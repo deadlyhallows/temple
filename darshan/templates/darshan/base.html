@@ -10,7 +10,7 @@
     {% block style1 %}
         <style>
             form {
-                width: 300px;
+                width: 500px;
                 margin: 0 auto;
             }
         </style>
@@ -74,11 +74,10 @@
                     </li>
                     <li>
                         {% if total_items > 0 %}
-
                             <a href="{% url 'cart:view_cart' %}"
                                style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
-                                Cart<br>
-                                ({{ total_items }} item{{ total_items|pluralize }}, Rs.{{ order_total }})
+                                Cart
+                                ({{ total_items }})
                             </a>
                         {% else %}
                             <a href="{% url 'cart:view_cart' %}"

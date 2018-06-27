@@ -16,37 +16,51 @@
                     </span>
                     <br><br><br><br>
                     {% for y in items %}
-                        <h4>
-                            <a href="{% url 'shop:product_update' p=y.id %}" style="color: black; font-family: sans-serif">
-                                {{ y.Product_Name }}, {{ y.Temple_Name }}
-                            </a>
-                            <span>
-                                <a href="{% url 'shop:product_remove' p=y.id %}">
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal5" backdrop='static'>Remove</button>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <a href="{% url 'shop:product_update' p=y.id %}"
+                                   style="color: black; font-family: sans-serif">
+                                    <h4>
+                                        {{ y.Product_Name }}, {{ y.Temple_Name }}
+                                    </h4>
                                 </a>
-                            </span>
-                        </h4>
-                        <!-- Modal -->
-                        <div class="modal fade" id="myModal5" role="dialog">
-                          <div class="modal-dialog">
-                          
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Warning</h4>
-                              </div>
-                              <div class="modal-body">
-                                <p>Do you want to delete it???</p>
-                              </div>
-                              <div class="modal-footer">
-                               <a href="{% url 'shop:product_remove' p=y.id %}"><button type="button" class="btn btn-default" >Yes</button></a>
-                               <a href="{% url 'shop:seller_profile' %}"><button type="button" class="btn btn-default" > No </button></a>
-                              </div>
                             </div>
-                            
-                          </div>
-                        </div>  
+                            <div class="col-md-6">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal5"
+                                        data-backdrop='static'>
+                                    Remove
+                                </button>
+                                <div class="modal fade" id="myModal5" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;
+                                                </button>
+                                                <h4 class="modal-title">Warning</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Do you want to delete it???</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="{% url 'shop:product_remove' p=y.id %}">
+                                                    <button type="button" class="btn btn-default">Yes</button>
+                                                </a>
+                                                <a href="{% url 'shop:seller_profile' %}">
+                                                    <button type="button" class="btn btn-default"> No</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal -->
+
+                            <br>
+                            <br>
+                            <hr>
+                        </div>
                     {% endfor %}
                 </div>
             </div>

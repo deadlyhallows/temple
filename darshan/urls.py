@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^selectDarshan/$',views.accounts, name='accounts'),
     url(r'^details/(?P<temp>.+)$',views.details, name='details'),
     url(r'^detail/(?P<temp1>.+)$', views.detail, name='detail'),
+    url(r'^selectedTemple/(?P<pk>\d+)$', views.selectedTemple, name='selectedTemple'),
     url(r'^delete/(?P<value>.+)/$',views.delete, name='delete'),
     url(r'^online_donation/(?P<v>.+)/$',views.Online_Donation, name='Online_Donation'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),

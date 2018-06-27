@@ -175,8 +175,9 @@ def product_update(request,p=None):
 @login_required
 @user_is_shopkeeper
 def product_remove(request,p):
-
+    print("fbvbf")
     instance = get_object_or_404(Product,id=p)
+    print(instance)
     instance.delete()
 
     return redirect('shop:seller_profile')     
