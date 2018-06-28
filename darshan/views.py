@@ -9,8 +9,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
-from darshan.forms import SignUpForm, TempleForm, MobileForm, DonationForm, TempleManagerForm, TempleAddForm, \
-    PictureAddForm, DarshanAddForm
+from darshan.forms import SignUpForm, TempleForm, MobileForm, DonationForm, TempleManagerForm, TempleAddForm, PictureAddForm, DarshanAddForm
 from darshan.tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.utils.encoding import force_text
@@ -37,9 +36,21 @@ import random
 
 def home(request):
     temples = Temples.objects.all()
-    product_num_entities = Product.objects.all().count()
-    product_rand_entities = random.sample(range(product_num_entities), 0)#12)
-    product = Product.objects.filter(id__in=product_rand_entities)[:8]
+    totalProduct = Product.objects.all()
+    # arr=[]
+    # for prod in totalProduct:
+    #     print("Product ID", prod.id)
+    #     arr.append(prod.id)
+    # print(arr)
+    # random.shuffle(arr)
+    # print(arr)
+    # product_num_entities = Product.objects.all().count()
+    # print("product_num_entities",product_num_entities)
+    # product_rand_entities = random.sample(arr, 1)[:1]
+    # print("product_rand_entities", product_rand_entities)
+    # product = Product.objects.filter(id__in=product_rand_entities)[:1]
+    # print("product", product)
+    product = Product.objects.all()
     paginator = Paginator(temples, 4)
     page_change_var = 'page'  # change=request
     page = request.GET.get(page_change_var)
@@ -50,7 +61,7 @@ def home(request):
         queryset = paginator.page(1)
     except EmptyPage:
         queryset = paginator.page(paginator.num_pages)
-
+    print("queryset", paginator)
     context = {'temples': temples,
                'form': AuthenticationForm,
                'Mobile_form': MobileForm,
@@ -65,7 +76,7 @@ def home(request):
 
 def allDarshan(request):
     temples = Temples.objects.all()
-    paginator = Paginator(temples, 4)
+    paginator = Paginator(temples, 64)
     page_change_var = 'page'  # change=request
     page = request.GET.get(page_change_var)
     print(type(page))
@@ -247,13 +258,12 @@ def user_profile(request):
     print(cart)
     if request.method == "POST" and "Select_Temple" in request.POST:
         print("b")
-        # print(profile.Temple1)
         selected_temple = profile.Select_Temple
-
+        print("O")
         form = TempleForm(request.POST, instance=profile)
         print("c")
         if form.is_valid():
-            # print(profile.Temple1)
+            print("p")
             profile = form.save(commit=False)
             for temple in selected_temple:
                 print(temple)
@@ -267,22 +277,23 @@ def user_profile(request):
     else:
         form = TempleForm()
     print("e")
-    query_list = Profile.objects.filter(user_id=user.id)
+    #query_list = Profile.objects.filter(user_id=user.id)
+    query_list = get_object_or_404(Profile,user_id=user.id)
     get_user = User.objects.get(id=user.id)
     user_mobile = Mobile.objects.get(id=user.id)
     if request.POST:
-        for t in query_list:
-            print(t)
-            for x in t.Select_Temple:
-                city_pk_list = request.POST.getlist(x, None)
-                for z in city_pk_list:
-                    pic = Picture.objects.get(id=z)
-                    profile.selected.append(pic.id)
-                    profile.save()
-                    messages.success(request,"Time is added") 
-    for n in query_list:
-        for m in n.Select_Temple:
-            b.append(m)
+        
+    
+        for x in query_list.Select_Temple:
+            city_pk_list = request.POST.getlist(x, None)
+            for z in city_pk_list:
+                pic = Picture.objects.get(id=z)
+                profile.selected.append(pic.id)
+                profile.save()
+                messages.success(request,"Time is added") 
+    
+    for m in query_list.Select_Temple:
+        b.append(m)
     paginator = Paginator(b, 5)
     page_change_var = 'page'  # change=request
     page = request.GET.get(page_change_var)
@@ -302,7 +313,6 @@ def user_profile(request):
                'page_change_var': page_change_var
                }
     return render(request, 'darshan/user_profile.html', context)
-
 
 @login_required
 def accounts(request):
@@ -353,16 +363,17 @@ def details(request, temp):
     darshan = Darshans.objects.filter(temple_id=temple.id)
     # b = Picture.objects.filter(Temple_id=q.id)
     context = {
-        'set': user,
+        'user': user,
         's': darshan,
         'q': temple,
     }
-    return render(request, 'darshan/details.html', context)
+    return render(request, 'darshan/detail.html', context)
 
 
 def detail(request, temp1):  # ----------------For Anonymous User-----------------------
     # m = localtime().time()
     # FMT = '%H:%M:%S'
+
     temple = get_object_or_404(Temples, temple2=temp1)
     darshan = Darshans.objects.filter(temple_id=temple.id)
     context={
@@ -373,6 +384,17 @@ def detail(request, temp1):  # ----------------For Anonymous User---------------
         'user_form': SignUpForm,
         }
     return render(request, 'darshan/detail.html', context)
+
+def selectedTemple(request, pk):
+    print("jvn")
+    print("PK",pk)
+    picture= Picture.objects.filter(Temple_id=pk)
+    temple=Temples.objects.get(id=pk)
+    context={
+        'picture': picture,
+        'temple': temple.temple2
+    }
+    return render(request, 'darshan/selectedTemple.html', context)
 
 @login_required
 def Online_Donation(request, v):
@@ -437,9 +459,7 @@ def signup1(request):
             send_verification_mail(user.email, message, subject)
             return render(request, 'darshan/account_activation_sent.html')
         else:
-            user_form = SignUpForm(request.POST)
-            mobile_form = MobileForm(request.POST)
-            manager_form =TempleManagerForm(request.POST)
+            
             for field in user_form:
                 arr.append(field.errors)
                 print(field.errors)
@@ -482,19 +502,33 @@ def manager_profile(request):
 @user_is_temple_manager
 def temple_add(request):
     temple_manager = get_object_or_404(TempleManager, user=request.user)
+    
     add_form = TempleAddForm(request.POST or None, request.FILES or None)
-    if add_form.is_valid():
+    
+    print("e")
+    
+    if add_form.is_valid() :
+        print("r")
+
         instance = add_form.save(commit=False)
+        print("f")
         instance.user = request.user
         instance.temple2 = temple_manager.Temple_Name
         instance.save()
+        
 
         return redirect('darshan:manager_profile')
     else:
         add_form = TempleAddForm()
-
-    context = {'add_form': add_form, }
-
+        arr = []
+        for field in add_form:
+            arr.append(field.errors)
+            print(field.errors)
+            print("\n")
+        messages.error(request, add_form.errors) 
+        
+            
+    context = {'add_form': add_form}
     return render(request, 'darshan/temple_add.html', context)
 
 
@@ -502,16 +536,20 @@ def temple_add(request):
 @user_is_temple_manager
 def temple_update(request, s=None):
     instance = get_object_or_404(Temples, temple2=s)
+    print(instance)
     add_form = TempleAddForm(request.POST or None, request.FILES or None, instance=instance)
-
+    print(add_form)
     if add_form.is_valid() == True:
         instance = add_form.save(commit=False)
         instance.save()
         print("o")
         return redirect('darshan:manager_profile')
+    
+        
+            
 
     context = {
-        'add_form': add_form,
+        'add_form': add_form
     }
 
     return render(request, 'darshan/temple_add.html', context)
@@ -562,6 +600,13 @@ def picture_add(request):
         return redirect('darshan:manager_profile')
     else:
         pic_add_form = PictureAddForm()
+        arr = []
+        for field in pic_add_form:
+            arr.append(field.errors)
+            print(field.errors)
+            print("\n")
+        messages.error(request, pic_add_form.errors) 
+        
 
     context = {'pic_add_form': pic_add_form, }
 
@@ -602,6 +647,8 @@ def picture_update(request, s1=None):
         print("o")
 
         return redirect('darshan:manager_profile')
+    
+           
 
     context = {
         'pic_add_form': pic_add_form,
@@ -635,6 +682,13 @@ def darshan_add(request):
         return redirect('darshan:manager_profile')
     else:
         dar_add_form = DarshanAddForm()
+        arr = []
+        for field in dar_add_form:
+            arr.append(field.errors)
+            print(field.errors)
+            print("\n")
+        messages.error(request, dar_add_form.errors) 
+        
 
     context = {'dar_add_form': dar_add_form, }
 
@@ -652,6 +706,8 @@ def darshan_update(request, s2=None):
         instance.save()
         print("o")
         return redirect('darshan:manager_profile')
+    
+            
 
     context = {
         'dar_add_form': dar_add_form,

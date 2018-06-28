@@ -24,40 +24,44 @@ class Temples(models.Model):
         null=True, blank=True,
         height_field="height_field",
         width_field="width_field")
-    height_field = models.IntegerField(default=None, null=True, blank=True)
-    width_field = models.IntegerField(default=None, null=True, blank=True)
-    Religion = models.CharField(max_length=200, default=None)
-    Address = models.TextField(default=None)
-    City = models.CharField(max_length=40, default=None)
-    State = models.CharField(max_length=50, default=None)
-    Country = models.CharField(max_length=60, default=None)
+    height_field = models.IntegerField(default=None, blank=True)
+    width_field = models.IntegerField(default=None, blank=True)
     Deity = models.CharField(max_length=100, default=None)
-    Website = models.URLField(default=None,blank=True)
-    Live_Darshan_link = models.URLField(default=None, blank=True)
-    Online_Donation = models.URLField(default=None, blank=True)
-    Online_Pooja = models.URLField(default=None, blank=True, null=True)
-    Online_Prasad = models.URLField(default=None, blank=True, null=True)
-    Online_Facility = models.URLField(default=None, blank=True, null=True)
+    About_Temple = models.TextField(default=None)
+    City = models.CharField(max_length=40, default=None)
     Contacts = models.CharField(max_length=300, default=None)
     Phone_Number = models.CharField(max_length=300, default=None)
+    Address = models.TextField(default=None)
     Email = models.EmailField()
-    About_Temple = models.TextField(default=None)
-    Temple_History = models.TextField(default=None)
     Temple_Purohit = models.CharField(max_length=250, default=None)
-    Significance = models.TextField(default=None)
-    Management = models.TextField(default=None)
-    Related_Faith = models.TextField(default=None)
-    About_City = models.TextField(default=None)
-    How_To_Reach = models.TextField(default=None)
-    Do_And_Dont = models.TextField(default=None)
-    Amenities = models.TextField(default=None)
-    Celebration = models.TextField(default=None)
-    Precaution_While_Visiting = models.TextField(default=None)
-    Tender = models.TextField(default=None, blank=True)
-    Recruitment = models.TextField(default=None, blank=True, null=True)
-    Notice_and_Updates = models.TextField(default=None, blank=True, null=True)
-    Accomodation_Link = models.URLField(default=None, blank=True)
+    Religion = models.CharField(max_length=200, default="Hindu",null=True)#About temple
+    Related_Faith = models.TextField(default=None,null=True)
+    Website = models.URLField(default=None,blank=True,null=True)
+    Temple_History = models.TextField(default=None,blank=True,null=True)
+    Significance = models.TextField(default=None,blank=True,null=True)
+    Celebration = models.TextField(default=None,blank=True,null=True)
+    Live_Darshan_link = models.URLField(default=None, blank=True,null=True)
+    Management = models.TextField(default=None,blank=True,null=True)
+    Other_Deities=models.TextField(default=None,blank=True,null=True)
+    Related_Temple=models.TextField(default=None,blank=True,null=True)
+    Accomodation_Link = models.URLField(default=None, blank=True,null=True)#TempleFacilities
     Annakshetra = models.BooleanField(default=False)
+    Online_Pooja = models.URLField(default=None, blank=True, null=True)
+    Online_Donation = models.URLField(default=None, blank=True,null=True)
+    Online_Prasad = models.URLField(default=None, blank=True, null=True)
+    Online_Facility = models.URLField(default=None, blank=True, null=True)
+    Transportation = models.TextField(default=None,blank=True,null=True)
+    About_City = models.TextField(default=None,blank=True,null=True)#visit Temple
+    How_To_Reach = models.TextField(default=None,blank=True,null=True)
+    Do_And_Dont = models.TextField(default=None,blank=True,null=True)
+    Amenities = models.TextField(default=None,blank=True,null=True)
+    Precaution_While_Visiting = models.TextField(default=None,blank=True,null=True)
+    State = models.CharField(max_length=50, default=None,blank=True,null=True)
+    Country = models.CharField(max_length=60, default=None,blank=True,null=True)
+    Tender = models.FileField(upload_to='file_uploads/',default='settings.MEDIA_ROOT/300.png',null=True)#Temple Miscelleneous
+    Recruitment = models.TextField(default=None, blank=True,null=True)
+    Notice_and_Updates = models.TextField(default=None, blank=True,null=True)
+    
 
     def __str__(self):
         return self.temple2
@@ -68,6 +72,8 @@ class Temples(models.Model):
         ]
 
 
+
+    
 class Picture(DirtyFieldsMixin, models.Model):
     Temple = models.ForeignKey(Temples, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -78,6 +84,7 @@ class Picture(DirtyFieldsMixin, models.Model):
     height_field = models.IntegerField(default=None, null=True, blank=True)
     width_field = models.IntegerField(default=None, null=True, blank=True)
     Time = models.TimeField(auto_now_add=False, auto_now=False, null=True, blank=True)
+    Ritual = models.CharField(max_length=200,default=None)
     publish = models.DateField(auto_now_add=False, auto_now=False)
     timestamp = models.DateField(auto_now=False, auto_now_add=True)
     updated = models.DateField(auto_now=True, auto_now_add=False)
@@ -87,7 +94,7 @@ class Picture(DirtyFieldsMixin, models.Model):
         return self.Temple.temple2
 
     def __str__(self):
-        return str(self.Temple.temple2) + ',' + str(self.TimeD)
+        return str(self.Temple.temple2) + ',' + str(self.Time)
 
 
 # class Meta:

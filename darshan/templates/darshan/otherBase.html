@@ -2,7 +2,7 @@
 {% load notification_tags %}
 <html xmlns="">
 <head>
-    <title>Divya Krupa</title>
+    <title>Divya Kripa</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
@@ -39,6 +39,10 @@
             input[type=number] {
                 width: 42%;
             }
+            input[type=password] {
+                width: 42%;
+            }
+
             .select2-container--default{
                 width: 50% !important;
             }
@@ -216,8 +220,43 @@
         </div>
     </div>
 </nav>
-<!-- {% include 'darshan/message_display.html' %}
- -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(window).load(function() {
+    $('#errors').modal('show');
+});
+</script>
+{% if messages %}
+ <div class="modal" id="errors">
+              <div class="modal-dialog">
+                <div class="v-cell">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                      <h4 class="modal-title" style="color:red">ALERT!!!</h4>
+                    </div>
+        
+        <div class="modal-body">
+            <div class="messages" style="text-align: left;margin-bottom: 0px;">
+                {% for message in messages %}
+                    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% include 'darshan/auth-forms.html' %}
+
 {% block content %}
 {% endblock %}
 <script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>

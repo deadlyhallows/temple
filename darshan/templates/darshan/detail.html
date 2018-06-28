@@ -5,66 +5,7 @@
 {% block content %}
     {% block style %}
     {% endblock style %}
-   <!-- Login Form -->
-    <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <form method="post" role="form" action="{% url 'darshan:login' %}">
-            <div class="modal-dialog ">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h2 class="modal-title" id="myModalLabel">Login</h2>
-                    </div>
-                    <div class="modal-body">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                    </div>
-                    <div class="modal-footer">
-                        <div class="col-md-12" align="center">
-                            <button type="submit" style="width: 200px;text-align: center;">Log in</button>
-                        </div>
-                        <br><br>
-                        <div class="col-md-12" style="text-align: center;">
-                            <a href="{% url 'darshan:home' %}" class="ab">New to My Site? Sign up</a>
-                            <p><strong>-- OR --</strong></p>
-                            <p><a href="{% url 'social:begin' 'facebook' %}" class="ab">Login with Facebook</a></p>
-                            <p><a href="{% url 'social:begin' 'google-oauth2' %}" class="ab">Login with Gmail</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>    
-       
-
- <!--SignUp form for user and  seller-->
-
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <form role="form" action="{% url 'darshan:signup' %}" method="post">
-           <div class="modal-dialog ">
-           <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h2 class="modal-title" id="myModalLabel">Sign Up</h2>
-            </div>
-            <div class="modal-body">
-                {% csrf_token %}
-               
-               {{ user_form.as_p}}
-               {{ Mobile_form.as_p }}
-               <label>Role:</label>
-                <select  name="usertype" style="float:left;width: 428px;">
-                    <option value="user" active>User</option>
-                    <option value="seller">Seller</option>
-                </select>
-            </div>
-            <div class="modal-footer">
-                <button type="submit">Sign Up</button>
-            </div>
-            </div>
-            </div>
-        </form>
-    </div>
+  
 
     <div class="container-fluid" style="margin-top: 15px">
         <div class="row">
@@ -107,7 +48,11 @@
 
                 <br>
 
-
+                {% if user.is_authenticated %}
+                    <button style="margin-bottom: 20px;width: 200px;height:50px;"><a  {% if q.Online_Donation %}
+                    href="{{ q.Online_Donation }}" {% else %}
+                    href="{% url 'darshan:Online_Donation'  v=q.temple2 %}" {% endif %}>Make Donation</a></button>
+                {% else %}    
                 <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;"><a class="launch-modal" data-toggle="modal" data-modal-id="myModal4">Make Donation</a></button>
 
                     <!-- Modal -->
@@ -131,59 +76,45 @@
                           
                         </div>
                       </div>  
-
+                {% endif %}      
                 <br>
 
-                <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;"><a class="launch-modal" data-toggle="modal" data-modal-id="myModal4">Visit Temple</a></button>
-
+                {% if user.is_authenticated %}
+                    <button style="margin-bottom: 20px;width: 200px;height:50px;"><a href="">Gallery</a></button>
+                {% else %}    
+                    <button style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;"><a class="launch-modal" data-toggle="modal" data-modal-id="myModal4">Visit Temple</a></button>
+                {% endif %}
                 <br>
+
             </div>
         </div>
         <hr>
         <h2 class="text-center" style="font-family:'Carter One';color: black">Temple details</h2>
         <ul class="nav nav-tabs row">
-            <li class="col-sm-3"><a data-toggle="tab" href="#menu1">Basic Information</a></li>
-            <li class="col-sm-3"><a data-toggle="tab" href="#menu2">Bookings</a></li>
-            <li class="col-sm-3"><a data-toggle="tab" href="#menu3">Facilities</a></li>
-            <li class="col-sm-3"><a data-toggle="tab" href="#menu4">Contact</a></li>
+            <li class="col-sm-2 col-md-offset-1"><a data-toggle="tab" href="#menu1">About Temple</a></li>
+            <li class="col-sm-2"><a data-toggle="tab" href="#menu2">Administration</a></li>
+            <li class="col-sm-2"><a data-toggle="tab" href="#menu3">Temple Facilities</a></li>
+            <li class="col-sm-2"><a data-toggle="tab" href="#menu4">Miscelleneous</a></li>
+            <li class="col-sm-2"><a data-toggle="tab" href="#menu4">Visit Temple</a></li>
         </ul>
         <!-- tab contents -->
 
         <div class="tab-content" id="detail" style="margin: 25px 50px">
-            <div id="menu1" class="tab-pane fade">
+            <div id="menu1" class="tab-pane active">
                 <table class="table table-striped">
                     <tbody>
                     <tr>
                         <h2 style="font-family: 'Carter One', cursive;">{{ q.temple2 }}</h2>
                     </tr>
                     <tr>
-                        <td>Religion</td>
-                        <td>{{ q.Religion }}</td>
+                        <td>Deity</td>
+                        <td>{{ q.Deity }}</td>
                     </tr>
                     <tr>
                         <td>Address</td>
                         <td>{{ q.Address }}</td>
                     </tr>
-                    <tr>
-                        <td>City</td>
-                        <td>{{ q.City }}</td>
-                    </tr>
-                    <tr>
-                        <td>State</td>
-                        <td>{{ q.State }}</td>
-                    </tr>
-                    <tr>
-                        <td>Country</td>
-                        <td>{{ q.Country }}</td>
-                    </tr>
-                    <tr>
-                        <td>Deity</td>
-                        <td>{{ q.Deity }}</td>
-                    </tr>
-                    <tr>
-                        <td>Website</td>
-                        <td>{{ q.Website }}</td>
-                    </tr>
+                    
                     <tr>
                         <td>About Temple</td>
                         <td>{{ q.About_Temple }}</td>
@@ -196,41 +127,25 @@
                         <td>Temple Purohit</td>
                         <td>{{ q.Temple_Purohit }}</td>
                     </tr>
-                    <tr>
-                        <td>Significance</td>
-                        <td>{{ q.Significance }}</td>
+                     <tr>
+                        <td>Temple Purohit</td>
+                        <td>{{ q.Temple_Purohit }}</td>
+                    </tr>
+                     <tr>
+                        <td>Email</td>
+                        <td>{{ q.Email }}</td>
                     </tr>
                     <tr>
-                        <td>Management</td>
-                        <td>{{ q.Management }}</td>
+                        <td>Contacts</td>
+                        <td>{{ q.Contacts }}</td>
                     </tr>
                     <tr>
-                        <td>Related Faith</td>
-                        <td>{{ q.Related_Faith }}</td>
+                        <td>Phone Number</td>
+                        <td>{{ q.Phone_Number }}</td>
                     </tr>
                     <tr>
-                        <td>About City</td>
-                        <td>{{ q.About_City }}</td>
-                    </tr>
-                    <tr>
-                        <td>How to reach</td>
-                        <td>{{ q.How_To_Reach }}</td>
-                    </tr>
-                    <tr>
-                        <td>Do's and Dont's</td>
-                        <td>{{ q.Do_And_Dont }}</td>
-                    </tr>
-                    <tr>
-                        <td>Amenities</td>
-                        <td>{{ q.Amenities }}</td>
-                    </tr>
-                    <tr>
-                        <td>Celebration</td>
-                        <td>{{ q.Celebration }}</td>
-                    </tr>
-                    <tr>
-                        <td>Precaution while Visiting</td>
-                        <td>{{ q.Precaution_While_Visiting }}</td>
+                        <td>City</td>
+                        <td>{{ q.City }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -245,38 +160,63 @@
                         </tr>
                     {% endif %}
 
-                    {% if q.Online_Donation %}
-                        <tr>
-                            <td>Online Donation</td>
-                            <td><a href="{{ q.Online_Donation }}">Click Here</a></td>
+                    {% if q.Religion %}
+                        <tr> 
+                            <td>Religion</td>
+                            <td>{{ q.Religion }}"</td>
                         </tr>
                     {% endif %}
 
-                    {% if q.Live_Pooja %}
+                    {% if q.Website %}
                         <tr>
-                            <td>Live Pooja</td>
-                            <td><a href="{{ q.Live_Pooja }}">Click Here</a></td>
+                            <td><a href="{{ q.Website }}">Website</a></td>
+                            <td><a href="{{ q.Website }}">Click Here</a></td>
                         </tr>
                     {% endif %}
 
-                    {% if q.Online_Prasad %}
+                    {% if q.Related_Temple %}
                         <tr>
-                            <td>Online Prasad</td>
-                            <td><a href="{{ q.Online_Prasad }}">Click Here</a></td>
+                            <td>Related Temple</td>
+                            <td>{{ q.Related_Temple }}</td>
                         </tr>
                     {% endif %}
 
-                    {% if q.Online_Facility %}
+                    {% if q.Related_Faith %}
                         <tr>
-                            <td>Other online facilities</td>
-                            <td><a href="{{ q.Online_Facility }}">link</a></td>
+                            <td>Related Faith</td>
+                            <td>{{ q.Related_Faith }}</td>
                         </tr>
                     {% endif %}
 
-                    {% if q.Accomodation_Link %}
+                    {% if q.Temple_History %}
                         <tr>
-                            <td>Other online facilities</td>
-                            <td><a href="{{ q.Accomodation_Link }}">link</a></td>
+                            <td>Temple History</td>
+                            <td>{{ q.Temple_History }}</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if q.Significance %}
+                        <tr>
+                            <td>Significance</td>
+                            <td>{{ q.Significance }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if q.Celebration %}
+                        <tr>
+                            <td>Celebration</td>
+                            <td>{{ q.Celebration }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if q.Management %}
+                        <tr>
+                            <td>Management</td>
+                            <td>{{ q.Management }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if q.Other_Deities %}
+                        <tr>
+                            <td>Other Deities</td>
+                            <td>{{ q.Other_Deities }}</td>
                         </tr>
                     {% endif %}
 
@@ -287,101 +227,142 @@
                         </div>
 
                         <div id="menu3" class="tab-pane fade">
-                            <table class="table table-striped">
+                        <table class="table table-striped">
 
-                                <tbody>
-
-
-                    <tr>
-                        <td>Live Darshan</td>
-                        {% if q.Live_Darshan_Link %}
-                            <td>Yes</td>
-                        {% else %}
-                            <td>No</td>
-                        {% endif %}
-                    </tr>
-                    <tr>
-                        <td>Online Donation</td>
+                        <tbody>
                         {% if q.Online_Donation %}
-                            <td>Yes</td>
-                        {% else %}
-                            <td>No</td>
+                        <tr>
+                            <td><a href="{{ q.Online_Donation }}">Online Donation</a></td>
+                            <td><a href="{{ q.Online_Donation }}">Click here</a></td>
+                        </tr>
                         {% endif %}
-                    </tr>
-                    <tr>
-                        <td>Online Pooja</td>
-                        {% if q.Live_Pooja %}
-                            <td>Yes</td>
-                        {% else %}
-                            <td>No</td>
+
+                       {% if q.Online_Pooja %}
+                        <tr>
+                            <td><a href="{{ q.Online_Pooja }}">Online Pooja</a></td>
+                            <td><a href="{{ q.Online_Pooja }}">Click here</a></td>
+                        </tr>
                         {% endif %}
-                    </tr>
-                    <tr>
-                        <td>Online Prasad</td>
-                        {% if q.Online_Prasad %}
-                            <td>Yes</td>
-                        {% else %}
-                            <td>No</td>
-                        {% endif %}
-                    </tr>
-                    <tr>
-                        <td>Other Online Facilities</td>
+
                         {% if q.Online_Facility %}
-                            <td>Yes</td>
-                        {% else %}
-                            <td>No</td>
+                        <tr>
+                            <td><a href="{{ q.Online_Facility }}">Online Facility</a></td>
+                            <td><a href="{{ q.Online_Facility }}">Click here</a></td>
+                        </tr>
                         {% endif %}
-                    </tr>
-                    <tr>
-                        <td>Accomodation</td>
                         {% if q.Accomodation_Link %}
-                            <td>Yes</td>
-                        {% else %}
-                            <td>No</td>
+                        <tr>
+                            <td><a href="{{ q.Accomodation_Link }}">Accomodation Link</a></td>
+                            <td><a href="{{ q.Accomodation_Link }}">Click here</a></td>
+                        </tr>
                         {% endif %}
-                    </tr>
+                        {% if q.Transportation %}
+                        <tr>
+                            <td>Transportation</td>
+                            <td>{{ q.Transportation }}</td>
+                        </tr>
+                        {% endif %}
+                        {% if q.Annakshetra %}
+                        <tr>
+                            <td>Annakshetra</td>
+                            <td>{{ q.Annakshetra }}</td>
+                        </tr>
+                        {% endif %}
 
-
-                                </tbody>
-                            </table>
+                  
+                    </tbody>
+                        </table>
                         </div>
 
 
-
-                                </tbody>
+Tender', 'Recruitment', 'Notice_and_Updates
+            
 
             <div id="menu4" class="tab-pane fade">
                 <table class="table table-striped">
                     <tbody>
-                    <tr>
-                        <td>Contacts Us</td>
-                        <td>{{ q.Contacts }}</td>
-                    </tr>
-                    <tr>
-                        <td>Phone Numbers</td>
-                        <td>{{ q.Phone_Number }}</td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td>{{ q.Email }}</td>
-                    </tr>
-                    <tr>
-                        <td>Tender</td>
-                        <td>{{ q.Tender }}</td>
-                    </tr>
-                    <tr>
-                        <td>Recruitment</td>
-                        <td>{{ q.Recruitment }}</td>
-                    </tr>
-                    <tr>
-                        <td>Notices</td>
-                        <td>{{ q.Notice_and_Updates }}</td>
-                    </tr>
+                    {% if q.State %}
+                        <tr>
+                            <td>State</td>
+                            <td>{{ q.State }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if q.Country %}
+                        <tr>
+                            <td>Country</td>
+                            <td>{{ q.Country }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if q.About_City %}
+                        <tr>
+                            <td>About City</td>
+                            <td>{{ q.About_City}}</td>
+                        </tr>
+                    {% endif %}
+                    {% if q.How_To_Reach %}
+                        <tr>
+                            <td>How To Reach</td>
+                            <td>{{ q.How_To_Reach }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if q.Do_And_Dont %}
+                        <tr>
+                            <td>Do And Dont</td>
+                            <td>{{ q.Do_And_Dont }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if q.Amenities %}
+                        <tr>
+                            <td>Amenities</td>
+                            <td>{{ q.Amenities }}</td>
+                        </tr>
+                    {% endif %}                                
+                    {% if q.Celebration %}
+                        <tr>
+                            <td>Celebration</td>
+                            <td>{{ q.Celebration}}</td>
+                        </tr>
+                    {% endif %}
+                    {% if q.Precaution_While_Visiting %}
+                        <tr>
+                            <td>Precaution While Visiting</td>
+                            <td>{{ q.Precaution_While_Visiting }}</td>
+                        </tr>
+                    {% endif %}    
                     </tbody>
 
 
                             </table>
                         </div>
+
+                     <div id="menu5" class="tab-pane fade">
+                <table class="table table-striped">
+                    <tbody>
+                    {% if q.Tender %}
+                        <tr>
+                            <td>Tender</td>
+                            <td>{{ q.Tender }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if q.Recruitment %}
+                        <tr>
+                            <td>Recruitment</td>
+                            <td>{{ q.Recruitment }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if q.Notices_and_Updates %}
+                        <tr>
+                            <td>Notices and Updates</td>
+                            <td>{{ q.Notices_and_Updates }}</td>
+                        </tr>
+                    {% endif %}
+                   
+                    </tbody>
+
+
+                            </table>
+                        </div>    
+                        
                     </div>
                 </div>
             </div>

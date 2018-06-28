@@ -79,11 +79,9 @@ def view_cart(request):
                    'cart': cart_items,
                    'cart_form':cart_form,
                    'total':cart_total_price,
-                   'form': AuthenticationForm,
-                   'Mobile_form': MobileForm,
-                   'user_form': SignUpForm,
+                   
                    }
-    return render(request, 'cart/detail.html', context)
+    return render(request, 'cart/cart_detail.html', context)
 
 
 @login_required
@@ -161,13 +159,11 @@ def cart_detail(request):
     context = {'loop_times': range(2, 21),
                'cart': cart,
 
-               'form': AuthenticationForm,
-               'Mobile_form': MobileForm,
-               'user_form': SignUpForm,
+               
 
     }
 
-    return render(request, 'cart/ses_cart_detail.html', context)
+    return render(request, 'cart/cart_detail.html', context)
 
 
 

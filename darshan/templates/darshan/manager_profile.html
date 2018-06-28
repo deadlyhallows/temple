@@ -22,78 +22,41 @@
                         <a href="{% url 'darshan:temple_update' s=x1.temple2 %}">{{ x1.temple2 }}</a>
                         <span>
                  
-                     <button class="btn btn-primary launch-modal" data-toggle="modal" data-target="#myModal2">Remove</button>
+
+                     <button class="btn btn-primary launch-modal" data-toggle="modal" data-target="#myModal2" data-backdrop="static">Remove</button>
+
                 
              </span>
                     </p>
-                     <div class="modal fade" id="myModal2" role="dialog">
+                    <div class="modal fade" id="myModal2" role="dialog">
                         <div class="modal-dialog">
-                        
-                          <!-- Modal content-->
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              <h4 class="modal-title" style="color: red">Warning</h4>
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title" style="color: red">Warning</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Do you want to delete it,TEMPLE???</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="{% url 'darshan:temple_remove' s=x1.temple2 %}">
+                                        <button type="button" class="btn btn-default">Yes</button>
+                                    </a>
+                                    <a href="{% url 'darshan:manager_profile' %}">
+                                        <button type="button" class="btn btn-default"> No</button>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                              <p>Do you want to delete it,TEMPLE???</p>
-                            </div>
-                            <div class="modal-footer">
-                             <a href="{% url 'darshan:temple_remove' s=x1.temple2 %}"><button type="button" class="btn btn-default" >Yes</button></a>
-                             <a href="{% url 'darshan:manager_profile' %}"><button type="button" class="btn btn-default" > No </button></a>
-                            </div>
-                          </div>
-                                              
+
+                        </div>
                     </div>
-                    </div>  
                 {% endfor %}
             </div>
+
             
         {% if temples %}
-            <div class="col-md-4 mark_button" align="center">
-                PICTURES
-            <span>
-            <a href="{% url 'darshan:picture_add' %}">
-                <button class="btn btn-primary">
-                    Add Pictures<strong> +</strong>
-                </button>
-            </a>
-            </span>
-                <br>
-                <br>
-                <br>
-                <br>
-                {% for x2 in pictures %}
-                    <p>
-                        <a href="{% url 'darshan:picture_update' s1=x2.id %}">
-                            {{ x2.Time }}
-                        </a>
-            <span>
-             <button class="btn btn-primary launch-modal" data-toggle="modal" data-target="#myModal8" >Remove</button>
-            </span>
-                    </p>
-                    <div class="modal fade" id="myModal8" role="dialog">
-                                            <div class="modal-dialog">
-                                            
-                                              <!-- Modal content-->
-                                              <div class="modal-content">
-                                                <div class="modal-header">
-                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                  <h4 class="modal-title" style="color: red">Warning</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                  <p>Do you want to delete it,PICTURE???</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                 <a href="{% url 'darshan:picture_remove' s1=x2.id %}"><button type="button" class="btn btn-default" >Yes</button></a>
-                                                 <a href="{% url 'darshan:manager_profile' %}"><button type="button" class="btn btn-default" > No </button></a>
-                                                </div>
-                                              </div>
-                                              
-                                            </div>
-                    </div>  
-                {% endfor %}
-            </div>
 
             <div class="col-md-4 mark_button" align="center">
                 DARSHANS
@@ -114,7 +77,7 @@
                     </a>
                     <span>
                     
-                    <button class="btn btn-primary launch-modal" data-toggle="modal" data-target="#myModal9">Remove</button>
+                    <button class="btn btn-primary launch-modal" data-toggle="modal" data-target="#myModal9" data-backdrop="static">Remove</button>
                     
                     </span>
                 </p>
@@ -141,7 +104,58 @@
                     </div>  
                 {% endfor %}
             </div>
+        
+
+        <div class="col-md-4 mark_button" align="center">
+                PICTURES
+            <span>
+            <a href="{% url 'darshan:picture_add' %}">
+                <button class="btn btn-primary">
+                    Add Pictures<strong> +</strong>
+                </button>
+            </a>
+            </span>
+                <br>
+                <br>
+                <br>
+                <br>
+                {% for x2 in pictures %}
+                    <p>
+                        <a href="{% url 'darshan:picture_update' s1=x2.id %}">
+                            {{ x2.Time }}
+                        </a>
+            <span>
+             <button class="btn btn-primary launch-modal" data-toggle="modal" data-target="#myModal8" data-backdrop="static" >Remove</button>
+            </span>
+                    </p>
+                    <div class="modal fade" id="myModal8" role="dialog">
+                                            <div class="modal-dialog">
+                                            
+                                              <!-- Modal content-->
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                  <h4 class="modal-title" style="color: red">Warning</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <p>Do you want to delete it,PICTURE???</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                 <a href="{% url 'darshan:picture_remove' s1=x2.id %}"><button type="button" class="btn btn-default" >Yes</button></a>
+                                                 <a href="{% url 'darshan:manager_profile' %}"><button type="button" class="btn btn-default" > No </button></a>
+                                                </div>
+                                              </div>
+                                              
+                                            </div>
+                    </div>  
+                {% endfor %}
+            </div>
+
         {% endif %}    
+
         </div>
     </div>
+
+            
+            
 {% endblock content %}

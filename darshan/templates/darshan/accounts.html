@@ -72,9 +72,10 @@
                         <img src="{{ u.image.url }}" class="image-container img-responsive roundedCorner">
                         {% for z in u.Temple_id|darshan %}
                             <a href="{% url 'darshan:details' temp=z %}" class="btn btn-default"
-                               style="margin-top:10px;align-content: center;">
+                               style="margin-top:10px; margin-left: 75px">
                                 {{ z.temple2 }}<br>
-                                {{ u.Time }}
+                                {{ u.Time }}<br>
+                                {{ u.Ritual }}
                             </a>
                         {% endfor %}
                     </div>
