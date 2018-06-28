@@ -158,9 +158,6 @@ def cart_detail(request):
     
     context = {'loop_times': range(2, 21),
                'cart': cart,
-
-               
-
     }
 
     return render(request, 'cart/cart_detail.html', context)
