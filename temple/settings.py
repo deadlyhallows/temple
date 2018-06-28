@@ -34,7 +34,7 @@ INSTALLED_APPS = [
 
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.sites',
+    #'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -46,14 +46,6 @@ INSTALLED_APPS = [
     'django_select2',
     'otp_twilio',
     'social_django',
-
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-
-    'allauth.socialaccount.providers.facebook',
-
-
 
     'widget_tweaks',
     # ... Other apps
@@ -74,7 +66,7 @@ INSTALLED_APPS = [
     'orders',
 
 ]
-SITE_ID = 1
+# SITE_ID = 1
 
 CRISPY_TEMPLATE_TAG = 'bootstrap 3'
 
@@ -116,8 +108,8 @@ TEMPLATES = [
                 'social_django.context_processors.login_redirect',
                 'darshan.context_processor.Manager',
 
-                'cart.context_processors.cart', #comment it when logging in as Superuser
-                #'cart.context_processors.cart1',
+                'cart.context_processors.cart' #comment it when logging in as Superuser
+
             ],
         },
     },
@@ -167,18 +159,16 @@ AUTHENTICATION_BACKENDS = (
 
     'django.contrib.auth.backends.ModelBackend',
 
-     # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.gmail'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'testsite_app'
-EMAIL_HOST_PASSWORD = 'mys3cr3tp4ssw0rd'
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'TestSite Team <noreply@example.com>'
+# EMAIL_HOST = 'smtp.gmail'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'testsite_app'
+# EMAIL_HOST_PASSWORD = 'mys3cr3tp4ssw0rd'
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'TestSite Team <noreply@example.com>'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/

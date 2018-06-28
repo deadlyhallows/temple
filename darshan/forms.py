@@ -3,7 +3,7 @@ from .models import Profile, Temples, Mobile, OnlineDonation, TempleManager, Pic
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from pagedown.widgets import PagedownWidget
-from darshan.widgets import SelectDateWidget, SelectTimeWidget
+from django.forms.extras.widgets import SelectDateWidget
 
 from django_select2.forms import (
     HeavySelect2MultipleWidget, HeavySelect2Widget, ModelSelect2MultipleWidget,
@@ -46,17 +46,17 @@ class MobileForm(forms.ModelForm):
 class TempleForm(forms.ModelForm):
 
     #comment it while migration
-    OPTIONS = []
-    a = Temples.objects.all()
-    for x in a:
-        y = (x.temple2, x.temple2)
-        OPTIONS.append(y)
+    # OPTIONS = []
+    # Tem = Temples.objects.all()
+    # for x in Tem:
+    #     tem_option = (x.temple2, x.temple2)
+    #     OPTIONS.append(tem_option)
 
-    Select_Temple = forms.MultipleChoiceField(
+    Select_Temple = forms.ModelMultipleChoiceField(
         widget=Select2MultipleWidget(),
 
-        #queryset=Temples.objects.all()
-        choices=OPTIONS
+        queryset=Temples.objects.all()
+        # choices=OPTIONS
 
     )
 
@@ -102,7 +102,6 @@ class TempleAddForm(forms.ModelForm):
     How_To_Reach = forms.CharField(widget=PagedownWidget(),required=False)
     Do_And_Dont = forms.CharField(widget=PagedownWidget(),required=False)
     Amenities = forms.CharField(widget=PagedownWidget(),required=False)
-    Celebration = forms.CharField(widget=PagedownWidget(),required=False)
     Precaution_While_Visiting =forms.CharField(widget=PagedownWidget(),required=False)
     Tender = forms.FileField(required=False)
     Recruitment = forms.CharField(widget=PagedownWidget(),required=False)
@@ -110,7 +109,7 @@ class TempleAddForm(forms.ModelForm):
 
     field_groups = (
         {'name':'form1', 'fields':('Icon_images', 'images','Deity','Contacts', 'Phone_Number', 'Email','Temple_Purohit','City','Address','About_Temple','City')},
-        {'name':'form2', 'fields':('Religion', 'Live_Darshan_link','Website','Related_Temple','Related_Faith', 'Temple_History','Significance','Celebration','Management','Other_Deities', )},
+        {'name':'form2', 'fields':('Religion', 'Live_Darshan_link','Website','Related_Temple','Related_Faith', 'Temple_History','Significance','Management','Other_Deities', )},
         {'name':'form3', 'fields':('Online_Donation','Online_Pooja', 'Online_Facility','Annakshetra', 'Accomodation_Link','Transportation')},
         {'name':'form4', 'fields':('State', 'Country','About_City', 'How_To_Reach', 'Do_And_Dont', 'Amenities', 'Celebration','Precaution_While_Visiting',)},
         {'name':'form5', 'fields':('Tender', 'Recruitment', 'Notice_and_Updates')},
@@ -127,11 +126,6 @@ class TempleAddForm(forms.ModelForm):
                   'Related_Faith', 'About_City', 'How_To_Reach', 'Do_And_Dont', 'Amenities', 'Celebration',
                   'Precaution_While_Visiting', 'Tender', 'Recruitment', 'Notice_and_Updates','Related_Temple','Other_Deities','Transportation')
             
-
-
-
-
-
 class DarshanAddForm(forms.ModelForm):
     rituals = forms.CharField(required=True)
     timings = forms.CharField(required=True)
@@ -142,14 +136,15 @@ class DarshanAddForm(forms.ModelForm):
 
 class PictureAddForm(forms.ModelForm):
     OPTION = []
-    a = Darshans.objects.all()
-    for x in a:
-        y = (str(x.rituals), str(x.rituals))
-        OPTION.append(y)
+    darshans = Darshans.objects.all()
+    for x in darshans:
+        darshan_option = (str(x.rituals), str(x.rituals))
+        OPTION.append(darshan_option)
     image = forms.ImageField(required=True)
     publish = forms.DateField(widget=SelectDateWidget,required=True)  
-    Time = forms.TimeField(widget=SelectTimeWidget,required=True)
+    Time = forms.CharField(max_length=250)
     Ritual = forms.ChoiceField(choices=OPTION)
+    print("Ritual", Ritual)
     class Meta:
         model=Picture
         fields=('image','Time','publish','Ritual')

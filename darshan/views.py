@@ -33,7 +33,7 @@ from django.template import RequestContext
 from notify.signals import notify
 import random
 
-
+PAID_FEE_AMOUNT = 0
 def home(request):
     temples = Temples.objects.all()
     totalProduct = Product.objects.all()
@@ -138,6 +138,7 @@ def signup(request):
                         cart_item.save()
                         print("f")
             current_site = get_current_site(request)
+            print(current_site.domain)
             subject = 'Activate Your MySite Account'
             message = render_to_string('darshan/account_activation_email.html', {
                 'user': user,
@@ -247,8 +248,14 @@ def user_profile(request):
 
     # --------For Authenticated user who is not superuser-------------
     cart = Cart(request)
+    print("a")
     if cart is not None:
-        user_cart = get_object_or_404(Carts, user_id=user.id)
+        try:
+            user_cart = Carts.objects.get(user_id=user.id)
+            print("m")
+        except Carts.DoesNotExist:
+            user_cart = Carts.objects.create(user=request.user,active=True)
+            print("l")
         for item in cart:
             cart_product = get_object_or_404(Product, Product_Name=item['product'])
             
@@ -341,7 +348,7 @@ def delete(request, value):
         if i == value:
             query_l.Select_Temple.remove(i)
             query_l.save()
-    temple = Temples.objects.get(temple2=value)
+    temple = get_object_or_404(Temples,temple2=value)
     img = Picture.objects.filter(Temple_id=temple.id)
     for j in img:
         for k in query_l.selected:
@@ -399,6 +406,7 @@ def selectedTemple(request, pk):
 @login_required
 def Online_Donation(request, v):
     if request.method == "POST":
+        global PAID_FEE_AMOUNT
         temple = get_object_or_404(Temples, temple2=v)
         form = DonationForm(request.POST)
         print("Aw")
@@ -410,6 +418,7 @@ def Online_Donation(request, v):
             donation.Amount = form.cleaned_data.get('Amount')
             donation.Purpose = form.cleaned_data.get('Purpose')
             donation.status = True
+            PAID_FEE_AMOUNT = donation.Amount
             donation.save()
             return redirect('orders:payment')
     else:
@@ -562,15 +571,15 @@ def temple_remove(request,s):
     instance = get_object_or_404(Temples,temple2=s)
     profiles = User.objects.filter(is_superuser=False)
 
-    for i in profiles:#-----deleting temple from all profiles and also from their selected -----------------
-        print(i)
-        for x in i.profile.Select_Temple:
+    for prof in profiles:#-----deleting temple from all profiles and also from their selected -----------------
+        print(prof)
+        for x in prof.profile.Select_Temple:
             print(x)
             temp = Temples.objects.get(temple2=x)
             if(temp.id==instance.id):
-                i.profile.Select_Temple.remove(x)
+                prof.profile.Select_Temple.remove(x)
                 print("d")
-                i.profile.save()
+                prof.profile.save()
     img=Picture.objects.filter(Temple_id=instance.id)
     for m in profiles:
         for y in m.profile.selected:

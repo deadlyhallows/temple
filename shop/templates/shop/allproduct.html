@@ -85,7 +85,7 @@
                     {% csrf_token %}
                     <label for="id_temple0">Temples:</label><br>
                     {% for x in query_list %}
-                        <input type="checkbox" name="temples" id="id_temple0" value="{{ x.id }}"
+                        <input type="checkbox" name="temples" class="id_temple0" value="{{ x.id }}"
                                style="float: left !important;">{{ x }}<br>
                     {% endfor %}
                     <br>
