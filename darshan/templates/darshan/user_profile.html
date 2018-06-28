@@ -35,22 +35,13 @@
             </div>
         </div>
 
-        {% if messages %}
-        
-            <ul class="messages" style="text-align: left;color: green; margin-bottom: 0px;">
-                {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        
-      <!-- -----------For telling users that time is added---------- -->
-        {% endif %}
+       
 
         <p style="text-align: center;">  ADD TIME FROM DROPDOWN </p>
         <div class="row">
             <div class="col-md-12">
-                {% for t in query_list %}
-                    {% for x in t.Select_Temple %}
+                
+                    {% for x in query_list.Select_Temple %}
                         <div class="row">
                             <div class="col-md-8 col-offset-4">
                                 <form action="" method="post" style="width: 100% !important;"> {% csrf_token %}
@@ -63,7 +54,7 @@
                                         <div class="col-md-2">
                                             <button class="btn btn-primary">
                                                 <a style="color: white" class="launch-modal" 
-                                            data-toggle="modal" data-target="#myModal6">
+                                            data-toggle="modal" data-target="#myModal6" data-backdrop="static">
                                                     Delete
                                                 </a>
                                             </button>
@@ -98,7 +89,7 @@
                                                     <select class="django-select" name="{{ x }}" multiple="multiple">
                                                         {% with temp=y|picture %}
                                                             {% for z in temp %}
-                                                                <option value="{{ z.id }}"{% for x1 in t.selected %}{% if x1 == z.id %} selected{% endif %}{% endfor %}>
+                                                                <option value="{{ z.id }}"{% for x1 in query_list.selected %}{% if x1 == z.id %} selected{% endif %}{% endfor %}>
                                                                     {{ z.Time }}
                                                                 </option>
                                                             {% endfor %}
@@ -119,7 +110,7 @@
                             </div>
                         </div>
                     {% endfor %}
-                {% endfor %}
+               
             </div>
         </div>
         <hr>

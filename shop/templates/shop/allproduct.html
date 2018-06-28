@@ -98,9 +98,12 @@
                         {% for y in x|product %}
                             <div class="col-sm-3">
                                 <div class="thumbnail">
-                                    {% if y.Photo.url %}
+                                    {% if y.Photo %}
                                         <img src="{{ y.Photo.url }}">
-                                    {% endif %}
+                                    {% else %} 
+                                        <img src="{% static 'images/300.png' %}"> 
+                                    {% endif %}    
+                                    
                                     {{ y.Product_Name }}<br>
                                     {{ y.Price }}
                                     <a href="{% url 'shop:details1' val=y.Product_Name %}">
@@ -118,8 +121,10 @@
                         {% for y in x|product %}
                             <div class="col-sm-3">
                                 <div class="thumbnail">
-                                    {% if y.Photo.url %}
+                                    {% if y.Photo %}
                                         <img src="{{ y.Photo.url }}">
+                                    {% else %} 
+                                        <img src="{% static 'images/300.png' %}"> 
                                     {% endif %}
                                     {{ y.Product_Name }}<br>
                                     {{ y.Price }}

@@ -8,6 +8,8 @@ jQuery(document).ready(function() {
 });
 
 
+
+
 function ValidateUsername(){
 	var get_id= document.getElementById("username1");
 	var get_span = document.getElementById("susername1");
