@@ -1,3 +1,0 @@
-{{ object.ProductName }}
-{{object.object.product_set.all}}
-{{ object.Price }}

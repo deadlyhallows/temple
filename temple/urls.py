@@ -17,8 +17,9 @@ from django.conf.urls import include
 from django.conf.urls import url
 from django.contrib import admin
 from django.conf import settings
+from django.views.static import serve
 from django.conf.urls.static import static
-from django.views.i18n import javascript_catalog
+#from django.views.i18n import javascript_catalog
 
 app_name = 'darshan'
 urlpatterns = [
@@ -30,9 +31,16 @@ urlpatterns = [
     url(r'^notifications/', include('notify.urls', namespace='notifications')),
     url(r'^pay/', include('payu_biz.urls', namespace='pay')),
     url(r'^search/', include('haystack.urls')),
-    url(r'^oauth/', include('social_django.urls', namespace='social')),
-    url(r'^admin/jsi18n', javascript_catalog),
+    url(r'^auth/', include('social_django.urls', namespace='social')),
+    url(r'^accounts/', include('allauth.urls')),
+    url('^', include('django.contrib.auth.urls')),
+    #url(r'^admin/jsi18n', javascript_catalog),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# if settings.DEBUG is False:
+#     urlpatterns += [url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, }),
+#                     url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}), ]

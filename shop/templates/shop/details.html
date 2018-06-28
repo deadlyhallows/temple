@@ -9,7 +9,7 @@
             <div class="col-md-12">
                 {% for p in product %}
                     <div class="col-md-5">
-                        <img src="{{ p.Photo.url }}" class="img-responsive" style="max-width: 100% !important;">
+                        <img {% if p.Photo %} src="{{ p.Photo.url }}" {% else %} src="{% static 'images/300.png' %}" {% endif %} class="img-responsive" style="max-width: 100% !important;">
                     </div>
                     <div class="col-md-7">
                         <h3>
@@ -18,6 +18,12 @@
                         <p>
                             <br>
                             Rs.{{ p.Price }}
+                        </p>
+                        <p>
+                            <br>
+                            {% if p.Offer_or_Discount %}
+                                {{ p.Offer_or_Discount }}
+                            {% endif %}    
                         </p>
                         <p>
                             {% if user.is_authenticated and not user.is_superuser %}
