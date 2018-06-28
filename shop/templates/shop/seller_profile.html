@@ -16,15 +16,17 @@
                     </span>
                     <br><br><br><br>
                     {% for y in items %}
+
                         <div class="col-md-12">
                             <div class="col-md-6">
-                                <a href="{% url 'shop:product_update' p=y.id %}"
-                                   style="color: black; font-family: sans-serif">
-                                    <h4>
-                                        {{ y.Product_Name }}, {{ y.Temple_Name }}
-                                    </h4>
-                                </a>
+
+                        
+                            <a href="{% url 'shop:product_update' p=y.id %}" style="color: black; font-family: sans-serif">
+                               <h4> {{ y.Product_Name }}, {{ y.Temple_Name }} </h4>
+                            </a>
+                                
                             </div>
+
                             <div class="col-md-6">
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal5"
                                         data-backdrop='static'>

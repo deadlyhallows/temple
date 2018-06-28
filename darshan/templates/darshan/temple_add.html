@@ -5,13 +5,44 @@
     {% endblock style %}
     {% block head_extra %}
         {{ add_form.media }}
+       
     {% endblock head_extra %}
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $("document").ready(function() {
+            var element = document.getElementById("form1");
+             element.classList.remove("fade");
+            element.classList.add("active");
+    });
+    </script>
     <div class="container-fluid" style="margin-top: 15px;">
         <div class="row">
             <div class="col-sm-12">
                 <h2>Temple Form</h2>
-                <form method="Post" role="form" enctype="multipart/form-data">
-                    {% for field in add_form %}
+        <form method="Post" role="form" enctype="multipart/form-data">
+            <button type="submit" class="btn btn-primary" style="float: right;">
+                        Save
+            </button>    
+        <ul class="nav nav-tabs ">
+            <li class="col-sm-2 col-md-offset-1"><a data-toggle="tab" href="#form1">Basic Information Form<span class="required" style="color: red;"> *</span></a></li>
+            <li class="col-sm-2"><a data-toggle="tab" href="#form2">About Temple Form </a></li>
+            <li class="col-sm-2"><a data-toggle="tab" href="#form3">Temple Facilities Form</a></li>
+            <li class="col-sm-2"><a data-toggle="tab" href="#form4">Visit Temple Form</a></li>
+            <li class="col-sm-2"><a data-toggle="tab" href="#form5">Temple Miscelleneous Form</a></li>
+
+        </ul>
+        <!-- tab contents -->
+        
+            <div class="tab-content" id="detail" style="margin: 25px 50px">
+            {% for group in add_form.field_groups %}
+                
+        
+            <div id="{{ group.name }}" class="tab-pane fade">
+                
+                    {% for field in add_form %} 
+                    {% if field.name in group.fields %}
                         <p>
                             <label for="{{ field.auto_id }}">{{ field.label_tag }}
                                 {% if field.field.required %}
@@ -20,17 +51,18 @@
                             </label>
 
                             {{ field }}
-                        </p><br>
-                    {% endfor %}
+                        </p>
+
+                    {% endif %}
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-primary" style="margin-left: 40%">
-                        Save
-                    </button>
-                </form>
-                <br>
-                <br>
-                <br>
-                <br>
+                  {% endfor %}  
+
+            </div>
+        
+             
+        {% endfor %}
+        </div>
+    </form>
             </div>
         </div>
     </div>

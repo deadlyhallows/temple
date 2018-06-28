@@ -167,7 +167,42 @@
         </div>
     </div>
 </nav>
-
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(window).load(function() {
+    $('#errors').modal('show');
+});
+</script>
+{% if messages %}
+ <div class="modal" id="errors">
+              <div class="modal-dialog">
+                <div class="v-cell">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                      <h4 class="modal-title" style="color:red">ALERT!!!</h4>
+                    </div>
+        
+        <div class="modal-body">
+            <div class="messages" style="text-align: left;margin-bottom: 0px;">
+                {% for message in messages %}
+                    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% include 'darshan/auth-forms.html' %}
 {% block content %}
 {% endblock %}
 

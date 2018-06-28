@@ -3,7 +3,7 @@ from .models import Profile, Temples, Mobile, OnlineDonation, TempleManager, Pic
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from pagedown.widgets import PagedownWidget
-from django.forms.extras.widgets import SelectDateWidget
+from darshan.widgets import SelectDateWidget, SelectTimeWidget
 
 from django_select2.forms import (
     HeavySelect2MultipleWidget, HeavySelect2Widget, ModelSelect2MultipleWidget,
@@ -44,18 +44,20 @@ class MobileForm(forms.ModelForm):
     
 
 class TempleForm(forms.ModelForm):
-    # # comment it while migration
-    # OPTIONS = []
-    # a = Temples.objects.all()
-    # for x in a:
-    #     y = (x.temple2, x.temple2)
-    #     OPTIONS.append(y)
 
-    Select_Temple = forms.ModelMultipleChoiceField(
+    #comment it while migration
+    OPTIONS = []
+    a = Temples.objects.all()
+    for x in a:
+        y = (x.temple2, x.temple2)
+        OPTIONS.append(y)
+
+    Select_Temple = forms.MultipleChoiceField(
         widget=Select2MultipleWidget(),
 
-        queryset=Temples.objects.all()
-        # choices=OPTIONS
+        #queryset=Temples.objects.all()
+        choices=OPTIONS
+
     )
 
     class Meta:
@@ -78,48 +80,55 @@ class TempleManagerForm(forms.ModelForm):
 class TempleAddForm(forms.ModelForm):
     Icon_images = forms.ImageField(required=True)
     images = forms.ImageField(required=True)
-    Religion = forms.CharField(max_length=200,required=True)
-    City = forms.CharField(max_length=200,required=True)
-    State = forms.CharField(max_length=200,required=True)
-    Country = forms.CharField(max_length=200,required=True)
     Deity = forms.CharField(max_length=200,required=True)
+    City = forms.CharField(max_length=200,required=True)
+    About_Temple = forms.CharField(widget=PagedownWidget(),required=True)
     Contacts = forms.CharField(max_length=200,required=True)
     Phone_Number = forms.CharField(max_length=200,required=True)
     Temple_Purohit = forms.CharField(max_length=200,required=True)
     Address = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
-    About_Temple = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
-    Temple_History= forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
-    Significance= forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
-    Management= forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
-    Related_Faith= forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
-    About_City = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
-    How_To_Reach = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
-    Do_And_Dont = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
-    Amenities = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
-    Celebration = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
-    Precaution_While_Visiting = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
-    Tender = forms.CharField(widget=PagedownWidget(show_preview=False),required=False)
-    Recruitment = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
-    Notice_and_Updates = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
+    Religion = forms.CharField(max_length=200,required=False)
+    Management= forms.CharField(widget=PagedownWidget(),required=False)
+    Related_Faith= forms.CharField(widget=PagedownWidget(),required=False)
+    Temple_History= forms.CharField(widget=PagedownWidget(),required=False)
+    Significance= forms.CharField(widget=PagedownWidget(),required=False)
+    Other_Deities= forms.CharField(widget=PagedownWidget(),required=False)
+    Related_Temple = forms.CharField(widget=PagedownWidget(),required=False)
+    Celebration = forms.CharField(widget=PagedownWidget(),required=False)
+    Transportation = forms.CharField(widget=PagedownWidget(),required=False)
+    State = forms.CharField(max_length=200,required=False)
+    Country = forms.CharField(max_length=200,required=False)
+    About_City = forms.CharField(widget=PagedownWidget(),required=False)
+    How_To_Reach = forms.CharField(widget=PagedownWidget(),required=False)
+    Do_And_Dont = forms.CharField(widget=PagedownWidget(),required=False)
+    Amenities = forms.CharField(widget=PagedownWidget(),required=False)
+    Celebration = forms.CharField(widget=PagedownWidget(),required=False)
+    Precaution_While_Visiting =forms.CharField(widget=PagedownWidget(),required=False)
+    Tender = forms.FileField(required=False)
+    Recruitment = forms.CharField(widget=PagedownWidget(),required=False)
+    Notice_and_Updates = forms.CharField(widget=PagedownWidget(),required=False)
+
+    field_groups = (
+        {'name':'form1', 'fields':('Icon_images', 'images','Deity','Contacts', 'Phone_Number', 'Email','Temple_Purohit','City','Address','About_Temple','City')},
+        {'name':'form2', 'fields':('Religion', 'Live_Darshan_link','Website','Related_Temple','Related_Faith', 'Temple_History','Significance','Celebration','Management','Other_Deities', )},
+        {'name':'form3', 'fields':('Online_Donation','Online_Pooja', 'Online_Facility','Annakshetra', 'Accomodation_Link','Transportation')},
+        {'name':'form4', 'fields':('State', 'Country','About_City', 'How_To_Reach', 'Do_And_Dont', 'Amenities', 'Celebration','Precaution_While_Visiting',)},
+        {'name':'form5', 'fields':('Tender', 'Recruitment', 'Notice_and_Updates')},
+    )
+
     class Meta:
-        model = Temples
-        fields = ('Icon_images', 'images', 'Religion', 'City', 'State', 'Country', 'Deity', 'Website',
+            model = Temples
+            fields = ('Icon_images', 'images', 'Religion', 'City', 'State', 'Country', 'Deity', 'Website',
                   'Live_Darshan_link', 'Online_Donation',
                   'Online_Pooja', 'Online_Facility', 'Contacts', 'Phone_Number', 'Email','Temple_Purohit',
                   'Annakshetra', 'Accomodation_Link',
                   'Address','About_Temple',
                   'Temple_History', 'Significance', 'Management',
                   'Related_Faith', 'About_City', 'How_To_Reach', 'Do_And_Dont', 'Amenities', 'Celebration',
-                  'Precaution_While_Visiting', 'Tender', 'Recruitment', 'Notice_and_Updates')
+                  'Precaution_While_Visiting', 'Tender', 'Recruitment', 'Notice_and_Updates','Related_Temple','Other_Deities','Transportation')
+            
 
 
-class PictureAddForm(forms.ModelForm):
-    image = forms.ImageField(required=True)
-    publish = forms.DateField(widget=SelectDateWidget,required=True)  
-    Time = forms.TimeField(required=True)
-    class Meta:
-        model=Picture
-        fields=('image','Time','publish')
 
 
 
@@ -130,6 +139,23 @@ class DarshanAddForm(forms.ModelForm):
     class Meta:
         model = Darshans
         fields = ('rituals', 'timings')
+
+class PictureAddForm(forms.ModelForm):
+    OPTION = []
+    a = Darshans.objects.all()
+    for x in a:
+        y = (str(x.rituals), str(x.rituals))
+        OPTION.append(y)
+    image = forms.ImageField(required=True)
+    publish = forms.DateField(widget=SelectDateWidget,required=True)  
+    Time = forms.TimeField(widget=SelectTimeWidget,required=True)
+    Ritual = forms.ChoiceField(choices=OPTION)
+    class Meta:
+        model=Picture
+        fields=('image','Time','publish','Ritual')
+
+
+
 
 # class UserTypeForm(forms.Form):
 
