@@ -298,7 +298,6 @@ input#abc {
 
 #detail th {
     border: 1px solid #dddddd;
-
     padding: 8px;
     font-family: 'Carter One', cursive;
     color: black;
@@ -371,7 +370,7 @@ input#abc {
 
 .thumbnail{
     width : 100% !important;
-    height: 250px;
+    height: 275px;
     overflow: auto;
 }
 
