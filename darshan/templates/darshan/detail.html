@@ -1,22 +1,23 @@
 {% extends 'darshan/otherBase.html' %}
 {% load staticfiles %}
 {% load temple_extra %}
+{% block head_extra %}
 
+    <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5b35f20747b80c0011966093&product=inline-share-buttons' async='async'></script>
+{% endblock head_extra %}
 {% block content %}
     {% block style %}
     {% endblock style %}
-
-
-    <div class="container-fluid" style="margin-top: 15px">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <h1 style="text-align: center;">{{ q.temple2 }}</h1>
-                <br>
+                <h3 style="text-align: center;">{{ q.temple2 }}</h3>
             </div>
         </div>
         <div class=" row display">
             <div class="col-md-5">
-                <img class=" img-responsive roundedCorner image" src="{{ q.images.url }}">
+                <img class=" img-responsive roundedCorner image" src="{{ q.images.url }}"
+                     style="width: 100%; max-height: 275px;">
             </div>
             <div class="col-md-4">
                 <table id="darshan" style="width: 100%">
@@ -52,9 +53,11 @@
                 <br>
 
                 {% if user.is_authenticated %}
-                    <button class="btn btn-primary" style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
-                        <a style="color: white" {% if q.Online_Donation %} href="{{ q.Online_Donation }}" {% else %} href="{% url 'darshan:Online_Donation'  v=q.temple2 %}" {% endif %}>Make
-                        Donation</a>
+                    <button class="btn btn-primary"
+                            style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
+                        <a style="color: white" {% if q.Online_Donation %} href="{{ q.Online_Donation }}" {% else %}
+                           href="{% url 'darshan:Online_Donation'  v=q.temple2 %}" {% endif %}>Make
+                            Donation</a>
                     </button>
                 {% else %}
                     <button class="btn btn-primary"
@@ -79,7 +82,6 @@
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
-                                    </a>
                                 </div>
                             </div>
 
@@ -103,7 +105,7 @@
                     </button>
                 {% endif %}
                 <br>
-
+                <div class="sharethis-inline-share-buttons"></div>
             </div>
         </div>
         <hr>

@@ -86,7 +86,7 @@ class TempleAddForm(forms.ModelForm):
     Contacts = forms.CharField(max_length=200,required=True)
     Phone_Number = forms.CharField(max_length=200,required=True)
     Temple_Purohit = forms.CharField(max_length=200,required=True)
-    Address = forms.CharField(widget=PagedownWidget(show_preview=False),required=True)
+    Address = forms.CharField(widget=PagedownWidget(),required=True)
     Religion = forms.CharField(max_length=200,required=False)
     Management= forms.CharField(widget=PagedownWidget(),required=False)
     Related_Faith= forms.CharField(widget=PagedownWidget(),required=False)

@@ -21,7 +21,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <h2>Temple Form</h2>
-                <form method="Post" role="form" enctype="multipart/form-data" style="width: 80%; max-width: 80%!important;">
+                <form method="Post" role="form" enctype="multipart/form-data"
+                      style="width: 80%; max-width: 80%!important;">
                     <button type="submit" class="btn btn-primary" style="float: right; margin-top: 15px;">
                         Save
                     </button>
@@ -32,17 +33,11 @@
                         <li class="col-sm-2"><a data-toggle="tab" href="#form3">Temple Facilities Form</a></li>
                         <li class="col-sm-2"><a data-toggle="tab" href="#form4">Visit Temple Form</a></li>
                         <li class="col-sm-2"><a data-toggle="tab" href="#form5">Temple Miscelleneous Form</a></li>
-
                     </ul>
-
                     <!-- tab contents -->
-
                     <div class="tab-content" id="detail" style="margin: 25px 50px">
                         {% for group in add_form.field_groups %}
-
-
                             <div id="{{ group.name }}" class="tab-pane fade">
-
                                 {% for field in add_form %}
                                     {% if field.name in group.fields %}
                                         <p>
@@ -51,17 +46,12 @@
                                                     <span class="required" style="color: red;">*</span>
                                                 {% endif %}
                                             </label>
-
                                             {{ field }}
                                         </p>
-
                                     {% endif %}
                                     {% csrf_token %}
                                 {% endfor %}
-
                             </div>
-
-
                         {% endfor %}
                     </div>
                 </form>

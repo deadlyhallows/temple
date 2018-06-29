@@ -71,9 +71,6 @@ class Temples(models.Model):
             'temple2'
         ]
 
-
-
-    
 class Picture(DirtyFieldsMixin, models.Model):
     Temple = models.ForeignKey(Temples, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
