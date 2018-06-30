@@ -9,7 +9,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
-from darshan.forms import SignUpForm, TempleForm, MobileForm, DonationForm, TempleManagerForm, TempleAddForm, PictureAddForm, DarshanAddForm
+from darshan.forms import SignUpForm, TempleForm, MobileForm, DonationForm, TempleManagerForm, TempleAddForm, PictureAddForm, DarshanAddForm, contactInspireForm
 from darshan.tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.utils.encoding import force_text
@@ -62,6 +62,10 @@ def home(request):
     except EmptyPage:
         queryset = paginator.page(paginator.num_pages)
     print("queryset", paginator)
+    contact_form = contactInspireForm(request.POST or None)
+    if contact_form.is_valid():
+        messages.success(request, "Successfully Send")
+        return render(request,'darshan/home.html')
     context = {'temples': temples,
                'form': AuthenticationForm,
                'Mobile_form': MobileForm,
@@ -69,9 +73,13 @@ def home(request):
                'manager_form': TempleManagerForm,
                'object_list': queryset,
                'page_change_var': page_change_var,
-               'product': product
+               'product': product,
+               'contact_form':contact_form
                }
     return render(request, 'darshan/home.html', context)
+
+
+
 
 
 def allDarshan(request):

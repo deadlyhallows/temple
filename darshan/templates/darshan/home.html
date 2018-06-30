@@ -6,6 +6,9 @@
     {{ profile_form }}
 {% endblock %}
 
+{% block head_extra %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock head_extra %}
 {% block content %}
     {% block style %}
         <style>
@@ -15,7 +18,7 @@
         </style>
     {% endblock style %}
 
-   
+
 
     <!--carousel -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -32,26 +35,26 @@
         <div class="carousel-inner">
             <div class="item active">
                 <img src="{% static  'images/canva-photo-editor (6).png' %}" alt="Temple1"
-                     style="width:100%; height: 700px; filter: brightness(50%);" class="img-responsive">
+                     style="width:100%; height: 700px; filter: brightness(75%);" class="img-responsive">
             </div>
             <div class="item">
                 <img src="{% static  'images/canva-photo-editor (3).png' %}" alt="Temple2"
-                     style="width:100%; height: 700px; filter: brightness(50%)"
+                     style="width:100%; height: 700px; filter: brightness(75%)"
                      class="img-responsive">
             </div>
             <div class="item">
                 <img src="{% static 'images/canva-photo-editor (1).png' %}" alt="Temple3"
-                     style="width:100%; height: 700px; filter: brightness(50%)"
+                     style="width:100%; height: 700px; filter: brightness(75%)"
                      class="img-responsive">
             </div>
             <div class="item">
                 <img src="{% static 'images/canva-photo-editor (7).png' %}" alt="Temple4"
-                     style="width:100%; height: 700px; filter: brightness(50%)"
+                     style="width:100%; height: 700px; filter: brightness(75%)"
                      class="img-responsive">
             </div>
             <div class="item">
                 <img src="{% static 'images/canva-photo-editor.png' %}" alt="Temple5"
-                     style="width:100%; height: 700px; filter: brightness(50%)"
+                     style="width:100%; height: 700px; filter: brightness(60%)"
                      class="img-responsive">
             </div>
 
@@ -88,10 +91,12 @@
             {% for y in object_list %}
                 <div class="col-sm-3" style="text-align:center;">
                     <div class='thumbnail'>
-                        <img class="image-container img-responsive roundedCorner"
-                             src="{{ y.Icon_images.url }}" style="min-width: 150px">
-                        <br>
-                        <a href="{% url 'darshan:detail' temp1=y.temple2 %}" class="link">{{ y.temple2 }}</a>
+                        <a href="{% url 'darshan:detail' temp1=y.temple2 %}" class="link">
+                            <img class="image-container img-responsive roundedCorner"
+                                 src="{{ y.Icon_images.url }}" style="min-width: 150px">
+                            <br>
+                            {{ y.temple2 }}
+                        </a>
                     </div>
                 </div>
             {% endfor %}
@@ -136,18 +141,18 @@
         <div class=" row display" id="shop">
             {% for prod in product %}
                 <div class="col-md-3 col-sm-6" style="margin-bottom: 15px;">
-                    <div class="hovereffect ">
-                        <img src="{{ prod.Photo.url }}"
-                             class="image-container img-responsive roundedCorner"
-                             style="width: 100%;">
-                        <div class="overlay">
-                            <h2>
-                                <a href="{% url 'shop:details1' val=prod.Product_Name %}">
-                                   {{ prod.Product_Name }}
-                                </a>
-                            </h2>
+                    <a href="{% url 'shop:details1' val=prod.Product_Name %}" style="color: white">
+                        <div class="hovereffect">
+                            <img src="{{ prod.Photo.url }}"
+                                 class="image-container img-responsive roundedCorner"
+                                 style="width: 100%;">
+                            <div class="overlay">
+                                <h2>
+                                    {{ prod.Product_Name }}
+                                </h2>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             {% endfor %}
         </div>
@@ -176,26 +181,48 @@
                 <div class="col-sm-5 contactP">
                     <p>Contact us and we'll get back to you.</p>
                     <p><span class="glyphicon glyphicon-map-marker"></span> Ahmedabad, India</p>
-                    <p><span class="glyphicon glyphicon-phone"></span> +91 9408593432</p>
-                    <p><span class="glyphicon glyphicon-envelope"></span> ankurranjan19972016@gmail.com</p>
+                    <p><span class="glyphicon glyphicon-phone"></span> +91 7990712559</p>
+                    <p><span class="glyphicon glyphicon-envelope"></span> inspire@startinspire.com</p>
                 </div>
                 <div class="col-sm-7">
-                    <div class="row">
-                        <div class="col-sm-6 form-group">
-                            <input class="form-control cred" id="name" name="name" placeholder="Name" type="text"
-                                   required="" style="background-color:#ffffff;border-color:#3333338a">
+                    <form method="post" style="width: 100%">
+{#                        {% csrf_token %}#}
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <input class="form-control cred" id="id_Name" name="Name" placeholder="Name" type="text" required="" style="background-color:#ffffff;border-color:#3333338a">
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <input class="form-control cred" id="id_Email" name="Email" placeholder="Email" type="email" required="" style="background-color:#ffffff;border-color:#3333338a">
+                            </div>
                         </div>
-                        <div class="col-sm-6 form-group">
-                            <input class="form-control cred" id="email" name="email" placeholder="Email" type="email"
-                                   required="" style="background-color:#ffffff;border-color:#3333338a">
+                        <textarea class="form-control" id="id_Comment" name="Comments" placeholder="Comment" rows="5" style="background-color:#ffffff; border-color:#3333338a"></textarea><br>
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <button class="btn btn-default pull-right" type="submit">Send</button>
+                            </div>
                         </div>
-                    </div>
-                    <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"
-                              style="background-color:#ffffff; border-color:#3333338a"></textarea><br>
-                    <div class="row">
-                        <div class="col-sm-12 form-group">
-                            <button class="btn btn-default pull-right" type="submit">Send</button>
-                        </div>
+{#                        {{ contact_form.as_p }}#}
+                         <button class="btn btn-default pull-right" type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row" style="background: #ee860c; margin-left: -30px; margin-right: -30px;">
+                <div class="col-md-12 footer">
+                    <p>© Divya Kripa 2018</p>
+                    <div class="w3-xlarge w3-section">
+                        <a href="https://www.facebook.com" class="foot">
+                            <i class="fa fa-facebook-official w3-hover-opacity ">
+                            </i>
+                        </a>
+                        <a href="https://www.instagram.com" class="foot">
+                            <i class="fa fa-instagram w3-hover-opacity"></i>
+                        </a>
+                        <a href="https://twitter.com" class="foot">
+                            <i class="fa fa-twitter w3-hover-opacity"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/ankur-ranjan-35787414b/" class="foot">
+                            <i class="fa fa-linkedin w3-hover-opacity"></i>
+                        </a>
                     </div>
                 </div>
             </div>

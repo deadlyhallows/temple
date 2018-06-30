@@ -159,3 +159,11 @@ class TempleManager(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class ContactInspire(models.Model):
+    Name = models.CharField(max_length=100, default=None)
+    Email = models.CharField(max_length=400, default=None)
+    Comment = models.TextField()
+
+    def __str__(self):
+        return self.Name
