@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile, Temples, Mobile, OnlineDonation, TempleManager, Picture, Darshans
+from .models import Profile, Temples, Mobile, OnlineDonation, TempleManager, Picture, Darshans, ContactInspire
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from pagedown.widgets import PagedownWidget
@@ -46,17 +46,17 @@ class MobileForm(forms.ModelForm):
 class TempleForm(forms.ModelForm):
 
     #comment it while migration
-    OPTIONS = []
-    Tem = Temples.objects.all()
-    for x in Tem:
-        tem_option = (x.temple2, x.temple2)
-        OPTIONS.append(tem_option)
+    # OPTIONS = []
+    # Tem = Temples.objects.all()
+    # for x in Tem:
+    #     tem_option = (x.temple2, x.temple2)
+    #     OPTIONS.append(tem_option)
 
-    Select_Temple = forms.MultipleChoiceField(
+    Select_Temple = forms.ModelMultipleChoiceField(
         widget=Select2MultipleWidget(),
 
-        # queryset=Temples.objects.all()
-        choices=OPTIONS
+        queryset=Temples.objects.all()
+        # choices=OPTIONS
 
     )
 
@@ -148,6 +148,11 @@ class PictureAddForm(forms.ModelForm):
     class Meta:
         model=Picture
         fields=('image','Time','publish','Ritual')
+
+class contactInspireForm(forms.ModelForm):
+    class Meta:
+        model= ContactInspire
+        fields = ('Name','Email','Comment')
 
 
 

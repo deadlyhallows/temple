@@ -199,12 +199,11 @@ input#abc {
 
 .hovereffect {
     width: 100%;
-
     float: left;
     overflow: hidden;
     position: relative;
     text-align: center;
-    cursor: default;
+    cursor: pointer;
 }
 
 .hovereffect .overlay {
@@ -387,3 +386,18 @@ input[type=file] {
 
 .required{ color:red; }
 
+.footer{
+    text-align: center;
+    background-color: #ee860c;
+    padding: 20px;
+}
+.pictureImage{
+    width: 100%;
+    max-height: 275px;
+}
+/* On screens that are 600px wide or less */
+@media screen and (max-width: 600px) {
+    .pictureImage{
+        max-height: unset;
+    }
+}

@@ -82,7 +82,7 @@
                         {% else %}
                             <a href="{% url 'cart:view_cart' %}"
                                style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
-                                Cart<br>
+                                Cart
                             </a>
                         {% endif %}
                     </li>
@@ -274,6 +274,16 @@ $(window).load(function() {
 
 
 <script src="{% static 'js/scripts.js' %}"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121617950-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121617950-1');
+</script>
+
 
 </body>
 </html>
