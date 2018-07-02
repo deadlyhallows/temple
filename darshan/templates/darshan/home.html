@@ -186,7 +186,7 @@
                 </div>
                 <div class="col-sm-7">
                     <form method="post" style="width: 100%">
-{#                        {% csrf_token %}#}
+                        {% csrf_token %}
                         <div class="row">
                             <div class="col-sm-6 form-group">
                                 <input class="form-control cred" id="id_Name" name="Name" placeholder="Name" type="text" required="" style="background-color:#ffffff;border-color:#3333338a">
@@ -201,8 +201,6 @@
                                 <button class="btn btn-default pull-right" type="submit">Send</button>
                             </div>
                         </div>
-{#                        {{ contact_form.as_p }}#}
-                         <button class="btn btn-default pull-right" type="submit">Send</button>
                     </form>
                 </div>
             </div>

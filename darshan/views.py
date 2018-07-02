@@ -79,9 +79,6 @@ def home(request):
     return render(request, 'darshan/home.html', context)
 
 
-
-
-
 def allDarshan(request):
     temples = Temples.objects.all()
     paginator = Paginator(temples, 64)
