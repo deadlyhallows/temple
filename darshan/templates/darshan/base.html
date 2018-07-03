@@ -89,7 +89,7 @@
 
                     <li>
                         <a href="{% url 'notifications:all' %}" style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
-                            Notification({{ user|notifications_unread }})
+                            Notification {% if user|notifications_unread > 0 %} ({{ user|notifications_unread }}) {% else %} {% endif %}
                         </a>
                     </li>
                     <li>
@@ -120,9 +120,8 @@
                             {% if total_items > 0 %}
                                 <a href="{% url 'cart:cart_detail' %}"
                                    style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
-                                    Cart <br>
-                                    ({{ total_items }} item{{ total_items|pluralize }},
-                                    Rs.{{ cart.get_total_price }})
+                                    Cart({{ total_items }})
+                                    
                                 </a>
                             {% else %}
                                 <a href="{% url 'cart:cart_detail' %}"
@@ -143,15 +142,10 @@
                             SignUp
                             <b class="caret"></b></a>
                         <ul class="dropdown-menu backcolor">
-                            <li>
-                                <a class=" launch-modal" href="{% url 'darshan:home' %}"  style=" color:black;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;"
-                                   data-modal-id="modal1" data-backdrop="static">
-                                    Manager
-                                </a>
-                            </li>
+                            
                             <li>
                                 <a class=" launch-modal" href="{% url 'darshan:home' %}" style=" color:black;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;" data-modal-id="modal">
-                                    Shopkeeper
+                                    Seller
                                 </a>
                             </li>
                             <li>
@@ -182,7 +176,7 @@ $(window).load(function() {
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                      <h4 class="modal-title" style="color:red">ALERT!!!</h4>
+                      <h4 class="modal-title" style="color:red;text-align: center;">Message</h4>
                     </div>
         
         <div class="modal-body">
@@ -220,7 +214,7 @@ $(window).load(function() {
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
- 
+
 
 <script type="text/javascript">
     function googleTranslateElementInit() {
@@ -232,9 +226,11 @@ $(window).load(function() {
         src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script>
     $(document).ready(function () {
-        $('.has-popover').popover({'trigger': 'hover'})
+        $('.has-popover').popover({'trigger': 'hover','html':'true'})
+        
     });
 
+ 
 
     $(document).ready(function () {
         $('#id_Select_Temple').select2();

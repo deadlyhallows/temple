@@ -16,7 +16,10 @@
         </div>
         <div class=" row display">
             <div class="col-md-5">
-                <img class=" img-responsive roundedCorner image pictureImage" src="{{ q.images.url }}">
+
+                <img class=" img-responsive roundedCorner image"  {% if q.Latest_to_be_updated_image %} src="{{ q.Latest_to_be_updated_image.url }}"
+                {% else %} alt="{{ q.temple2 }}" {% endif %}>
+
             </div>
             <div class="col-md-4">
                 <table id="darshan" style="width: 100%">
@@ -42,14 +45,25 @@
                     </a>
                 </button>
                 <br>
+
+                {% if user.is_authentication %}
                 <button class="btn btn-primary"
                         style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
                     <a style="color: white" {% if q.Online_Prasad %} href="{{ q.Online_Prasad }}" {% else %}
-                       href="{% url 'shop:allproducts' %}"{% endif %}>
+                       href="{% url 'darshan:all_Prasad' pk=q.id %}"{% endif %}>
                         Order Prasad
                     </a>
                 </button>
                 <br>
+                {% else %}
+                <button class="btn btn-primary"
+                        style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
+                    <a class="launch-modal" data-toggle="modal" data-modal-id="myModal4" style="color: white">
+                        Order Prasad
+                    </a>
+                </button>
+                <br>
+                {% endif %}
 
                 {% if user.is_authenticated %}
                     <button class="btn btn-primary"
@@ -65,6 +79,7 @@
                             Make Donation
                         </a>
                     </button>
+
                     <!-- Modal -->
                     <div class="modal fade" id="myModal4" role="dialog">
                         <div class="modal-dialog">
@@ -89,6 +104,7 @@
                 {% endif %}
                 <br>
                 {% if user.is_authenticated %}
+
                     <button class="btn btn-primary"
                             style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
                         <a href="{% url 'darshan:selectedTemple' pk=q.id %}" style="color: white">
@@ -102,6 +118,7 @@
                             Gallery
                         </a>
                     </button>
+
                 {% endif %}
                 <br>
                 <div class="sharethis-inline-share-buttons"></div>
@@ -131,26 +148,22 @@
                     </tr>
                     <tr>
                         <td>Address</td>
-                        <td>{{ q.Address }}</td>
+                        <td class="content-markdown">{{ q.Address }}</td>
                     </tr>
 
                     <tr>
                         <td>About Temple</td>
-                        <td>{{ q.About_Temple }}</td>
+                        <td class="content-markdown">{{ q.About_Temple }}</td>
                     </tr>
-                    <tr>
-                        <td>Temple History</td>
-                        <td>{{ q.Temple_History }}</td>
-                    </tr>
+                    
                     <tr>
                         <td>Temple Purohit</td>
                         <td>{{ q.Temple_Purohit }}</td>
                     </tr>
+
+                     
                     <tr>
-                        <td>Temple Purohit</td>
-                        <td>{{ q.Temple_Purohit }}</td>
-                    </tr>
-                    <tr>
+
                         <td>Email</td>
                         <td>{{ q.Email }}</td>
                     </tr>
@@ -196,46 +209,41 @@
                     {% if q.Related_Temple %}
                         <tr>
                             <td>Related Temple</td>
-                            <td>{{ q.Related_Temple }}</td>
+                            <td class="content-markdown">{{ q.Related_Temple }}</td>
                         </tr>
                     {% endif %}
 
                     {% if q.Related_Faith %}
                         <tr>
                             <td>Related Faith</td>
-                            <td>{{ q.Related_Faith }}</td>
+                            <td class="content-markdown">{{ q.Related_Faith }}</td>
                         </tr>
                     {% endif %}
 
                     {% if q.Temple_History %}
                         <tr>
                             <td>Temple History</td>
-                            <td>{{ q.Temple_History }}</td>
+                            <td class="content-markdown">{{ q.Temple_History }}</td>
                         </tr>
                     {% endif %}
 
                     {% if q.Significance %}
                         <tr>
                             <td>Significance</td>
-                            <td>{{ q.Significance }}</td>
+                            <td class="content-markdown">{{ q.Significance }}</td>
                         </tr>
                     {% endif %}
-                    {% if q.Celebration %}
-                        <tr>
-                            <td>Celebration</td>
-                            <td>{{ q.Celebration }}</td>
-                        </tr>
-                    {% endif %}
+                    
                     {% if q.Management %}
                         <tr>
                             <td>Management</td>
-                            <td>{{ q.Management }}</td>
+                            <td class="content-markdown">{{ q.Management }}</td>
                         </tr>
                     {% endif %}
                     {% if q.Other_Deities %}
                         <tr>
                             <td>Other Deities</td>
-                            <td>{{ q.Other_Deities }}</td>
+                            <td class="content-markdown">{{ q.Other_Deities }}</td>
                         </tr>
                     {% endif %}
 
@@ -277,7 +285,7 @@
                     {% if q.Transportation %}
                         <tr>
                             <td>Transportation</td>
-                            <td>{{ q.Transportation }}</td>
+                            <td class="content-markdown">{{ q.Transportation }}</td>
                         </tr>
                     {% endif %}
                     {% if q.Annakshetra %}
@@ -287,10 +295,6 @@
                         </tr>
                     {% endif %}
 
-
-                    </tbody>
-                </table>
-            </div>
 
             <div id="menu4" class="tab-pane fade">
                 <table class="table table-striped">
@@ -310,37 +314,40 @@
                     {% if q.About_City %}
                         <tr>
                             <td>About City</td>
-                            <td>{{ q.About_City }}</td>
+
+                            <td class="content-markdown">{{ q.About_City}}</td>
+
                         </tr>
                     {% endif %}
                     {% if q.How_To_Reach %}
                         <tr>
                             <td>How To Reach</td>
-                            <td>{{ q.How_To_Reach }}</td>
+                            <td class="content-markdown">{{ q.How_To_Reach }}</td>
                         </tr>
                     {% endif %}
                     {% if q.Do_And_Dont %}
                         <tr>
                             <td>Do And Dont</td>
-                            <td>{{ q.Do_And_Dont }}</td>
+                            <td class="content-markdown">{{ q.Do_And_Dont }}</td>
                         </tr>
                     {% endif %}
                     {% if q.Amenities %}
                         <tr>
                             <td>Amenities</td>
-                            <td>{{ q.Amenities }}</td>
+                            <td class="content-markdown">{{ q.Amenities }}</td>
                         </tr>
                     {% endif %}
                     {% if q.Celebration %}
                         <tr>
                             <td>Celebration</td>
-                            <td>{{ q.Celebration }}</td>
+
+                            <td class="content-markdown">{{ q.Celebration}}</td>
                         </tr>
                     {% endif %}
                     {% if q.Precaution_While_Visiting %}
                         <tr>
                             <td>Precaution While Visiting</td>
-                            <td>{{ q.Precaution_While_Visiting }}</td>
+                            <td class="content-markdown">{{ q.Precaution_While_Visiting }}</td>
                         </tr>
                     {% endif %}
                     </tbody>
@@ -361,13 +368,13 @@
                     {% if q.Recruitment %}
                         <tr>
                             <td>Recruitment</td>
-                            <td>{{ q.Recruitment }}</td>
+                            <td class="content-markdown">{{ q.Recruitment }}</td>
                         </tr>
                     {% endif %}
                     {% if q.Notices_and_Updates %}
                         <tr>
                             <td>Notices and Updates</td>
-                            <td>{{ q.Notices_and_Updates }}</td>
+                            <td class="content-markdown">{{ q.Notices_and_Updates }}</td>
                         </tr>
                     {% endif %}
 

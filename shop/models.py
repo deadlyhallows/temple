@@ -15,7 +15,7 @@ class Shopkeeper(models.Model):
 
 
 class Product(DirtyFieldsMixin, models.Model):
-    seller=models.ForeignKey(Shopkeeper, on_delete=models.CASCADE,default=None)
+    seller=models.ForeignKey(User, on_delete=models.CASCADE,default=None)
     Product_Name=models.CharField(max_length=250, default=None)
     Temple_Name=models.ForeignKey(Temples, on_delete=models.CASCADE,blank=False)
     Out_of_Stock=models.BooleanField(default=False)
@@ -27,7 +27,9 @@ class Product(DirtyFieldsMixin, models.Model):
     height_field = models.IntegerField(default=None, null=True, blank=True)
     width_field = models.IntegerField(default=None, null=True, blank=True)
     Offer_or_Discount = models.CharField(max_length=50, default=None, blank=True,null=True)
-    #Add 'Available' field if needed
+    is_Prasad = models.BooleanField(default=False)
+    Product_Description = models.TextField(default=None)
+    
     def __str__(self):
         return str(self.Product_Name)
 
