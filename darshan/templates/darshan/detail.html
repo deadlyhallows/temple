@@ -2,7 +2,6 @@
 {% load staticfiles %}
 {% load temple_extra %}
 {% block head_extra %}
-
     <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5b35f20747b80c0011966093&product=inline-share-buttons' async='async'></script>
 {% endblock head_extra %}
 {% block content %}
@@ -17,7 +16,7 @@
         <div class=" row display">
             <div class="col-md-5">
 
-                <img class=" img-responsive roundedCorner image"  {% if q.Latest_to_be_updated_image %} src="{{ q.Latest_to_be_updated_image.url }}"
+                <img class="pictureImage"  {% if q.Latest_to_be_updated_image %} src="{{ q.Latest_to_be_updated_image.url }}"
                 {% else %} alt="{{ q.temple2 }}" {% endif %}>
 
             </div>
@@ -294,7 +293,9 @@
                             <td>{{ q.Annakshetra }}</td>
                         </tr>
                     {% endif %}
-
+                    </tbody>
+                </table>
+            </div>
 
             <div id="menu4" class="tab-pane fade">
                 <table class="table table-striped">
@@ -379,8 +380,6 @@
                     {% endif %}
 
                     </tbody>
-
-
                 </table>
             </div>
 

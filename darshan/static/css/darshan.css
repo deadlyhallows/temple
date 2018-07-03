@@ -393,11 +393,11 @@ input[type=file] {
 }
 .pictureImage{
     width: 100%;
-    max-height: 275px;
+    height: 75%;
 }
 /* On screens that are 600px wide or less */
 @media screen and (max-width: 600px) {
     .pictureImage{
-        max-height: unset;
+        max-height: 350px !important;
     }
 }
