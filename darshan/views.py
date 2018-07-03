@@ -311,7 +311,7 @@ def user_profile(request):
             cart_product = get_object_or_404(Product, Product_Name=item['product'])
             
             cart_item = CartItem.objects.create(quantity=item['quantity'],
-                                                active=True, cart_id=user_cart.id, product_id=cart_product.id)
+                                                active=True, cart_id=get_cart.id, product_id=cart_product.id)
             cart_item.save()
     print(cart)
     if request.method == "POST" and "Select_Temple" in request.POST:
