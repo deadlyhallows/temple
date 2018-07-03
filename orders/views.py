@@ -3,6 +3,7 @@ from cart.models import Carts, CartItem
 from shop.models import Shopkeeper
 from .forms import OrderCreateForm
 from .models import OrderItem, Order
+from darshan.models import OnlineDonation
 from shop.models import Product
 from django.shortcuts import get_object_or_404
 #from .tasks import order_created
@@ -26,11 +27,11 @@ from django.views.decorators.csrf import csrf_exempt
 from notify.signals import notify
 from django.template.loader import render_to_string
 from darshan.views import send_verification_mail
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 
-PAID_FEE_AMOUNT = 0
+
 @login_required
 def order_create(request):
-    global PAID_FEE_AMOUNT
     total_cost=Decimal(0.0)
     total_items=0
     user = get_user(request)
@@ -47,7 +48,7 @@ def order_create(request):
         product = get_object_or_404(Product, id=item.product_id)
         #print(a)
         total_cost += (item.quantity * product.Price)
-        PAID_FEE_AMOUNT =total_cost
+        
 
     if request.method == 'POST':
         print("b")
@@ -61,9 +62,9 @@ def order_create(request):
             order.save()
             print("d")
             for item in items:
-                total_items+=item.quantity
+                #total_items+=item.quantity
                 products = get_object_or_404(Product, id=item.product_id)
-                total_cost += (item.quantity * products.Price)
+                #total_cost += (item.quantity * products.Price)
                 OrderItem.objects.create(order=order,
                                          product=products,
                                          price=products.Price,
@@ -72,43 +73,37 @@ def order_create(request):
                 
             #launch asynchronous task
             #order_created.delay(order.id)
-            return render(request, 'orders/order/created.html', {'order': order})
+            return render(request, 'orders/order/created.html', {'order': order,'total_cost':total_cost})
 
     else:
         form = OrderCreateForm()
     return render(request, 'orders/order/create.html', {'total_cost':total_cost,'form': form,'items':items})
 
 @login_required
-def payment(request):
-    print(request.user)
+def payment(request,cost):
+    print(cost)
     
     user = request.user
     get_user = get_object_or_404(User, username=user)
-    # b = Order.objects.filter(buyer_id=user.id).order_by('created').first()
-    # items=OrderItem.objects.filter(order_id=b.id)
-    # for item in items:
-    #     #print(item)
-    #     total_items += item.quantity
-    #     product = get_object_or_404(Product, id=item.product_id)
-    #     #print(a)
-    #     total_cost += (item.quantity * product.Price)
-    #     PAID_FEE_AMOUNT = total_cost
     data = {}
     txnid = get_transaction_id(request)
-    hash_ = generate_hash(request, txnid)
-    hash_string = get_hash_string(request, txnid)
+    hash_ = generate_hash(request, txnid, cost)
+    hash_string = get_hash_string(request, txnid,cost)
+    
+            
+
     # use constants file to store constant values.
     # use test URL for testing
     data["action"] = settings.PAYMENT_URL_LIVE #LIVE for production
-    data["amount"] = float(PAID_FEE_AMOUNT)
     data["productinfo"] = settings.PAID_FEE_PRODUCT_INFO
     data["key"] = settings.KEY
     data["txnid"] = txnid
     data["hash"] = hash_
     data["hash_string"] = hash_string
+    data["amount"] = float(cost)
     data["firstname"] = get_user.first_name
     data["email"] = get_user.email
-    data["phone"] = get_user.mobile.Mobile_No
+    data["phone"] = get_user.mobile.Mobile_Number
     data["service_provider"] = settings.SERVICE_PROVIDER
     data["furl"] = request.build_absolute_uri(reverse("orders:payment_failure"))
     data["surl"] = request.build_absolute_uri(reverse("orders:payment_success"))
@@ -117,11 +112,11 @@ def payment(request):
 
 # generate the hash
 @login_required
-def generate_hash(request, txnid):
+def generate_hash(request, txnid,cost):
     try:
         # get keys and SALT from dashboard once account is created.
         #hashSequence = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10"
-        hash_string = get_hash_string(request, txnid)
+        hash_string = get_hash_string(request, txnid,cost)
         print(hash_string)
         generated_hash = hashlib.sha512(hash_string.encode('utf-8')).hexdigest().lower()
         return generated_hash
@@ -133,13 +128,14 @@ def generate_hash(request, txnid):
 
 # create hash string using all the fields
 @login_required
-def get_hash_string(request, txnid):
-    a = get_object_or_404(User, username=request.user)
+def get_hash_string(request, txnid,cost):
+    get_user = get_object_or_404(User, username=request.user)
     print(request.user)
+   
     hash_string = settings.KEY + "|" + txnid + "|" + str(
-        float(PAID_FEE_AMOUNT)) + "|" + settings.PAID_FEE_PRODUCT_INFO + "|"
+        float(cost)) + "|" + settings.PAID_FEE_PRODUCT_INFO + "|"
 
-    hash_string += a.first_name + "|" + a.email + "|"
+    hash_string += get_user.first_name + "|" + get_user.email + "|"
     hash_string += "||||||||||" + settings.SALT
 
     return hash_string
@@ -159,37 +155,34 @@ def get_transaction_id(request):
 @login_required
 @csrf_exempt
 def payment_success(request):
-    user = request.user
-    order = get_object_or_404(Order, buyer_id=user.id)
-    order.paid=True
-    order.save()
-    cart = get_object_or_404(Carts, user_id=user.id)
-    print(cart)
-    cart_items = CartItem.objects.filter(cart_id=cart.id)
-    print(cart_items)
-    for item in cart_items:
-        item.delete()
-    #important:when paid is seen in database table mark is_accepted as True for the product to notify
-    orders = Order.objects.filter(buyer_id=user.id).order_by('-id').first()
-    print(order)
-    order_items = OrderItem.objects.filter(order_id=orders.id)
-    for item in order_items:
-        products=get_object_or_404(Product,id=item.product.id)
-        print(products)
-        users=get_object_or_404(User,username=products.seller)
-        print(users)
-        notify.send(sender=OrderAdmin, target=products, recipient=users, verb="paid")
-        subject = 'Notification'
-        verb="paid"
-        message = render_to_string('darshan/notification_email.html', {
-            'target':products,'verb':verb })
-        users.email_user(subject, message)
-        send_verification_mail(users.email, message, subject)      
+    # user = request.user
+    # order = get_object_or_404(Order, buyer_id=user.id)
+    # order.paid=True
+    # order.save()
+    # cart = get_object_or_404(Carts, user_id=user.id)
+    # print(cart)
+    # cart_items = CartItem.objects.filter(cart_id=cart.id)
+    # print(cart_items)
+    # for item in cart_items:
+    #     item.delete()
+    # #important:when paid is seen in database table mark is_accepted as True for the product to notify
+    # orders = Order.objects.filter(buyer_id=user.id).order_by('-id').first()
+    # print(order)
+    # order_items = OrderItem.objects.filter(order_id=orders.id)
+    # for item in order_items:
+    #     products=get_object_or_404(Product,id=item.product.id)
+    #     print(products)
+    #     users=get_object_or_404(User,username=products.seller)
+    #     print(users)
+    #     notify.send(sender=OrderAdmin, target=products, recipient=users, verb="paid")
+    #     subject = 'Notification'
+    #     verb="paid"
+    #     message = render_to_string('orders/order/order_notificaton.html', {
+    #         'target':products,'verb':verb,'order':orders })
+    #     users.email_user(subject, message)
+        #send_verification_mail(users.email, message, subject)      
     
     #if payment is successful notify the product seller
-  
-                
-            
     data = {}
     return render(request, "orders/order/paysuccess.html", data)
 
@@ -198,16 +191,8 @@ def payment_success(request):
 @login_required
 @csrf_exempt
 def payment_failure(request):
-    user=request.user
-    # get_order = Order.objects.filter(buyer_id=user.id).order_by('-id').first()
-    # print(get_order)
-    # get_order.delete()
-    data = {}
-    return redirect('orders:payment')#render(request, "orders/order/payfail.html", data)
+    
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-# def order_delivered(self, request, obj, form, change):
-#     if Order().is_dirty():
-#         user = User.objects.filter(id=obj.buyer_id)
-#         notify.send(sender=self, target=obj, recipient_list=list(user), verb="accepted")
-#     obj.save()
+
 

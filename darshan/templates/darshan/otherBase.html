@@ -10,7 +10,7 @@
     {% block style1 %}
         <style>
             form {
-                width: 50%;
+                width: 80%;
                 margin: 0 auto;
             }
 
@@ -122,8 +122,10 @@
 
                             <a href="{% url 'cart:view_cart' %}"
                                style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
-                                Cart
-                                ({{ total_items }})
+
+                                Cart ({{ total_items }})
+
+                               
                             </a>
                         {% else %}
                             <a href="{% url 'cart:view_cart' %}"
@@ -134,7 +136,7 @@
                     </li>
                     <li>
                         <a href="{% url 'notifications:all' %}" style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
-                            Notification({{ user|notifications_unread }})
+                            Notification {% if user|notifications_unread > 0 %} ({{ user|notifications_unread }}) {% else %} {% endif %}
                         </a>
                     </li>
                     <li>
@@ -168,8 +170,7 @@
                                 <a href="{% url 'cart:cart_detail' %}"
                                    style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
                                     Cart <br>
-                                    ({{ total_items }} item{{ total_items|pluralize }},
-                                    Rs.{{ cart.get_total_price }})
+                                    ({{ total_items }})
                                 </a>
                             {% else %}
                                 <a href="{% url 'cart:cart_detail' %}"
@@ -191,18 +192,12 @@
                             SignUp
                             <b class="caret"></b></a>
                         <ul class="dropdown-menu backcolor">
-                            <li>
-                                <a class=" launch-modal" href="{% url 'darshan:home' %}"
-                                   style=" color:black;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;"
-                                   data-modal-id="modal1">
-                                    Manager
-                                </a>
-                            </li>
+                            
                             <li>
                                 <a class=" launch-modal" href="{% url 'darshan:home' %}"
                                    style=" color:black;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;"
                                    data-modal-id="modal">
-                                    Shopkeeper
+                                    Seller
                                 </a>
                             </li>
                             <li>
@@ -235,7 +230,7 @@ $(window).load(function() {
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                      <h4 class="modal-title" style="color:red">ALERT!!!</h4>
+                      <h4 class="modal-title" style="color:red;text-align: center;">Message</h4>
                     </div>
         
         <div class="modal-body">
@@ -259,7 +254,7 @@ $(window).load(function() {
 
 {% block content %}
 {% endblock %}
-<script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
@@ -267,6 +262,8 @@ $(window).load(function() {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/js/uikit.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/js/uikit-icons.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.4.0/marked.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
@@ -279,7 +276,7 @@ $(window).load(function() {
         src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script>
     $(document).ready(function () {
-        $('.has-popover').popover({'trigger': 'hover'})
+        $('.has-popover').popover({'trigger': 'hover','html':'true'})
     });
 
     $(document).ready(function () {
@@ -288,6 +285,13 @@ $(window).load(function() {
 
     $(document).ready(function () {
         $('.django-select').select2();
+    });
+
+    $(document).ready(function(){
+    $(".content-markdown").each(function(){
+            var content = $(this).text()
+            var markedContent = marked(content)
+            $(this).html(markedContent)})
     });
 </script>
 <script>

@@ -6,6 +6,8 @@
     {% block head_extra %}
         {{ pic_add_form.media }}
     {% endblock head_extra %}
+
+</script>
     <div class="container-fluid" style="margin-top: 15px;">
         <div class="row">
             <div class="col-md-12">
@@ -19,7 +21,8 @@
                                     <span class="required" style="color: red;">*</span>
                                 {% endif %}
                             </label>
-                            {{ field }}
+                            {{ field }}<span style= "color:green;margin-left:5px;">Currently--{{ field.value }}</span>
+                            
                         </p>
                         <br>
                     {% endfor %}

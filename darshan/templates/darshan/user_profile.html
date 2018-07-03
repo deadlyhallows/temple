@@ -3,8 +3,10 @@
 {% load temple_extra %}
 {% block content %}
     {% block style %}
-
+    
     {% endblock style %}
+    
+    
     <div class="container-fluid" style="margin-top:15px;">
         <div class="row">
             <div class="col-md-12" align="right">
@@ -12,10 +14,14 @@
                     <label>Name:</label>
                     <span>{{ u.first_name }}</span><span> {{ u.last_name }}</span>
                 </p>
+                {% if v.Mobile_No %}
                 <p>
+                    
                     <label>Mobile No.:</label>
                     <span>{{ v.Mobile_No }}</span>
+                    
                 </p>
+                {% endif %}
                 <p>
                     <label>Email:</label>
                     <span>{{ u.email }}</span>
@@ -35,16 +41,16 @@
             </div>
         </div>
 
-       
+       {% if object_list %}
 
         <p style="text-align: center;">  ADD TIME FROM DROPDOWN </p>
         <div class="row">
             <div class="col-md-12">
-                
-                    {% for x in query_list.Select_Temple %}
+                <form action="" method="post" style="width: 100% !important;"> {% csrf_token %}
+                    {% for x in object_list %}
                         <div class="row">
                             <div class="col-md-8 col-offset-4">
-                                <form action="" method="post" style="width: 100% !important;"> {% csrf_token %}
+                                
                                     <div class="row">
                                         <div class="col-md-2">
                                             <label for="id_Temple1">
@@ -89,30 +95,29 @@
                                                     <select class="django-select" name="{{ x }}" multiple="multiple">
                                                         {% with temp=y|picture %}
                                                             {% for z in temp %}
-                                                                <option value="{{ z.id }}"{% for x1 in query_list.selected %}{% if x1 == z.id %} selected{% endif %}{% endfor %}>
+                                                                <option  value="{{ z.id }}"{% for x1 in query_list.selected %}{% if x1 == z.id %} selected{% endif %}{% endfor %}>
                                                                     {{ z.Time }}
                                                                 </option>
                                                             {% endfor %}
                                                         {% endwith %}
                                                     </select>
                                                 </td>
-                                                <td>
-                                                    <button class="btn btn-primary" type="submit">
-                                                        Add
-                                                    </button>
-                                                </td>
+                                                
+
                                                 <br>
                                             {% endfor %}
                                         </div>
                                     </div>
                                     <br>
-                                </form>
+                                
                             </div>
                         </div>
                     {% endfor %}
-               
+                    <button class="btn btn-primary" type="submit">Add</button>
+                </form>
             </div>
         </div>
+    {% endif %}    
         <hr>
         <div class="row">
             <div class="col-md-12" align="center">

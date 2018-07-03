@@ -155,12 +155,14 @@ def cart_remove(request, product_id):
 
 def cart_detail(request):
     cart = Cart(request)
-    
+    print(cart)
+    for item in cart:
+        print(item)
     context = {'loop_times': range(2, 21),
                'cart': cart,
     }
 
-    return render(request, 'cart/cart_detail.html', context)
+    return render(request, 'cart/ses_cart_detail.html', context)
 
 
 

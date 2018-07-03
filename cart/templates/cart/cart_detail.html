@@ -65,56 +65,33 @@
                 </table>
                 <p>
                     <a href="{% url 'shop:allproducts' %}" class="btn">Continue Shopping</a><br>
-                    {% if user.is_authenticated %}
-                        {% if quantity > 0 %} 
-                            <a href="{% url 'orders:order_create' %}" class="btn">Buy Now</a>
-                        {% elif quantity == 0 %}
-                            <a class="launch-modal" data-toggle="modal" data-modal-id="myModal7" >Buy Now</a>
-
-                                  <!-- Modal -->
-                                  <div class="modal fade" id="myModal7" role="dialog">
-                                    <div class="modal-dialog">
-                                        <!-- Modal content-->
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                          <h4 class="modal-title">Warning</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                          <p>Add Products to cart to buy</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">OK</button></a>
-                                        </div>
-                                      </div>
-                                      
-                                    </div>
-                                  </div>  
-                        {% endif %}          
-                        
-                    {% else %}
-                        <a href="{% url 'cart:view_cart' %}" class="launch-modal btn"
-                           data-modal-id="modal-login">Login</a>/
-                        <a href="{% url 'cart:view_cart' %}" class="launch-modal btn" data-modal-id="modal">SignUp</a>
-                        to Buy
-                    {% endif %}
+                    
+                {% if quantity > 0 %} 
+                    <a href="{% url 'orders:order_create' %}" class="btn">Buy Now</a>
+                {% elif quantity == 0 %}
+                    <a class="launch-modal" data-toggle="modal" data-modal-id="myModal7" >Buy Now</a>
+                {% endif %}    
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModal7" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Warning</h4>
+                        </div>
+                        <div class="modal-body">
+                          <p>Add Products to cart to buy</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">OK</button></a>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>  
                 </p>
             </div>
         </div>
     </div>
-
-
-    <script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script>
-        jQuery(document).ready(function () {
-            $('.launch-modal').on('click', function (e) {
-                e.preventDefault();
-                $('#' + $(this).data('modal-id')).modal({backdrop: 'static'});
-            });
-
-        });
-    </script>
-
 {% endblock %}

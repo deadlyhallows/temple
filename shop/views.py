@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from temple.decorators import user_is_shopkeeper
+from temple.decorators import user_is_shopkeeper, user_is_temple_manager
 from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -101,7 +101,8 @@ def seller_profile(request):
 @login_required
 @user_is_shopkeeper
 def product_add(request):
-    shopkeeper= get_object_or_404(Shopkeeper,user=request.user)
+    user = request.user
+    shopkeeper= get_object_or_404(User,id=user.id)
     item_add_form = ProductAddForm(request.POST or None, request.FILES or None)
     if item_add_form.is_valid():
         instance = item_add_form.save(commit=False)
@@ -125,42 +126,56 @@ def product_update(request,p=None):
     
     if item_add_form.is_valid() == True:
         instances = item_add_form.save(commit=False)
-        instances.save()
-        us = []
-        tm = Product().is_dirty()
-        user1 = User.objects.filter(is_superuser=False)
-        user = CartItem.objects.filter(product_id=instance.id)
-        for x in user:
-            users = get_object_or_404(Carts, id=x.cart_id)
-            c = get_object_or_404(User, id=users.user_id)
-            us.append(c)
 
-        if not us:
-            recipient = user1
-        else:
-            recipient = us
-        if tm:
-            dirty_fields = Product().get_dirty_fields()
+        if instance.is_dirty():
+            dirty_fields = instance.get_dirty_fields()
             print(dirty_fields)
             for field in dirty_fields:
-                if field=='OutofStock' and instance.OutofStock==True:
-                   notify.send(sender=seller, target=instance, recipient_list=list(recipient), verb="Out of stock")
-                   for person in recipient:
-                      subject = 'Notification'
+                if field=='Out_of_Stock' and instance.Out_of_Stock==True:
+                    us = []
+                    user1 = User.objects.filter(is_superuser=False)
+                    user = CartItem.objects.filter(product_id=instance.id)
+                    for x in user:
+                        users = get_object_or_404(Carts, id=x.cart_id)
+                        c = get_object_or_404(User, id=users.user_id)
+                        us.append(c)
+
+                    if not us:
+                        recipient = user1
+                    else:
+                        recipient = us 
+                    notify.send(sender=manager, target=instance, recipient_list=list(recipient), verb="Out of stock")
+                    for person in recipient:
+                      subject = 'Notification from Divya Kripa:Your Order'
                       verb="Out of Stock"
                       message = render_to_string('darshan/notification_email.html', {
                       'target':instance,'verb':verb })
                       person.email_user(subject, message)
-                      send_verification_mail(person.email, message, subject)
-                if field=='OutofStock' and instance.OutofStock==False:
-                   notify.send(sender=seller, target=instance, recipient_list=list(recipient), verb="Available")
-                   for person in recipient:
-                      subject = 'Notification'
+                      #send_verification_mail(person.email, message, subject)
+                if field=='Out_of_Stock' and instance.Out_of_Stock==False:
+                    us = []
+                    user1 = User.objects.filter(is_superuser=False)
+                    user = CartItem.objects.filter(product_id=instance.id)
+                    for x in user:
+                        users = get_object_or_404(Carts, id=x.cart_id)
+                        c = get_object_or_404(User, id=users.user_id)
+                        us.append(c)
+
+                    if not us:
+                        recipient = user1
+                    else:
+                        recipient = us 
+                    notify.send(sender=manager, target=instance, recipient_list=list(recipient), verb="Available")
+                    for person in recipient:
+                      subject = 'Notification from Divya Kripa:Your Order'
                       verb="Available"
                       message = render_to_string('darshan/notification_email.html', {
                       'target':instance,'verb':verb })
                       person.email_user(subject, message)
                       send_verification_mail(person.email, message, subject)
+
+        
+        instances.save()
 
         print("o")
         return redirect('shop:seller_profile')

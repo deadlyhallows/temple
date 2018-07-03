@@ -13,7 +13,7 @@
                     <h3>Your Order</h3>
                     <ul>
                         {% for item in items %}
-                            {% for x in item.product_id|products %}
+                            {% for x in item.product_id|products1 %}
                                 <li>{{ item.quantity }} x {{ x.Product_Name }} ({{ x.Price }}) =
                                     <span>Rs.{% multiply item.quantity x.Price %}</span></li>
                             {% endfor %}

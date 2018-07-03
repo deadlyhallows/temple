@@ -91,12 +91,22 @@
             {% for y in object_list %}
                 <div class="col-sm-3" style="text-align:center;">
                     <div class='thumbnail'>
-                        <a href="{% url 'darshan:detail' temp1=y.temple2 %}" class="link">
-                            <img class="image-container img-responsive roundedCorner"
-                                 src="{{ y.Icon_images.url }}" style="min-width: 150px">
-                            <br>
+
+                        <br>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'darshan:details' temp=y.temple2 %}" class="link">
+                                <img class="image-container img-responsive roundedCorner"
+                             src="{{ y.Display_image.url }}" style="min-width: 150px"><br>
                             {{ y.temple2 }}
                         </a>
+                        {% else %}
+                            <a href="{% url 'darshan:detail' temp1=y.temple2 %}" class="link">
+                                <img class="image-container img-responsive roundedCorner"
+                                 src="{{ y.Display_image.url }}" style="min-width: 150px"><br>
+                                {{ y.temple2 }}
+                            </a>
+                        {% endif %}        
+
                     </div>
                 </div>
             {% endfor %}
@@ -141,9 +151,10 @@
         <div class=" row display" id="shop">
             {% for prod in product %}
                 <div class="col-md-3 col-sm-6" style="margin-bottom: 15px;">
+
                     <a href="{% url 'shop:details1' val=prod.Product_Name %}" style="color: white">
                         <div class="hovereffect">
-                            <img src="{{ prod.Photo.url }}"
+                            <img {% if prod.Photo %}src="{{ prod.Photo.url }}"{% else %} alt="{{ prod.Product_Name }}" {% endif %}
                                  class="image-container img-responsive roundedCorner"
                                  style="width: 100%;">
                             <div class="overlay">
@@ -151,6 +162,7 @@
                                     {{ prod.Product_Name }}
                                 </h2>
                             </div>
+
                         </div>
                     </a>
                 </div>
