@@ -85,7 +85,7 @@
                     {% csrf_token %}
                     <label for="id_temple0">Temples:</label><br>
                     {% for x in query_list %}
-                        <input type="checkbox" name="temples" id="id_temple0" value="{{ x.id }}"
+                        <input type="checkbox" name="temples" class="id_temple0" value="{{ x.id }}"
                                style="float: left !important;">{{ x }}<br>
                     {% endfor %}
                     <br>
@@ -98,11 +98,10 @@
                         {% for y in x|product %}
                             <div class="col-sm-3">
                                 <div class="thumbnail">
-                                    {% if y.Photo %}
-                                        <img src="{{ y.Photo.url }}">
-                                    {% else %} 
-                                        <img src="{% static 'images/300.png' %}"> 
-                                    {% endif %}    
+                                    
+                                        <img {% if y.Photo %} src="{{ y.Photo.url }}" {% else %} alt="{{ y.Product_Name }}" {% endif %}>
+                                    
+                                        
                                     
                                     {{ y.Product_Name }}<br>
                                     {{ y.Price }}
@@ -121,11 +120,8 @@
                         {% for y in x|product %}
                             <div class="col-sm-3">
                                 <div class="thumbnail">
-                                    {% if y.Photo %}
-                                        <img src="{{ y.Photo.url }}">
-                                    {% else %} 
-                                        <img src="{% static 'images/300.png' %}"> 
-                                    {% endif %}
+                                    <img {% if y.Photo %} src="{{ y.Photo.url }}" {% else %} alt="{{ y.Product_Name }}" {% endif %}>
+
                                     {{ y.Product_Name }}<br>
                                     {{ y.Price }}
                                     <a href="{% url 'shop:details1' val=y.Product_Name %}">

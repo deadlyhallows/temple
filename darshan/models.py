@@ -16,11 +16,11 @@ import datetime
 class Temples(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     temple2 = models.CharField(max_length=250, default=None)
-    Icon_images = models.ImageField(
+    Display_image = models.ImageField(
         null=True, blank=True,
         height_field="height_field",
         width_field="width_field")
-    images = models.ImageField(
+    Latest_to_be_updated_image = models.ImageField(
         null=True, blank=True,
         height_field="height_field",
         width_field="width_field")
@@ -34,8 +34,8 @@ class Temples(models.Model):
     Address = models.TextField(default=None)
     Email = models.EmailField()
     Temple_Purohit = models.CharField(max_length=250, default=None)
-    Religion = models.CharField(max_length=200, default="Hindu",null=True)#About temple
-    Related_Faith = models.TextField(default=None,null=True)
+    Religion = models.CharField(max_length=200, default="Hindu",blank=True,null=True)#About temple
+    Related_Faith = models.TextField(default=None,blank=True,null=True)
     Website = models.URLField(default=None,blank=True,null=True)
     Temple_History = models.TextField(default=None,blank=True,null=True)
     Significance = models.TextField(default=None,blank=True,null=True)
@@ -71,9 +71,6 @@ class Temples(models.Model):
             'temple2'
         ]
 
-
-
-    
 class Picture(DirtyFieldsMixin, models.Model):
     Temple = models.ForeignKey(Temples, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -119,7 +116,7 @@ class Profile(models.Model):
 
 class Mobile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    Mobile_No = models.CharField(max_length=15, blank=True, null=True)
+    Mobile_Number = models.CharField(max_length=15, blank=True, null=True)
     email_confirmed = models.BooleanField(default=False)
 
     def __str__(self):
@@ -141,7 +138,7 @@ class Darshans(models.Model):
     # timings = ArrayField(models.CharField(max_length=250,default=None,blank=True,null=True),default=list,blank=True,null=True)
 
     def __str__(self):
-        return str(self.temple.temple2) + ',' + str(self.rituals)
+        return str(self.rituals)
 
 
 class OnlineDonation(models.Model):
@@ -162,3 +159,11 @@ class TempleManager(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class ContactInspire(models.Model):
+    Name = models.CharField(max_length=100, default=None)
+    Email = models.CharField(max_length=400, default=None)
+    Comment = models.TextField()
+
+    def __str__(self):
+        return self.Name

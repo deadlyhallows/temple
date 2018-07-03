@@ -21,19 +21,29 @@ class PictureAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         u=[]
 
-        if Picture().is_dirty():
-            user = User.objects.filter(is_superuser=False)
-            for x in user:
-                for y in x.profile.selected:
-                    if y==obj.id:
-                       u.append(x)
-            print(u)
-            if not u:
-                recipient = user
-            else:
-                recipient = u
-            notify.send(sender=self, target=obj, recipient_list=list(recipient), verb="updated")
-            obj.save()
+        if obj.is_dirty():
+          dirty_fields = obj.get_dirty_fields()
+          print(dirty_fields)
+          for field in dirty_fields:
+            if field == 'image':
+              user = User.objects.filter(is_superuser=False)
+              for x in user:
+                  for y in x.profile.selected:
+                      if y==obj.id:
+                         u.append(x)
+              print(u)
+              if not u:
+                  recipient = user
+              else:
+                  recipient = u
+              notify.send(sender=self, target=obj, recipient_list=list(recipient), verb="updated")
+              for person in recipient:
+                  subject = 'Notification of update'
+                  verb = "updated"
+                  message = render_to_string('darshan/notification_email.html', {
+                      'target': obj, 'verb': verb})
+                  person.email_user(subject, message)
+              obj.save()
 
 
 

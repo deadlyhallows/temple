@@ -25,7 +25,7 @@ SECRET_KEY = '(1hy9%gtgf5dp_(c$+n-n4chuvp4=bg#l4mucyjry!-vw5bcc('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", ".pythonanywhere.com", "206.189.134.220", "divyakripa.com", 'www.divyakripa.com']
+ALLOWED_HOSTS = ["127.0.0.1", ".pythonanywhere.com", "206.189.134.220", "divyakripa.com", 'www.divyakripa.com', 'localhost']
 
 
 # Application definition
@@ -34,7 +34,7 @@ INSTALLED_APPS = [
 
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.sites',
+    #'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -46,13 +46,6 @@ INSTALLED_APPS = [
     'django_select2',
     'otp_twilio',
     'social_django',
-
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-
-    'allauth.socialaccount.providers.facebook',
-
 
 
     'widget_tweaks',
@@ -74,7 +67,7 @@ INSTALLED_APPS = [
     'orders',
 
 ]
-SITE_ID = 1
+# SITE_ID = 1
 
 CRISPY_TEMPLATE_TAG = 'bootstrap 3'
 
@@ -116,8 +109,8 @@ TEMPLATES = [
                 'social_django.context_processors.login_redirect',
                 'darshan.context_processor.Manager',
 
-                'cart.context_processors.cart', #comment it when logging in as Superuser
-                #'cart.context_processors.cart1',
+                'cart.context_processors.cart' #comment it when logging in as Superuser
+
             ],
         },
     },
@@ -167,18 +160,19 @@ AUTHENTICATION_BACKENDS = (
 
     'django.contrib.auth.backends.ModelBackend',
 
-     # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
+
 )
 
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.gmail'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'testsite_app'
-EMAIL_HOST_PASSWORD = 'mys3cr3tp4ssw0rd'
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'TestSite Team <noreply@example.com>'
+EMAIL_HOST_USER = 'amishaameyanish@gmail.com'
+EMAIL_HOST_PASSWORD = 'carmelacademy'
+DEFAULT_FROM_EMAIL = 'amishaameyanish@gmail.com'
+
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -210,6 +204,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='965971474651-i143qi51rdpth27q47l7jd0tsqmiadd2.apps.googleusercontent.com'  #Paste CLient Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'bhKdPZCPAVNZrhf1IlpkSEV7'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '619151545144780'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = 'df7672f012d56e92e7e2e3fd5ded6615'
 
 SESSION_COOKIE_AGE = 1209600
 SESSION_COOKIE_DOMAIN = None

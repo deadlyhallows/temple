@@ -23,7 +23,7 @@
                     <button class="btn btn-primary" type="submit" style="float: right">Donate</button>
                 </form>
                 {% if form.status %}
-                    Click on <strong><a href="{% url 'orders:payment' %}">Pay</a></strong> to Proceed
+                    Click on <strong><a href="{% url 'orders:payment' cost=cost %}">Pay</a></strong> to Proceed
                 {% endif %}
             </div>
         </div>
