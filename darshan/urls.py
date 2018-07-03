@@ -10,13 +10,14 @@ urlpatterns = [
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^signupManager/$', views.signup1, name='signup1'),
 
-    url(r'^login/$', auth_views.login,{'template_name':'darshan/home.html'}, name='login'),
+    url(r'^login/$', views.login,name='login'),
     url(r'^user_profile/$',views.user_profile, name='user_profile'),
     url(r'^manager_profile/$',views.manager_profile, name='manager_profile'),
     url(r'^selectDarshan/$',views.accounts, name='accounts'),
     url(r'^details/(?P<temp>.+)$',views.details, name='details'),
     url(r'^detail/(?P<temp1>.+)$', views.detail, name='detail'),
     url(r'^selectedTemple/(?P<pk>\d+)$', views.selectedTemple, name='selectedTemple'),
+    url(r'^allPrasad/(?P<pk>\d+)$', views.all_Prasad, name='all_Prasad'),
     url(r'^delete/(?P<value>.+)/$',views.delete, name='delete'),
     url(r'^online_donation/(?P<v>.+)/$',views.Online_Donation, name='Online_Donation'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
@@ -24,15 +25,18 @@ urlpatterns = [
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.activate, name='activate'),
 
-   #-------------For Password Reset----------------------
+    #-----------For gmail login-------------
+    url(r'^auth/complete/google-oauth2/Usertype/$',views.Usertype, name='Usertype'),    
+
+    #-------------For Password Reset----------------------
 
 
 
-    url(r'^password_reset/$', auth_views.password_reset, name='password_reset'),
-    url(r'^password_reset/done/$', auth_views.password_reset_done, name='password_reset_done'),
+    url(r'^password_reset/$', auth_views.password_reset,{'template_name':'registrations/password_reset_form.html'}, name='password_reset'),
+    url(r'^password_reset/done/$', auth_views.password_reset_done,{'template_name':'registrations/password_reset_done.html'}, name='password_reset_done'),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        auth_views.password_reset_confirm, name='password_reset_confirm'),
-    url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
+        auth_views.password_reset_confirm,{'template_name':'registrations/password_reset_confirm.html'}, name='password_reset_confirm'),
+    url(r'^reset/done/$', auth_views.password_reset_complete,{'template_name':'registrations/password_reset_complete.html'}, name='password_reset_complete'),
 
    
 
@@ -55,6 +59,11 @@ urlpatterns = [
     url(r'^darshan_remove/(?P<s2>.+)/$',views.darshan_remove, name='darshan_remove'),
     url(r'^alldarshan/$',views.allDarshan, name='alldarshan'),
 
+    #----------------For Prasad-----------------
+
+    url(r'^prasad_add/$',views.prasad_add, name='prasad_add'),
+    url(r'^prasad_update/(?P<p>.+)/$',views.prasad_update, name='prasad_update'),
+    url(r'^prasad_remove/(?P<p>.+)/$',views.prasad_remove, name='prasad_remove'),  
 
 ]
 

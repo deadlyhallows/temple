@@ -9,7 +9,7 @@
             <div class="col-md-12">
                 {% for p in product %}
                     <div class="col-md-5">
-                        <img {% if p.Photo %} src="{{ p.Photo.url }}" {% else %} src="{% static 'images/300.png' %}" {% endif %} class="img-responsive" style="max-width: 100% !important;">
+                        <img {% if p.Photo %} src="{{ p.Photo.url }}" {% else %} alt="{{ p.Product_Name }}" {% endif %} class="img-responsive" style="max-width: 100% !important;">
                     </div>
                     <div class="col-md-7">
                         <h3>
@@ -25,6 +25,13 @@
                                 {{ p.Offer_or_Discount }}
                             {% endif %}    
                         </p>
+                        <p class='content-markdown'>
+                            <br>
+                            {% if p.Product_Description %}
+                                {{ p.Product_Description }}
+                            {% endif %}     
+                        </p>
+                        <br><br>
                         <p>
                             {% if user.is_authenticated and not user.is_superuser %}
                                 <form action="{% url 'cart:add_to_cart' p.id %}" method="post">

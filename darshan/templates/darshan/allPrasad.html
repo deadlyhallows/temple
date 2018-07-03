@@ -1,0 +1,26 @@
+{% extends 'darshan/otherBase.html' %}
+{% load staticfiles %}
+{% load temple_extra %}
+{% block content %}
+    <div class="container-fluid" style="margin-top: 15px">
+        <div class="row">
+            {% for pra in prasad %}
+                <div class="col-sm-3">
+                    <div class="thumbnail">
+                        <img class="image-container img-responsive roundedCorner"
+                        {% if pra.Photo %} src="{{ pra.Photo.url }}" {% else %} alt="{{ pra.Product_Name }}" {% endif %} 
+                              style="min-width: 150px">
+                        {{ pra.Product_Name }}<br>
+                        {{ pra.Price }}
+                        <a href="{% url 'shop:details1' val=pra.Product_Name %}">
+                            <button class="btn btn-default" style="float: right;margin-bottom: 10px;">
+                                View
+                            </button>
+                        </a>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

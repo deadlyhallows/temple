@@ -32,7 +32,6 @@ urlpatterns = [
     url(r'^pay/', include('payu_biz.urls', namespace='pay')),
     url(r'^search/', include('haystack.urls')),
     url(r'^auth/', include('social_django.urls', namespace='social')),
-    # url(r'^accounts/', include('allauth.urls')),
     url('^', include('django.contrib.auth.urls')),
     #url(r'^admin/jsi18n', javascript_catalog),
 
