@@ -112,7 +112,8 @@ def product_add(request):
         
         return redirect('shop:seller_profile')
     else:
-        item_add_form = ProductAddForm()
+        messages.error(request,item_add_form.errors)
+        item_add_form = ProductAddForm(request.POST)
 
     context = {'item_add_form':item_add_form, }            
 
