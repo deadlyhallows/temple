@@ -1,4 +1,4 @@
-from .models import Picture, Profile, Temples, Darshans, Mobile, OnlineDonation, TempleManager
+from .models import Picture, Profile, Temples, Darshans, Mobile,TempleManager
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -23,7 +23,7 @@ class PictureAdmin(admin.ModelAdmin):
 
         if obj.is_dirty():
           dirty_fields = obj.get_dirty_fields()
-          print(dirty_fields)
+          #print(dirty_fields)
           for field in dirty_fields:
             if field == 'image':
               user = User.objects.filter(is_superuser=False)
@@ -31,7 +31,7 @@ class PictureAdmin(admin.ModelAdmin):
                   for y in x.profile.selected:
                       if y==obj.id:
                          u.append(x)
-              print(u)
+              #print(u)
               if not u:
                   recipient = user
               else:
@@ -55,7 +55,7 @@ admin.site.register(Mobile)
 admin.site.register(Darshans)
 admin.site.register(Picture, PictureAdmin)
 admin.site.register(Profile)
-admin.site.register(OnlineDonation)
+
 #class ProfileInline(admin.StackedInline):
  #   model = Profile
   #  can_delete = False

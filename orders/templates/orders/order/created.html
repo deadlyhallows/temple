@@ -19,7 +19,7 @@
                         {{ order.id }}.Now click on pay to proceed
                     </strong>
                 </p>
-                <a href="{% url 'orders:payment' cost=total_cost %}">
+                <a href="{% url 'orders:payment' %}">
                     <button class="btn btn-primary">
                         Pay
                     </button>

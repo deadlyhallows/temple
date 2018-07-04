@@ -29,6 +29,7 @@ class Product(DirtyFieldsMixin, models.Model):
     Offer_or_Discount = models.CharField(max_length=50, default=None, blank=True,null=True)
     is_Prasad = models.BooleanField(default=False)
     Product_Description = models.TextField(null=True, blank=True)
+
     
     def __str__(self):
         return str(self.Product_Name)

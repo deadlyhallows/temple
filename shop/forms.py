@@ -11,10 +11,9 @@ from haystack.forms import ModelSearchForm
 
 
 class ProductAddForm(forms.ModelForm):
-    Temple_Name = forms.CharField(required=True)
     Product_Name = forms.CharField(required=True)
-    Price = forms.CharField(required=True)
-    is_Prasad = forms.BooleanField(required=True)
+    Price = forms.DecimalField(required=True)
+    is_Prasad = forms.BooleanField(required=False)
     Product_Description = forms.CharField(widget=PagedownWidget,required=True)
     Out_of_Stock = forms.BooleanField(required=False)
     Offer_or_Discount = forms.CharField(required=False)
