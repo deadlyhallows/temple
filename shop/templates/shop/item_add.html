@@ -15,7 +15,7 @@
                     {% for field in item_add_form %}
                     <p> 
                     <label for="{{ field.auto_id }}">{{ field.label_tag }}
-                    {% if field.field.required %}
+                    {% if field.field.required or field.field.blank %}
                         <span class="required" style="color: red;">*</span>
                     {% endif %}
                     </label>

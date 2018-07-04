@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Profile, Temples, Mobile, OnlineDonation, TempleManager, Picture, Darshans, ContactInspire
+from .models import Profile, Temples, Mobile,TempleManager, Picture, Darshans, ContactInspire
 from shop.models import Product 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -71,10 +71,7 @@ class TempleForm(forms.ModelForm):
         fields = ('Select_Temple',)
 
 
-class DonationForm(forms.ModelForm):
-    class Meta:
-        model = OnlineDonation
-        fields = ('Amount', 'Purpose',)
+
 
 
 class TempleManagerForm(forms.ModelForm):

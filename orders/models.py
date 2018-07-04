@@ -4,8 +4,18 @@ from django.contrib.auth.models import User
 from dirtyfields import DirtyFieldsMixin
 from decimal import Decimal
 from cart import cart
+from darshan.models import Temples
 
 
+class OnlineDonation(models.Model):
+    donor = models.ForeignKey(User, on_delete=models.CASCADE)
+    temple = models.ForeignKey(Temples, on_delete=models.CASCADE)
+    Amount = models.PositiveIntegerField(default=0)
+    Purpose = models.TextField(blank=True)
+    status = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.donor) + "," + str(self.temple)
 
 class Order(DirtyFieldsMixin, models.Model):
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)

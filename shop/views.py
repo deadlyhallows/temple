@@ -45,13 +45,13 @@ class ProductSearch(SearchView):
 
 
 def allproducts(request):
-    print(request.user)
+    #print(request.user)
     lists = None
     k = []
 
     if request.method == 'POST' and 'temples' in request.POST:
         lists = request.POST.getlist('temples', None)
-        print(list)
+        #print(list)
 
     temple = Temples.objects.all()
     query = request.GET.get("q")
@@ -72,7 +72,7 @@ def allproducts(request):
     return render(request, 'shop/allproduct.html', context)
 
 def details1(request,val):
-    print(val)
+    #print(val)
     user = request.user
     product = Product.objects.filter(Product_Name=val)
     cart_product_form = CartAddProductForm()
@@ -90,7 +90,8 @@ def details1(request,val):
 @login_required
 @user_is_shopkeeper
 def seller_profile(request):
-  shopkeeper = get_object_or_404(User, id=request.user.id)
+
+  shopkeeper = get_object_or_404(User,id=request.user.id)
   items = Product.objects.filter(seller=shopkeeper)
   context = {
     'items': items
@@ -130,7 +131,7 @@ def product_update(request,p=None):
 
         if instance.is_dirty():
             dirty_fields = instance.get_dirty_fields()
-            print(dirty_fields)
+            #print(dirty_fields)
             for field in dirty_fields:
                 if field=='Out_of_Stock' and instance.Out_of_Stock==True:
                     us = []
@@ -178,7 +179,7 @@ def product_update(request,p=None):
         
         instances.save()
 
-        print("o")
+        #print("o")
         return redirect('shop:seller_profile')
             
           
@@ -191,9 +192,24 @@ def product_update(request,p=None):
 @login_required
 @user_is_shopkeeper
 def product_remove(request,p):
-    print("fbvbf")
+    #print("fbvbf")
     instance = get_object_or_404(Product,id=p)
-    print(instance)
+    #print(instance)
     instance.delete()
 
     return redirect('shop:seller_profile')     
+
+def error400(request):
+    return render(request, 'shop/error/HTTP400.html')
+
+
+def error403(request):
+    return render(request, 'shop/error/HTTP403.html')
+
+
+def error404(request):
+    return render(request, 'shop/error/HTTP404.html')
+
+
+def error500(request):
+    return render(request, 'shop/error/HTTP500.html')

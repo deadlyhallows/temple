@@ -11,7 +11,7 @@
                     <div class="col-md-5">
                         <img {% if p.Photo %} src="{{ p.Photo.url }}" {% else %} alt="{{ p.Product_Name }}" {% endif %} class="img-responsive" style="max-width: 100% !important;">
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-7 ">
                         <h3>
                            {{ p.Product_Name }}
                         </h3>
@@ -25,15 +25,12 @@
                                 {{ p.Offer_or_Discount }}
                             {% endif %}    
                         </p>
-                        <p class='content-markdown'>
-                            <br>
-                            {% if p.Product_Description %}
-                                {{ p.Product_Description }}
-                            {% endif %}     
+                        <p>
+                           <div class="content-markdown">{{ p.Product_Description }}</div> 
                         </p>
                         <br><br>
                         <p>
-                            {% if user.is_authenticated and not user.is_superuser %}
+                            {% if user.is_authenticated %}
                                 <form action="{% url 'cart:add_to_cart' p.id %}" method="post">
                                     {{ cart_product_form }}
                                     {% csrf_token %}

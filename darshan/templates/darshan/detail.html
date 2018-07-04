@@ -45,12 +45,12 @@
                 </button>
                 <br>
 
-                {% if user.is_authentication %}
+                {% if user.is_authenticated %}
                 <button class="btn btn-primary"
                         style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
                     <a style="color: white" {% if q.Online_Prasad %} href="{{ q.Online_Prasad }}" {% else %}
                        href="{% url 'darshan:all_Prasad' pk=q.id %}"{% endif %}>
-                        Order Prasad
+                        Buy Prasad
                     </a>
                 </button>
                 <br>
@@ -58,7 +58,7 @@
                 <button class="btn btn-primary"
                         style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
                     <a class="launch-modal" data-toggle="modal" data-modal-id="myModal4" style="color: white">
-                        Order Prasad
+                        Buy Prasad
                     </a>
                 </button>
                 <br>
@@ -68,7 +68,7 @@
                     <button class="btn btn-primary"
                             style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
                         <a style="color: white" {% if q.Online_Donation %} href="{{ q.Online_Donation }}" {% else %}
-                           href="{% url 'darshan:Online_Donation'  v=q.temple2 %}" {% endif %}>Make
+                           href="{% url 'orders:Online_Donation'  v=q.temple2 %}" {% endif %}>Make
                             Donation</a>
                     </button>
                 {% else %}

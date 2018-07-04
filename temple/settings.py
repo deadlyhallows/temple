@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'otp_twilio',
     'social_django',
 
-
     'widget_tweaks',
     # ... Other apps
 
@@ -60,7 +59,7 @@ INSTALLED_APPS = [
     'pagedown',
     'crispy_forms',
 
-    'payu_biz', ## Package
+    
     
     'darshan',
     'shop',
@@ -168,9 +167,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'amishaameyanish@gmail.com'
-EMAIL_HOST_PASSWORD = 'carmelacademy'
-DEFAULT_FROM_EMAIL = 'amishaameyanish@gmail.com'
+EMAIL_HOST_USER = 'divyakripamail@gmail.com'
+EMAIL_HOST_PASSWORD = 'startinspire16'
+DEFAULT_FROM_EMAIL = 'divyakripamail@gmail.com'
 
 
 
@@ -217,8 +216,8 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 CART_SESSION_ID = 'cart'
 
-SALT = '0mifJiz38z'
-KEY = 'y8GwZx8F'
+SALT = '7ngHbu55jc'
+KEY = 'oYKYBJEf'
 
 
 

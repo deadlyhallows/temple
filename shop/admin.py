@@ -15,7 +15,7 @@ class ProductAdmin(admin.ModelAdmin):
 
         if tm:
             dirty_fields = obj.get_dirty_fields()
-            print(dirty_fields)
+            #print(dirty_fields)
             for field in dirty_fields:
                 if field=='Out_of_Stock' and obj.Out_of_Stock==True:
                     us = []
