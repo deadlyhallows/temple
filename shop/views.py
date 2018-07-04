@@ -90,7 +90,7 @@ def details1(request,val):
 @login_required
 @user_is_shopkeeper
 def seller_profile(request):
-  shopkeeper = get_object_or_404(Shopkeeper,user=request.user)
+  shopkeeper = get_object_or_404(User, id=request.user.id)
   items = Product.objects.filter(seller=shopkeeper)
   context = {
     'items': items
@@ -120,7 +120,8 @@ def product_add(request):
 @login_required
 @user_is_shopkeeper
 def product_update(request,p=None):
-    seller = get_object_or_404(Shopkeeper,user=request.user)
+    user =request.user
+    seller = get_object_or_404(User,id=user.id)
     instance = get_object_or_404(Product,id=p)
     item_add_form = ProductAddForm(request.POST or None,request.FILES or None, instance=instance)
     
@@ -144,7 +145,7 @@ def product_update(request,p=None):
                         recipient = user1
                     else:
                         recipient = us 
-                    notify.send(sender=manager, target=instance, recipient_list=list(recipient), verb="Out of stock")
+                    notify.send(sender=seller, target=instance, recipient_list=list(recipient), verb="Out of stock")
                     for person in recipient:
                       subject = 'Notification from Divya Kripa:Your Order'
                       verb="Out of Stock"
@@ -165,7 +166,7 @@ def product_update(request,p=None):
                         recipient = user1
                     else:
                         recipient = us 
-                    notify.send(sender=manager, target=instance, recipient_list=list(recipient), verb="Available")
+                    notify.send(sender=seller, target=instance, recipient_list=list(recipient), verb="Available")
                     for person in recipient:
                       subject = 'Notification from Divya Kripa:Your Order'
                       verb="Available"
