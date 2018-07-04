@@ -48,6 +48,7 @@
                         {% csrf_token %}
                         {{ user_form.as_p }}
                         {{ Mobile_form.as_p }}
+                        <label>SignUp as:</label>
                         <select name="usertype" style="float:left;width: 428px;">
                             <option value="seller">Seller</option>
                             <option value="user">User</option>

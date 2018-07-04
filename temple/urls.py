@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.views.static import serve
 from django.conf.urls.static import static
+from shop import views as core_views
 #from django.views.i18n import javascript_catalog
 
 app_name = 'darshan'
@@ -29,13 +30,20 @@ urlpatterns = [
     url(r'cart/', include('cart.urls', namespace='cart')),
     url(r'orders/', include('orders.urls', namespace='orders')),
     url(r'^notifications/', include('notify.urls', namespace='notifications')),
-    url(r'^pay/', include('payu_biz.urls', namespace='pay')),
+    #url(r'^pay/', include('payu_biz.urls', namespace='pay')),
     url(r'^search/', include('haystack.urls')),
     url(r'^auth/', include('social_django.urls', namespace='social')),
     url('^', include('django.contrib.auth.urls')),
     #url(r'^admin/jsi18n', javascript_catalog),
 
 ]
+
+handler400 = core_views.error400  # noqa
+handler403 = core_views.error403  # noqa
+handler404 = core_views.error404  # noqa
+handler500 = core_views.error500  # noqa
+
+
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

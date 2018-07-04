@@ -40,9 +40,9 @@ def get_user_cart(request):
 
 @login_required
 def get_cart_count(request):
-    print(request.user)
+    #print(request.user)
     cart = get_user_cart(request)
-    print(cart)
+    #print(cart)
     total_count = 0
     cart_items = CartItem.objects.filter(cart=cart)
     for item in cart_items:
@@ -59,13 +59,13 @@ def view_cart(request):
     quantity=0
     cart_total_price = None
     user = request.user
-    print(user)
+    #print(user)
     cart_form = CartAddProductForm()#to update the quantity
     cart = get_object_or_404(Carts, user_id=user.id)
-    print(cart)
+    #print(cart)
     cart_items = CartItem.objects.filter(cart_id=cart.id)
     order_total = Decimal(0.0)
-    print("S")
+    #print("S")
     for item in cart_items:# getting the total price of the cart
         order_total += (item.product.Price * item.quantity)
         quantity+=item.quantity
@@ -89,9 +89,9 @@ def add_to_cart(request, product_id):
 
 
     form = CartAddProductForm(request.POST)
-    print("a")
+    #print("a")
     if form.is_valid():
-        print("b")
+        #print("b")
         cd = form.cleaned_data
         cart = get_user_cart(request)
         product = Product.objects.get(id=product_id)
@@ -103,7 +103,7 @@ def add_to_cart(request, product_id):
 
 
 
-    print(get_cart_count(request))
+    #print(get_cart_count(request))
     return redirect('cart:view_cart')
 
 @login_required
@@ -118,7 +118,7 @@ def update_quantity(request,product_id):
 
 @login_required
 def remove_from_cart(request, product_id):
-    print(product_id)
+    #print(product_id)
 
     cart_item = get_object_or_404(CartItem, id=product_id)
     quantity = cart_item.quantity
@@ -137,7 +137,7 @@ def cart_add(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     
-    print("a")
+    #print("a")
     form = CartAddProductForms(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
@@ -155,10 +155,8 @@ def cart_remove(request, product_id):
 
 def cart_detail(request):
     cart = Cart(request)
-    print(cart)
-    for item in cart:
-        print(item)
-    context = {'loop_times': range(2, 21),
+    
+    context = {'loop_times': range(1, 21),
                'cart': cart,
     }
 

@@ -11,11 +11,11 @@
                     <label>Name:</label>
                     <span>{{ u.first_name }}</span><span> {{ u.last_name }}</span>
                 </p>
-                {% if v.Mobile_No %}
+                {% if v.Mobile_Number %}
                 <p>
                     
-                    <label>Mobile No.:</label>
-                    <span>{{ v.Mobile_No }}</span>
+                    <label>Mobile Number:</label>
+                    <span>{{ v.Mobile_Number }}</span>
                     
                 </p>
                 {% endif %}
@@ -56,34 +56,12 @@
                                         </div>
                                         <div class="col-md-2">
                                             <button class="btn btn-primary">
-                                                <a style="color: white" class="launch-modal" 
-                                            data-toggle="modal" data-target="#myModal6" data-backdrop="static">
+                                                <a style="color: white" class="launch-modal"
+                                            data-toggle="modal" data-target="#{{ x }}" data-backdrop="static">
                                                     Delete
                                                 </a>
                                             </button>
-
-                                             
-                                         <!-- Modal -->
-                                          <div class="modal fade" id="myModal6" role="dialog">
-                                            <div class="modal-dialog">
-                                            
-                                              <!-- Modal content-->
-                                              <div class="modal-content">
-                                                <div class="modal-header">
-                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                  <h4 class="modal-title" style="color: red">Warning</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                  <p>Do you want to delete it???</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                 <a href="{% url 'darshan:delete' value=x %}"><button type="button" class="btn btn-default" >Yes</button></a>
-                                                 <a href="{% url 'darshan:user_profile' %}"><button type="button" class="btn btn-default" > No </button></a>
-                                                </div>
-                                              </div>
-                                              
-                                            </div>
-                                          </div> 
+                                        {% include 'darshan/include_delete_modal.html' with var=x %}
 
                                         </div>
                                         <div class="col-md-8">

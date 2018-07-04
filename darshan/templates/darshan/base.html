@@ -36,7 +36,7 @@
                     <li><a href="{% url 'darshan:home' %}"
                            style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">Home</a>
                     </li>
-                    <li><a href="{% url 'notifications:all' %}" style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">Notification({{ user|notifications_unread }})</a></li>
+                    <li><a href="{% url 'notifications:all' %}" style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">Notification {% if user|notifications_unread > 0 %} ({{ user|notifications_unread }}) {% else %} {% endif %}</a></li>
                     <li><a  href="{% url 'darshan:logout' %}"  style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">logout</a>
                     </li>
                      <li><a href="{% url 'shop:seller_profile' %}"
@@ -137,23 +137,10 @@
                             Login
                         </a>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style=" color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
-                            SignUp
-                            <b class="caret"></b></a>
-                        <ul class="dropdown-menu backcolor">
-                            
-                            <li>
-                                <a class=" launch-modal" href="{% url 'darshan:home' %}" style=" color:black;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;" data-modal-id="modal">
-                                    Seller
-                                </a>
-                            </li>
-                            <li>
-                                <a class=" launch-modal" href="{% url 'darshan:home' %}" style=" color:black;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;" data-modal-id="modal">
-                                    User
-                                </a>
-                            </li>
-                        </ul>
+                    <li>
+                        <a class=" launch-modal" href="{% url 'darshan:home' %}" style=" color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;" data-modal-id="modal">
+                            SignUp</a>
+                           
                     </li>
                 {% endif %}
                 <li id="google_translate_element" style="margin-top: 12px; width: 165px"></li>
@@ -176,7 +163,8 @@ $(window).load(function() {
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                      <h4 class="modal-title" style="color:red;text-align: center;">Message</h4>
+                      <h4 class="modal-title" style="color: red;text-align: center;font-weight: 600;font-size: 20px;font-size: 40px;
+          font-family: sans-serif;">Message</h4>
                     </div>
         
         <div class="modal-body">
@@ -200,9 +188,7 @@ $(window).load(function() {
 {% block content %}
 {% endblock %}
 
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"
-        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-        crossorigin="anonymous"></script>
+
 <script
   src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
   integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
@@ -230,8 +216,6 @@ $(window).load(function() {
         
     });
 
- 
-
     $(document).ready(function () {
         $('#id_Select_Temple').select2();
     });
@@ -241,35 +225,8 @@ $(window).load(function() {
     });
 
 </script>
-<script>
-    $(document).ready(function () {
-        // Add smooth scrolling to all links
-        $("a").on('click', function (event) {
-
-            // Make sure this.hash has a value before overriding default behavior
-            if (this.hash !== "") {
-                // Prevent default anchor click behavior
-                event.preventDefault();
-
-                // Store hash
-                var hash = this.hash;
-
-                // Using jQuery's animate() method to add smooth page scroll
-                // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-                $('html, body').animate({
-                    scrollTop: $(hash).offset().top
-                }, 800, function () {
-
-                    // Add hash (#) to URL when done scrolling (default click behavior)
-                    window.location.hash = hash;
-                });
-            } // End if
-        });
-    });
-</script>
-
-
 <script src="{% static 'js/scripts.js' %}"></script>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121617950-1"></script>
 <script>

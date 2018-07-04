@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from temple.decorators import user_is_temple_manager
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from darshan.models import Picture, Profile, Temples, Mobile, Darshans, OnlineDonation, TempleManager
+from darshan.models import Picture, Profile, Temples, Mobile, Darshans,TempleManager
 from shop.models import Shopkeeper,Product
 from django.contrib.auth import login
 from django.contrib.sites.shortcuts import get_current_site
@@ -10,7 +10,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
 from decimal import Decimal
-from darshan.forms import SignUpForm, TempleForm, MobileForm, DonationForm, TempleManagerForm, TempleAddForm, PictureAddForm, DarshanAddForm,PrasadAddForm, contactInspireForm
+from darshan.forms import SignUpForm, TempleForm, MobileForm,TempleManagerForm, TempleAddForm, PictureAddForm, DarshanAddForm,PrasadAddForm,contactInspireForm
 from django.core.urlresolvers import reverse
 from darshan.tokens import account_activation_token
 from django.contrib.auth.models import User
@@ -45,29 +45,29 @@ def home(request):
     totalProduct = Product.objects.all()
     # arr=[]
     # for prod in totalProduct:
-    #     print("Product ID", prod.id)
+    #     #print("Product ID", prod.id)
     #     arr.append(prod.id)
-    # print(arr)
+    # #print(arr)
     # random.shuffle(arr)
-    # print(arr)
+    # #print(arr)
     # product_num_entities = Product.objects.all().count()
-    # print("product_num_entities",product_num_entities)
+    # #print("product_num_entities",product_num_entities)
     # product_rand_entities = random.sample(arr, 1)[:1]
-    # print("product_rand_entities", product_rand_entities)
+    # #print("product_rand_entities", product_rand_entities)
     # product = Product.objects.filter(id__in=product_rand_entities)[:1]
-    # print("product", product)
+    # #print("product", product)
     product = Product.objects.all()
     paginator = Paginator(temples, 4)
     page_change_var = 'page'  # change=request
     page = request.GET.get(page_change_var)
-    print(type(page))
+    #print(type(page))
     try:
         queryset = paginator.page(page)
     except PageNotAnInteger:
         queryset = paginator.page(1)
     except EmptyPage:
         queryset = paginator.page(paginator.num_pages)
-    print("queryset", paginator)
+    #print("queryset", paginator)
     contact_form = contactInspireForm(request.POST or None)
     if contact_form.is_valid():
         messages.success(request, "Successfully Send")
@@ -90,7 +90,7 @@ def allDarshan(request):
     paginator = Paginator(temples, 64)
     page_change_var = 'page'  # change=request
     page = request.GET.get(page_change_var)
-    print(type(page))
+    #print(type(page))
     try:
         queryset = paginator.page(page)
     except PageNotAnInteger:
@@ -105,8 +105,8 @@ def allDarshan(request):
     return render(request, 'darshan/alldarshan.html', context)
 
 def all_Prasad(request, pk):
-    print("jvn")
-    print("PK",pk)
+    #print("jvn")
+    #print("PK",pk)
     prasad= Product.objects.filter(Temple_Name_id=pk,is_Prasad=True)
     temple=Temples.objects.get(id=pk)
     context={
@@ -118,17 +118,17 @@ def all_Prasad(request, pk):
 
 # ------------For Users -------------
 def signup(request):
-    print("D")
+    #print("D")
 
     if request.method == 'POST' and 'usertype' in request.POST:
-        print("p")
+        #print("p")
         user_form = SignUpForm(request.POST)
         mobile_form = MobileForm(request.POST)
-        print("o")
+        #print("o")
         typeuser = request.POST.get('usertype', None)
-        print(typeuser)
+        #print(typeuser)
         if user_form.is_valid() and mobile_form.is_valid():
-            print("asd")
+            #print("asd")
             user = user_form.save(commit=False)
             user.is_active = False
             user.save()
@@ -144,25 +144,25 @@ def signup(request):
                 create_cart = Carts.objects.create(active=True, user_id=user.id)
                 create_cart.save()
                 cart = Cart(request)
-                print(cart)
+                #print(cart)
                 if cart is not None:  # create cart for the logged in user
-                    print("A")
+                    #print("A")
                     try:
                         user_cart = Carts.objects.get(user_id=user.id)
                     except Carts.DoesNotExist:
                         user_cart = Carts.objects.create(user_id=user.id,active=True)
                         
-                    print("b")
+                    #print("b")
                     for item in cart:
-                        print("c")
+                        #print("c")
                         cart_product = get_object_or_404(Product, Product_Name=item['product'])
-                        print("d")
+                        #print("d")
                         cart_item = CartItem.objects.create(quantity=item['quantity'],
                                                             active=True, cart_id=user_cart.id,
                                                             product_id=cart_product.id)
-                        print("E")
+                        #print("E")
                         cart_item.save()
-                        print("f")
+                        #print("f")
             current_site = get_current_site(request)
             subject = 'Activate Your Divya Kripa Account'
             message = render_to_string('darshan/account_activation_email.html', {
@@ -179,11 +179,11 @@ def signup(request):
             arr = []
             for field in user_form:
                 arr.append(field.errors)
-                print(field.errors)
-                print("\n")
+                #print(field.errors)
+                #print("\n")
             messages.error(request, user_form.errors) 
     else:
-        print("abc")
+        #print("abc")
         user_form = SignUpForm()
         mobile_form = MobileForm()
 
@@ -218,12 +218,12 @@ def activate(request, uidb64, token, ):
 
 
 # Do change this when in production
-email_address = 'amishaameyanish@gmail.com'
-email_password = 'carmelacademy'
+email_address = 'divyakripamail@gmail.com'
+email_password = 'startinspire16'
 
 
 def send_verification_mail(email, msg, sub):
-    print("send verification mail")
+    #print("send verification mail")
     try:
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.ehlo()
@@ -231,7 +231,7 @@ def send_verification_mail(email, msg, sub):
         server.login(email_address, email_password)
         server.sendmail(email_address, email, msg, sub)
         server.close()
-        print('successfully sent the mail')
+        #print('successfully sent the mail')
 
     except:
         print("failed to send mail")
@@ -250,7 +250,7 @@ def login(request):
                 auth_login(request, user)
                 return redirect('darshan:Usertype')
         else:
-            print(login_form.errors)
+            #print(login_form.errors)
             error_message = "Incorrect username or password."
             messages.error(request,error_message)
             
@@ -299,7 +299,7 @@ def user_profile(request):
 
     # --------For Authenticated user who is not superuser-------------
     cart = Cart(request)
-    print("a")
+    #print("a")
     if cart is not None:
         try:
             get_cart = Carts.objects.get(user_id=user.id)
@@ -313,7 +313,7 @@ def user_profile(request):
             cart_item = CartItem.objects.create(quantity=item['quantity'],
                                                 active=True, cart_id=get_cart.id, product_id=cart_product.id)
             cart_item.save()
-    print(cart)
+    #print(cart)
     if request.method == "POST" and "Select_Temple" in request.POST:
         
         selected_temple = profile.Select_Temple
@@ -333,23 +333,19 @@ def user_profile(request):
             messages.error(request, "not created at all")
     else:
         form = TempleForm(instance=profile)
-    print("e")
+    #print("e")
     
     query_list = get_object_or_404(Profile,user_id=user.id)
     get_user = User.objects.get(id=user.id)
     user_mobile = Mobile.objects.get(id=user.id)
-    if request.POST:
-        print(profile.selected)
+
+    if request.method=='POST':
         profile.selected.clear()
-        print(profile.selected)
+        profile.save()
         for x in query_list.Select_Temple:
         
             templeTime_pk_list = request.POST.getlist(x, None)
-            print(templeTime_pk_list)
-            # get_temple = Temples.objects.get(temple2=x)
-            # get_pics = Picture.objects.filter(Temple_id=get_temple.id)
-
-
+            #print(templeTime_pk_list)
             for z in templeTime_pk_list:
                 pic = Picture.objects.get(id=z)
                 profile.selected.append(pic.id)
@@ -385,11 +381,11 @@ def accounts(request):
     user = request.user
     profile = Profile.objects.filter(user_id=user.id)
     for i in profile:
-        print(i)
+        #print(i)
         for j in i.Select_Temple:
-            print(j)
+            #print(j)
             temple = Temples.objects.filter(temple2=j)
-            print(temple)
+            #print(temple)
     context = {'set': user,
                'pro': profile}
     return render(request, 'darshan/accounts.html', context)
@@ -397,11 +393,11 @@ def accounts(request):
 
 @login_required
 def delete(request, value):
-    print("a")
+    #print(value)
     user = request.user
-    print(user)
+    #print(user)
     query_l = Profile.objects.get(user_id=user.id)
-    print("b")
+    #print("b")
     for i in query_l.Select_Temple:
         if i == value:
             query_l.Select_Temple.remove(i)
@@ -451,8 +447,8 @@ def detail(request, temp1):  # ----------------For Anonymous User---------------
     return render(request, 'darshan/detail.html', context)
 
 def selectedTemple(request, pk):
-    print("jvn")
-    print("PK",pk)
+    #print("jvn")
+    #print("PK",pk)
     picture= Picture.objects.filter(Temple_id=pk)
     temple=Temples.objects.get(id=pk)
     context={
@@ -461,46 +457,23 @@ def selectedTemple(request, pk):
     }
     return render(request, 'darshan/selectedTemple.html', context)
 
-@login_required
-def Online_Donation(request, v):
-    cost = Decimal(0.0)
-    if request.method == "POST":
-        
-        temple = get_object_or_404(Temples, temple2=v)
-        form = DonationForm(request.POST)
-        print("Aw")
-        if form.is_valid():
-            print("Ab")
-            donation = form.save(commit=False)
-            donation.donor = request.user
-            donation.temple = temple
-            donation.Amount = form.cleaned_data.get('Amount')
-            donation.Purpose = form.cleaned_data.get('Purpose')
-            donation.status = True
-            cost = donation.Amount
-            donation.save()
-            return HttpResponseRedirect(reverse('orders:payment', kwargs={'cost': cost}))
-    else:
-        form = DonationForm()
 
-    context = {'form': form,'cost':cost }
-    return render(request, 'darshan/Online_Donation.html', context)
 
 
 # --------------For Temple-Managers---------------------
 
 def signup1(request):
-    print("D")
+    #print("D")
     arr = []
     if request.method == 'POST':
-        print("p")
+        #print("p")
         user_form = SignUpForm(request.POST)
         mobile_form = MobileForm(request.POST)
         manager_form = TempleManagerForm(request.POST)
-        print("o")
+        #print("o")
 
         if user_form.is_valid() and mobile_form.is_valid() and manager_form.is_valid():
-            print("asd")
+            #print("asd")
             user = user_form.save(commit=False)
             user.is_active = False
             user.save()
@@ -530,12 +503,12 @@ def signup1(request):
             
             for field in user_form:
                 arr.append(field.errors)
-                print(field.errors)
-                print("\n")
+                #print(field.errors)
+                #print("\n")
             messages.error(request, user_form.errors)
         
     else:
-        print("abc")
+        #print("abc")
         user_form = SignUpForm()
         mobile_form = MobileForm()
         manager_form = TempleManagerForm()
@@ -575,13 +548,13 @@ def temple_add(request):
     
     add_form = TempleAddForm(request.POST or None, request.FILES or None)
     
-    print("e")
+    #print("e")
     
     if add_form.is_valid() :
-        print("r")
+        #print("r")
 
         instance = add_form.save(commit=False)
-        print("f")
+        #print("f")
         instance.user = request.user
         instance.temple2 = temple_manager.Temple_Name
         instance.save()
@@ -589,16 +562,17 @@ def temple_add(request):
 
         return redirect('darshan:manager_profile')
     else:
-        print(add_form.errors)
+        #print(add_form.errors)
         arr = []
         for field in add_form:
             arr.append(field.errors)
-            print(field.errors)
-            print("\n")
+            #print(field.errors)
+            #print("\n")
         messages.error(request, add_form.errors) 
         
             
-    context = {'add_form': add_form}
+    context = {'add_form': add_form,
+                'temple_by_user':temple_by_user}
     return render(request, 'darshan/temple_add.html', context)
 
 
@@ -606,21 +580,21 @@ def temple_add(request):
 @user_is_temple_manager
 def temple_update(request, s=None):
     instance = get_object_or_404(Temples, temple2=s)
-    print(instance)
+    #print(instance)
     add_form = TempleAddForm(request.POST or None, request.FILES or None, instance=instance)
-    print(add_form.instance.Display_image)
+    #print(add_form.instance.Display_image)
     if add_form.is_valid() == True:
         instance = add_form.save(commit=False)
         instance.save()
-        print("o")
+        #print("o")
         return redirect('darshan:manager_profile')
     else:
-        print(add_form.errors)
+        #print(add_form.errors)
         arr = []
         for field in add_form:
             arr.append(field.errors)
-            print(field.errors)
-            print("\n")
+            #print(field.errors)
+            #print("\n")
         messages.error(request, add_form.errors)     
     
         
@@ -641,13 +615,13 @@ def temple_remove(request,s):
     profiles = User.objects.filter(is_superuser=False)
 
     for prof in profiles:#-----deleting temple from all profiles and also from their selected -----------------
-        print(prof)
+        #print(prof)
         for x in prof.profile.Select_Temple:
-            print(x)
+            #print(x)
             temp = Temples.objects.get(temple2=x)
             if(temp.id==instance.id):
                 prof.profile.Select_Temple.remove(x)
-                print("d")
+                #print("d")
                 prof.profile.save()
     img=Picture.objects.filter(Temple_id=instance.id)
     for m in profiles:
@@ -671,7 +645,7 @@ def picture_add(request):
     temple_manager = get_object_or_404(TempleManager, user=request.user)
     temples = get_object_or_404(Temples, temple2=temple_manager.Temple_Name)
     pic_add_form = PictureAddForm(request.user,request.POST or None, request.FILES or None)
-    print("a")
+    #print("a")
     if pic_add_form.is_valid():
         instance = pic_add_form.save(commit=False)
         instance.user = request.user
@@ -680,14 +654,14 @@ def picture_add(request):
 
         return redirect('darshan:manager_profile')
     else:
-        print("S")
-        print(pic_add_form.errors)
+        #print("S")
+        #print(pic_add_form.errors)
         
         
         for field in pic_add_form:
             arr.append(field.errors)
-            print(field.errors)
-            print("\n")
+            #print(field.errors)
+            #print("\n")
         messages.error(request, pic_add_form.errors) 
         
 
@@ -703,13 +677,13 @@ def picture_update(request, s1=None):
     sender = get_object_or_404(TempleManager, user=request.user)
     instance = get_object_or_404(Picture, id=s1)
     pic_add_form = PictureAddForm(request.user,request.POST or None, request.FILES or None, instance=instance)
-    print(pic_add_form.instance.Ritual)
+    #print(pic_add_form.instance.Ritual)
 
     if pic_add_form.is_valid() == True:
         instances = pic_add_form.save(commit=False)
         if instance.is_dirty():  # -----------For Notifying of the update--------------
             dirty_fields = instance.get_dirty_fields()
-            print(dirty_fields)
+            #print(dirty_fields)
             for field in dirty_fields:
                 if field=="image":
                     user = User.objects.filter(is_superuser=False)
@@ -717,7 +691,7 @@ def picture_update(request, s1=None):
                         for y in x.profile.selected:
                             if y == instance.id:
                                 u.append(x)
-                    print(u)
+                    #print(u)
                     if not u:
                         recipient = user
                     else:
@@ -731,7 +705,7 @@ def picture_update(request, s1=None):
                         person.email_user(subject, message)
                 
         instances.save()
-        print("o")
+        #print("o")
         return redirect('darshan:manager_profile')
     context = {
         'pic_add_form': pic_add_form,
@@ -768,8 +742,8 @@ def darshan_add(request):
         arr = []
         for field in dar_add_form:
             arr.append(field.errors)
-            print(field.errors)
-            print("\n")
+            #print(field.errors)
+            #print("\n")
         messages.error(request, dar_add_form.errors) 
         
     context = {'dar_add_form': dar_add_form, }
@@ -785,7 +759,7 @@ def darshan_update(request, s2=None):
     if dar_add_form.is_valid() == True:
         instance = dar_add_form.save(commit=False)
         instance.save()
-        print("o")
+        #print("o")
         return redirect('darshan:manager_profile')
     
     context = {
@@ -829,16 +803,16 @@ def prasad_add(request):
 def prasad_update(request,p=None):
     manager = get_object_or_404(TempleManager,user=request.user)
     instance = Product.objects.get(id=p)
-    print(instance.Price)
+    #print(instance.Price)
     item_add_form = PrasadAddForm(request.POST or None,request.FILES or None, instance=instance)
     
     if item_add_form.is_valid() == True:
-        print("j")
+        #print("j")
         instances = item_add_form.save(commit=False)
 
         if instance.is_dirty():
             dirty_fields = instance.get_dirty_fields()
-            print(dirty_fields)
+            #print(dirty_fields)
             for field in dirty_fields:
                 if field=='Out_of_Stock' and instance.Out_of_Stock==True:
                     us = []
@@ -886,7 +860,7 @@ def prasad_update(request,p=None):
         instances.save()
 
        
-        print("o")
+        #print("o")
         return redirect('darshan:manager_profile')
             
           
@@ -899,9 +873,11 @@ def prasad_update(request,p=None):
 @login_required
 @user_is_temple_manager
 def prasad_remove(request,p):
-    print("fbvbf")
+    #print("fbvbf")
     instance = get_object_or_404(Product,id=p)
-    print(instance)
+    #print(instance)
     instance.delete()
 
     return redirect('darshan:manager_profile')  
+
+

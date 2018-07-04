@@ -134,22 +134,12 @@ class Darshans(models.Model):
     rituals = models.CharField(max_length=250, default=None)
     timings = models.CharField(max_length=250, default=None)
 
-    # rituals = ArrayField(models.CharField(max_length=250,default=None,blank=True,null=True),default=list,blank=True,null=True)
-    # timings = ArrayField(models.CharField(max_length=250,default=None,blank=True,null=True),default=list,blank=True,null=True)
+    
 
     def __str__(self):
         return str(self.rituals)
 
 
-class OnlineDonation(models.Model):
-    donor = models.ForeignKey(User, on_delete=models.CASCADE)
-    temple = models.ForeignKey(Temples, on_delete=models.CASCADE)
-    Amount = models.PositiveIntegerField(default=0)
-    Purpose = models.TextField(blank=True)
-    status = models.BooleanField(default=False)
-
-    def __str__(self):
-        return str(self.donor) + "," + str(self.temple)
 
 
 class TempleManager(models.Model):

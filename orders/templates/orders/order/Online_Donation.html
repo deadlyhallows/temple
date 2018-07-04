@@ -1,0 +1,57 @@
+{% extends 'darshan/otherBase.html' %}
+{% load staticfiles %}
+{% block content %}
+    {% block style %}
+    {% endblock style %}
+    <div class="container-fluid" style="margin-top: 15px">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Online Donation Form</h2>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="{{ field.auto_id }}">{{ field.label_tag }}
+                                {% if field.field.required %}
+                                    <span class="required" style="color: red;">*</span>
+                                {% endif %}
+                                </label>
+                            </div>
+                            <div class="col-md-10">
+                                {{ field }}
+                            </div>
+                        </div>
+                        <br>
+                    {% endfor %}
+                    <button class="btn btn-primary" type="submit" style="float: right">Donate</button>
+                    <!-- {% if cost > o %} -->
+                    
+                    <!-- {% else %}
+                    <button class="launch-modal" data-toggle="modalab" data-modal-id="myModalab">Donate</button>
+                    {% endif %}    
+                  
+                  <div class="modal fade" id="myModalab" role="dialog">
+                    <div class="modal-dialog">
+                        
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Warning</h4>
+                        </div>
+                        <div class="modal-body">
+                          <p>Amount should more than Rs.0</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">OK</button></a>
+                        </div>
+                      </div>
+                </form> -->
+                {% if form.status %}
+                    Click on <strong><a href="{% url 'orders:payment'%}">Pay</a></strong> to Proceed
+                {% endif %}
+            </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

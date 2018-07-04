@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, OrderItem
+from .models import Order, OrderItem,OnlineDonation
 from django.contrib.auth.models import User
 from notify.signals import notify
 
@@ -30,7 +30,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 admin.site.register(Order,OrderAdmin)
 admin.site.register(OrderItem)
-
+admin.site.register(OnlineDonation)
 #class OrderAdmin(admin.ModelAdmin):
 #    list_display = ['id','first_name','last_name','email','address','postal_code','city','created','updated','paid']
  #   list_filter = ['paid','created','updated']
