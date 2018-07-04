@@ -86,7 +86,7 @@
                 <div class="col-sm-3" style="text-align:center;">
                     <div class='thumbnail'>
                         <img class="image-container img-responsive roundedCorner"
-                        {% if x.Photo %} src="{{ y.Display_image.url }}" {% else %} alt="{{ y.temple2 }}" {% endif %} 
+                        {% if y.Display_image %} src="{{ y.Display_image.url }}" {% else %} alt="{{ y.temple2 }}" {% endif %}
                               style="min-width: 150px">
                         <br>
                         <a href="{% url 'darshan:detail' temp1=y.temple2 %}" class="link">{{ y.temple2 }}</a>
