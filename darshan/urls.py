@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^signupManager/$', views.signup1, name='signup1'),
 
-    url(r'^login/$', views.login,name='login'),
+    url(r'^login/$', views.Login,name='Login'),
     url(r'^user_profile/$',views.user_profile, name='user_profile'),
     url(r'^manager_profile/$',views.manager_profile, name='manager_profile'),
     url(r'^selectDarshan/$',views.accounts, name='accounts'),
