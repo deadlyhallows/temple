@@ -212,7 +212,7 @@ def activate(request, uidb64, token, ):
         user.mobile.save()
         user.save()
         login(request, user, backend='django.core.mail.backends.smtp.EmailBackend')
-        return render(request, 'darshan/home.html')
+        return redirect('darshan:home')
     else:
         return render(request, 'darshan/account_activation_invalid.html')
 
@@ -238,7 +238,8 @@ def send_verification_mail(email, msg, sub):
 
 
 
-def login(request):
+def Login(request):
+    error_message=""
     if request.method == 'POST':
         login_form = AuthenticationForm(request.POST)
         username = request.POST['username']
@@ -568,11 +569,11 @@ def temple_add(request):
             arr.append(field.errors)
             #print(field.errors)
             #print("\n")
-        messages.error(request, add_form.errors) 
+        messages.error(request, add_form.errors)
+        add_form = TempleAddForm(request.POST or None, request.FILES or None)
         
             
-    context = {'add_form': add_form,
-                'temple_by_user':temple_by_user}
+    context = {'add_form': add_form,}
     return render(request, 'darshan/temple_add.html', context)
 
 
@@ -656,14 +657,12 @@ def picture_add(request):
     else:
         #print("S")
         #print(pic_add_form.errors)
-        
-        
         for field in pic_add_form:
             arr.append(field.errors)
             #print(field.errors)
             #print("\n")
-        messages.error(request, pic_add_form.errors) 
-        
+        messages.error(request, pic_add_form.errors)
+        pic_add_form = PictureAddForm(request.user, request.POST or None, request.FILES or None)
 
     context = {'pic_add_form': pic_add_form, }
 
@@ -744,7 +743,8 @@ def darshan_add(request):
             arr.append(field.errors)
             #print(field.errors)
             #print("\n")
-        messages.error(request, dar_add_form.errors) 
+        messages.error(request, dar_add_form.errors)
+        dar_add_form = DarshanAddForm(request.POST or None)
         
     context = {'dar_add_form': dar_add_form, }
     return render(request, 'darshan/darshan_add.html', context)
@@ -792,7 +792,8 @@ def prasad_add(request):
         
         return redirect('darshan:manager_profile')
     else:
-        item_add_form = PrasadAddForm()
+        item_add_form = PrasadAddForm(request.POST or None, request.FILES or None)
+        messages.error(request,item_add_form.errors)
 
     context = {'item_add_form':item_add_form, }            
 

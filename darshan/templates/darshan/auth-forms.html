@@ -1,7 +1,7 @@
  <!-- Login Form -->
     <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
-        <form method="post" role="form" action="{% url 'darshan:login' %}" style="float: unset; box-shadow: unset">
+        <form method="post" role="form" action="{% url 'darshan:Login' %}" style="float: unset; box-shadow: unset">
             <div class="modal-dialog ">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -17,24 +17,21 @@
                     </div>
                     <div class="modal-footer">
                         <div class="col-md-12" align="center">
-                            <button type="submit" style="width: 200px;text-align: center;">Log in</button>
+                            <button class="btn btn-primary" type="submit" style="width: 200px;text-align: center;">Log in</button>
                         </div>
                         <br><br>
                         <div class="col-md-12" style="text-align: center;">
                             <a href="{% url 'darshan:home' %}" class="ab">New to My Site? Sign up</a>
                             <p><a href="{% url 'darshan:password_reset' %}" class="ab">Forgot Password?</a></p>
                             <p><strong>-- OR --</strong></p>
-                            <p><a href="{% url 'social:begin' 'facebook' %}" class="ab">Login with Facebook</a></p>
-                            <p><a href="{% url 'social:begin' 'google-oauth2' %}" class="ab">Login with Gmail</a></p>
+                            <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary">Login with Facebook</a>
+                            <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-primary" style="width: 154px">Login with Gmail</a>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-
-
-
     <!--SignUp form for user and  seller-->
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <form role="form" action="{% url 'darshan:signup' %}" method="post" style="float: unset; box-shadow: unset">
@@ -49,7 +46,7 @@
                         {{ user_form.as_p }}
                         {{ Mobile_form.as_p }}
                         <label>SignUp as:</label>
-                        <select name="usertype" style="float:left;width: 428px;">
+                        <select name="usertype" style="float:right;width: 157px; height: 25px;">
                             <option value="seller">Seller</option>
                             <option value="user">User</option>
                         </select>
