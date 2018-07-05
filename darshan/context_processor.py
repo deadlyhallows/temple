@@ -5,8 +5,9 @@ from darshan.forms import SignUpForm, TempleForm, MobileForm,TempleManagerForm
 
 
 def Manager(request):
-	set = request.user
-	return {'set':set,
+	
+	
+	return {
 	   		'login_form': AuthenticationForm,
             'Mobile_form': MobileForm,
             'user_form': SignUpForm,

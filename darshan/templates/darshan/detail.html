@@ -94,7 +94,7 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                                  <a class="launch-modal" data-toggle="modal" data-modal-id="modal-login" style="color: white">  <button type="button" class="btn btn-default" data-dismiss="modal">OK</button></a>
                                 </div>
                             </div>
 
@@ -129,8 +129,8 @@
             <li class="col-sm-2 col-md-offset-1"><a data-toggle="tab" href="#menu1">About Temple</a></li>
             <li class="col-sm-2"><a data-toggle="tab" href="#menu2">Administration</a></li>
             <li class="col-sm-2"><a data-toggle="tab" href="#menu3">Temple Facilities</a></li>
-            <li class="col-sm-2"><a data-toggle="tab" href="#menu4">Miscelleneous</a></li>
             <li class="col-sm-2"><a data-toggle="tab" href="#menu4">Visit Temple</a></li>
+            <li class="col-sm-2"><a data-toggle="tab" href="#menu5">Miscelleneous</a></li>
         </ul>
         <!-- tab contents -->
 
@@ -139,7 +139,9 @@
                 <table class="table table-striped">
                     <tbody>
                     <tr>
-                        <h2 style="font-family: 'Carter One'; text-align: center" >{{ q.temple2 }}</h2>
+
+                        <h2 style="font-family: 'Carter One';text-align: center;">{{ q.temple2 }}</h2>
+
                     </tr>
                     <tr>
                         <td>Deity</td>
@@ -200,8 +202,8 @@
 
                     {% if q.Website %}
                         <tr>
-                            <td><a href="{{ q.Website }}" style="color: black">Website</a></td>
-                            <td><a href="{{ q.Website }}">Click Here</a></td>
+                            <td><a href="{{ q.Website }}" target="_blank" style="color: black">Website</a></td>
+                            <td><a href="{{ q.Website }}" target="_blank">Click Here</a></td>
                         </tr>
                     {% endif %}
 
@@ -257,28 +259,28 @@
                     <tbody>
                     {% if q.Online_Donation %}
                         <tr>
-                            <td><a href="{{ q.Online_Donation }}">Online Donation</a></td>
-                            <td><a href="{{ q.Online_Donation }}">Click here</a></td>
+                            <td><a href="{{ q.Online_Donation }}" target="_blank">Online Donation</a></td>
+                            <td><a href="{{ q.Online_Donation }}" target="_blank">Click here</a></td>
                         </tr>
                     {% endif %}
 
                     {% if q.Online_Pooja %}
                         <tr>
-                            <td><a href="{{ q.Online_Pooja }}">Online Pooja</a></td>
-                            <td><a href="{{ q.Online_Pooja }}">Click here</a></td>
+                            <td><a href="{{ q.Online_Pooja }}" target="_blank">Online Pooja</a></td>
+                            <td><a href="{{ q.Online_Pooja }}" target="_blank">Click here</a></td>
                         </tr>
                     {% endif %}
 
                     {% if q.Online_Facility %}
                         <tr>
-                            <td><a href="{{ q.Online_Facility }}">Online Facility</a></td>
-                            <td><a href="{{ q.Online_Facility }}">Click here</a></td>
+                            <td><a href="{{ q.Online_Facility }}" target="_blank">Online Facility</a></td>
+                            <td><a href="{{ q.Online_Facility }}" target="_blank">Click here</a></td>
                         </tr>
                     {% endif %}
                     {% if q.Accomodation_Link %}
                         <tr>
-                            <td><a href="{{ q.Accomodation_Link }}">Accomodation Link</a></td>
-                            <td><a href="{{ q.Accomodation_Link }}">Click here</a></td>
+                            <td><a href="{{ q.Accomodation_Link }}" target="_blank">Accomodation Link</a></td>
+                            <td><a href="{{ q.Accomodation_Link }}" target="_blank">Click here</a></td>
                         </tr>
                     {% endif %}
                     {% if q.Transportation %}

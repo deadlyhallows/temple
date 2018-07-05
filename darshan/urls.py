@@ -10,7 +10,9 @@ urlpatterns = [
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^signupManager/$', views.signup1, name='signup1'),
 
+
     url(r'^login/$', views.Login,name='Login'),
+
     url(r'^user_profile/$',views.user_profile, name='user_profile'),
     url(r'^manager_profile/$',views.manager_profile, name='manager_profile'),
     url(r'^selectDarshan/$',views.accounts, name='accounts'),
@@ -26,7 +28,11 @@ urlpatterns = [
         views.activate, name='activate'),
 
     #-----------For gmail login-------------
-    url(r'^auth/complete/google-oauth2/Usertype/$',views.Usertype, name='Usertype'),    
+    url(r'^auth/complete/google-oauth2/Usertype/$',views.Usertype, name='Usertype'),
+
+    #-----------For Facebook login-----------
+    url(r'^auth/complete/facebook/Usertype/$',views.Usertype, name='Usertype'),  
+     
 
     #-------------For Password Reset----------------------
 

@@ -20,13 +20,17 @@
                             Rs.{{ p.Price }}
                         </p>
                         <p>
-                            <br>
+                            
                             {% if p.Offer_or_Discount %}
+                            <strong>Offer or Discount: </strong>
                                 {{ p.Offer_or_Discount }}
                             {% endif %}    
                         </p>
                         <p>
+                        
+                           <strong>Description: </strong>
                            <div class="content-markdown">{{ p.Product_Description }}</div> 
+                        
                         </p>
                         <br><br>
                         <p>
