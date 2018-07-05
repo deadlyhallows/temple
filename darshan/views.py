@@ -343,7 +343,7 @@ def user_profile(request):
     user_mobile = Mobile.objects.get(id=user.id)
 
     if request.method=='POST':
-        profile.selected.clear()
+        profile.selected = []
         profile.save()
         for x in query_list.Select_Temple:
         
