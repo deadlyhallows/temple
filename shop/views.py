@@ -214,3 +214,6 @@ def error404(request):
 
 def error500(request):
     return render(request, 'shop/error/HTTP500.html')
+
+def error200(request):
+    return render(request, 'shop/error/HTTP500.html')    

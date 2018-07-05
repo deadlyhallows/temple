@@ -133,7 +133,7 @@ def signup(request):
             user.is_active = False
             user.save()
 
-            user.mobile.Mobile_No = mobile_form.cleaned_data.get('Mobile_No')
+            user.mobile.Mobile_Number = mobile_form.cleaned_data.get('Mobile_Number')
             user.mobile.save()
             if typeuser == 'seller':
                 username = user_form.cleaned_data.get('username')
@@ -240,6 +240,7 @@ def send_verification_mail(email, msg, sub):
 
 def Login(request):
     error_message=""
+
     if request.method == 'POST':
         login_form = AuthenticationForm(request.POST)
         username = request.POST['username']
@@ -254,6 +255,7 @@ def Login(request):
             #print(login_form.errors)
             error_message = "Incorrect username or password."
             messages.error(request,error_message)
+            login_form = AuthenticationForm(request.POST)
             
 
     else:
@@ -573,7 +575,9 @@ def temple_add(request):
         add_form = TempleAddForm(request.POST or None, request.FILES or None)
         
             
+
     context = {'add_form': add_form,}
+
     return render(request, 'darshan/temple_add.html', context)
 
 

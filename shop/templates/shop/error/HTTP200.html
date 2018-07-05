@@ -1,15 +1,15 @@
 {% extends 'darshan/otherBase.html' %}
 {% load staticfiles %}
 {% block head_title %}
-    400 | {{ block.super }}
+    200 | {{ block.super }}
 {% endblock %}
 {% block content %}
 <div class="container-fluid" style="margin-top: 15px; padding-left: 12%">
         <div class="row" style="text-align: center">
             <div class="col-md-12" align="center">
                 <br>
-			    <h1> Oops! Error 400 </h1>
-			    <h2 >Seems like the server couldn't understand your request!</h2>
+			    <h1> Oops! Error 200 </h1>
+			    <h2 >Seems like everything is perfect</h2>
 			    <h2 style="text-align: center;padding-bottom: 40px;">
         			However, Thanks for stopping by! You can go start a search query right above, go to the <a href="/">landing page</a> or <a href="/#contact">report</a> the error in case you have expected something else to be here.</p>
                     <p>&mdash; <a href="https://www.divyakripa.com/">Divya Kripa</a></p>
@@ -19,5 +19,3 @@
 </div>	
    
 {% endblock %}
-
- 

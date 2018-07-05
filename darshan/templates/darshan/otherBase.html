@@ -82,9 +82,11 @@
                     <li><a href="{% url 'notifications:all' %}" style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">Notification {% if user|notifications_unread > 0 %} ({{ user|notifications_unread }}) {% else %} {% endif %}</a></li>
                     <li><a  href="{% url 'darshan:logout' %}"  style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">logout</a>
                     </li>
+
                      <li><a href="{% url 'shop:seller_profile' %}"
                            style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;margin-right: 15px;">Profile</a>
                     </li>   
+
 
                 {% endif%} 
 

@@ -97,21 +97,13 @@
                     {% for x in list %}
                         {% for y in x|product %}
                             <div class="col-sm-3">
-                                <div class="thumbnail">
-                                    
-                                        <img {% if y.Photo %} src="{{ y.Photo.url }}" {% else %} alt="{{ y.Product_Name }}" {% endif %}>
-                                    
-                                        
-                                    
-                                    {{ y.Product_Name }}<br>
-                                    {{ y.Price }}
-                                    <a href="{% url 'shop:details1' val=y.Product_Name %}">
-                                        <button class="btn btn-default" style="float: right;margin-bottom: 10px;">
-                                            View
-                                        </button>
-                                    </a>
-
+                                <a href="{% url 'shop:details1' val=y.Product_Name %}">
+                                <div class="thumbnail" style="text-align: center;color: black;">
+                                    <img {% if y.Photo %} src="{{ y.Photo.url }}" {% else %} alt="{{ y.Product_Name }}" {% endif %}>
+                                    <h3>{{ y.Product_Name }}</h3>
+                                    <h4>{{ y.Price }}</h4>
                                 </div>
+                                </a>
                             </div>
                         {% endfor %}
                     {% endfor %}
@@ -119,18 +111,13 @@
                     {% for x in b %}
                         {% for y in x|product %}
                             <div class="col-sm-3">
-                                <div class="thumbnail">
+                                <a href="{% url 'shop:details1' val=y.Product_Name %}"> 
+                                <div class="thumbnail" style="text-align: center;color: black;">
                                     <img {% if y.Photo %} src="{{ y.Photo.url }}" {% else %} alt="{{ y.Product_Name }}" {% endif %}>
-
-                                    {{ y.Product_Name }}<br>
-                                    {{ y.Price }}
-                                    <a href="{% url 'shop:details1' val=y.Product_Name %}">
-                                        <button class="btn btn-default" style="float: right;margin-bottom: 10px;">
-                                            Buy Now
-                                        </button>
-                                    </a>
-
+                                    <h3>{{ y.Product_Name }}</h3>
+                                   <h4> {{ y.Price }}</h4>
                                 </div>
+                                </a>
                             </div>
                         {% endfor %}
                     {% endfor %}

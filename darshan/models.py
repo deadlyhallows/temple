@@ -58,7 +58,7 @@ class Temples(models.Model):
     Precaution_While_Visiting = models.TextField(default=None,blank=True,null=True)
     State = models.CharField(max_length=50, default=None,blank=True,null=True)
     Country = models.CharField(max_length=60, default=None,blank=True,null=True)
-    Tender = models.FileField(upload_to='file_uploads/',default='settings.MEDIA_ROOT/300.png',null=True)#Temple Miscelleneous
+    Tender = models.FileField(upload_to='file_uploads/',blank=True,null=True)#Temple Miscelleneous
     Recruitment = models.TextField(default=None, blank=True,null=True)
     Notice_and_Updates = models.TextField(default=None, blank=True,null=True)
     
