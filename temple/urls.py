@@ -42,6 +42,7 @@ handler400 = core_views.error400  # noqa
 handler403 = core_views.error403  # noqa
 handler404 = core_views.error404  # noqa
 handler500 = core_views.error500  # noqa
+handler200 = core_views.error200  # noqa
 
 
 # if settings.DEBUG:
