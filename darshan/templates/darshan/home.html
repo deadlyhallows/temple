@@ -73,7 +73,7 @@
     <div class="container-fluid">
         <br>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 col-xs-12">
                 <div id="features" class="features uk-container uk-margin-large-top">
                     <h3 class="title-deco uk-text-center title-text color-black-a54" style="text-align: center;">
                         <span class="triangle-up"></span>
@@ -89,7 +89,7 @@
         <!-- HoverEffect Images -->
         <div class="row">
             {% for y in object_list %}
-                <div class="col-sm-3" style="text-align:center;">
+                <div class="col-sm-3 col-xs-6" style="text-align:center;">
                     <div class='thumbnail'>
 
                         <br>
@@ -113,7 +113,7 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-md-12" align="center">
+            <div class="col-md-12 col-xs-12" align="center">
                 <div class="pagination ">
                     <span class="step-links">
                         {% if object_list.has_previous %}
@@ -134,7 +134,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 col-xs-12">
                 <div id="features" class="features uk-container uk-margin-large-top">
                     <h3 class="title-deco uk-text-center title-text color-black-a54" style="text-align: center;">
                         <span class="triangle-up"></span>
@@ -150,7 +150,7 @@
         <!--Shop Images -->
         <div class=" row display" id="shop">
             {% for prod in product %}
-                <div class="col-md-3 col-sm-6" style="margin-bottom: 15px;">
+                <div class="col-md-3 col-sm-6 col-xs-6" style="margin-bottom: 15px;">
 
                     <a href="{% url 'shop:details1' pk=prod.id %}" style="color: white">
                         <div class="hovereffect">
