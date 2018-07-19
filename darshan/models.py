@@ -34,34 +34,33 @@ class Temples(models.Model):
     Address = models.TextField(default=None)
     Email = models.EmailField()
     Temple_Purohit = models.CharField(max_length=250, default=None)
-    Religion = models.CharField(max_length=200, default="Hindu",blank=True,null=True)#About temple
-    Related_Faith = models.TextField(default=None,blank=True,null=True)
-    Website = models.URLField(default=None,blank=True,null=True)
-    Temple_History = models.TextField(default=None,blank=True,null=True)
-    Significance = models.TextField(default=None,blank=True,null=True)
-    Celebration = models.TextField(default=None,blank=True,null=True)
-    Live_Darshan_link = models.URLField(default=None, blank=True,null=True)
-    Management = models.TextField(default=None,blank=True,null=True)
-    Other_Deities=models.TextField(default=None,blank=True,null=True)
-    Related_Temple=models.TextField(default=None,blank=True,null=True)
-    Accomodation_Link = models.URLField(default=None, blank=True,null=True)#TempleFacilities
+    Religion = models.CharField(max_length=200, default="Hindu", blank=True, null=True)  # About temple
+    Related_Faith = models.TextField(default=None, blank=True, null=True)
+    Website = models.URLField(default=None, blank=True, null=True)
+    Temple_History = models.TextField(default=None, blank=True, null=True)
+    Significance = models.TextField(default=None, blank=True, null=True)
+    Celebration = models.TextField(default=None, blank=True, null=True)
+    Live_Darshan_link = models.URLField(default=None, blank=True, null=True)
+    Management = models.TextField(default=None, blank=True, null=True)
+    Other_Deities = models.TextField(default=None, blank=True, null=True)
+    Related_Temple = models.TextField(default=None, blank=True, null=True)
+    Accomodation_Link = models.URLField(default=None, blank=True, null=True)  # TempleFacilities
     Annakshetra = models.BooleanField(default=False)
     Online_Pooja = models.URLField(default=None, blank=True, null=True)
-    Online_Donation = models.URLField(default=None, blank=True,null=True)
+    Online_Donation = models.URLField(default=None, blank=True, null=True)
     Online_Prasad = models.URLField(default=None, blank=True, null=True)
     Online_Facility = models.URLField(default=None, blank=True, null=True)
-    Transportation = models.TextField(default=None,blank=True,null=True)
-    About_City = models.TextField(default=None,blank=True,null=True)#visit Temple
-    How_To_Reach = models.TextField(default=None,blank=True,null=True)
-    Do_And_Dont = models.TextField(default=None,blank=True,null=True)
-    Amenities = models.TextField(default=None,blank=True,null=True)
-    Precaution_While_Visiting = models.TextField(default=None,blank=True,null=True)
-    State = models.CharField(max_length=50, default=None,blank=True,null=True)
-    Country = models.CharField(max_length=60, default=None,blank=True,null=True)
-    Tender = models.FileField(upload_to='file_uploads/',blank=True,null=True)#Temple Miscelleneous
-    Recruitment = models.TextField(default=None, blank=True,null=True)
-    Notice_and_Updates = models.TextField(default=None, blank=True,null=True)
-    
+    Transportation = models.TextField(default=None, blank=True, null=True)
+    About_City = models.TextField(default=None, blank=True, null=True)  # visit Temple
+    How_To_Reach = models.TextField(default=None, blank=True, null=True)
+    Do_And_Dont = models.TextField(default=None, blank=True, null=True)
+    Amenities = models.TextField(default=None, blank=True, null=True)
+    Precaution_While_Visiting = models.TextField(default=None, blank=True, null=True)
+    State = models.CharField(max_length=50, default=None, blank=True, null=True)
+    Country = models.CharField(max_length=60, default=None, blank=True, null=True)
+    Tender = models.FileField(upload_to='file_uploads/', blank=True, null=True)  # Temple Miscelleneous
+    Recruitment = models.TextField(default=None, blank=True, null=True)
+    Notice_and_Updates = models.TextField(default=None, blank=True, null=True)
 
     def __str__(self):
         return self.temple2
@@ -70,6 +69,7 @@ class Temples(models.Model):
         ordering = [
             'temple2'
         ]
+
 
 class Picture(DirtyFieldsMixin, models.Model):
     Temple = models.ForeignKey(Temples, on_delete=models.CASCADE)
@@ -81,7 +81,7 @@ class Picture(DirtyFieldsMixin, models.Model):
     height_field = models.IntegerField(default=None, null=True, blank=True)
     width_field = models.IntegerField(default=None, null=True, blank=True)
     Time = models.TimeField(auto_now_add=False, auto_now=False, null=True, blank=True)
-    Ritual = models.CharField(max_length=200,default=None)
+    Ritual = models.CharField(max_length=200, default=None)
     publish = models.DateField(auto_now_add=False, auto_now=False)
     timestamp = models.DateField(auto_now=False, auto_now_add=True)
     updated = models.DateField(auto_now=True, auto_now_add=False)
@@ -134,12 +134,8 @@ class Darshans(models.Model):
     rituals = models.CharField(max_length=250, default=None)
     timings = models.CharField(max_length=250, default=None)
 
-    
-
     def __str__(self):
         return str(self.rituals)
-
-
 
 
 class TempleManager(models.Model):
@@ -149,6 +145,13 @@ class TempleManager(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class Pandit(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_pandit = models.BooleanField(default=False)
+    def __str__(self):
+        return self.user.username
+
 
 class ContactInspire(models.Model):
     Name = models.CharField(max_length=100, default=None)
