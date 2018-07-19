@@ -28,8 +28,7 @@ DEBUG = False
 ALLOWED_HOSTS = ["127.0.0.1", ".pythonanywhere.com", "206.189.134.220", "divyakripa.com", 'www.divyakripa.com', 'localhost']
 
 
-ALLOWED_HOSTS = ["127.0.0.1", ".pythonanywhere.com", "206.189.134.220", "divyakripa.com", 'www.divyakripa.com',
-                 'localhost']
+
 
 # Application definition
 
