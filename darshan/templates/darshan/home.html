@@ -91,8 +91,6 @@
             {% for y in object_list %}
                 <div class="col-sm-3 col-xs-6" style="text-align:center;">
                     <div class='thumbnail'>
-
-                        <br>
                         {% if user.is_authenticated %}
                             <a href="{% url 'darshan:details' temp=y.temple2 %}" class="link">
                                 <img class="image-container img-responsive roundedCorner"
@@ -106,7 +104,6 @@
                                 {{ y.temple2 }}
                             </a>
                         {% endif %}        
-
                     </div>
                 </div>
             {% endfor %}
