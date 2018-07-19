@@ -15,21 +15,19 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
- # SECURITY WARNING: keep the secret key used in production secret!
+# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '(1hy9%gtgf5dp_(c$+n-n4chuvp4=bg#l4mucyjry!-vw5bcc('
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 
-
-ALLOWED_HOSTS = ["127.0.0.1", ".pythonanywhere.com", "206.189.134.220", "divyakripa.com", 'www.divyakripa.com', 'localhost']
-
+ALLOWED_HOSTS = ["127.0.0.1", ".pythonanywhere.com", "206.189.134.220", "divyakripa.com", 'www.divyakripa.com',
+                 'localhost']
 
 # Application definition
 
@@ -37,7 +35,7 @@ INSTALLED_APPS = [
 
     'django.contrib.admin',
     'django.contrib.auth',
-    #'django.contrib.sites',
+    # 'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -61,8 +59,6 @@ INSTALLED_APPS = [
     'pagedown',
     'crispy_forms',
 
-    
-    
     'darshan',
     'shop',
     'cart',
@@ -111,29 +107,26 @@ TEMPLATES = [
                 'social_django.context_processors.login_redirect',
                 'darshan.context_processor.Manager',
 
-                'cart.context_processors.cart' #comment it when logging in as Superuser
+                'cart.context_processors.cart'  # comment it when logging in as Superuser
 
             ],
         },
     },
 ]
 
-
 WSGI_APPLICATION = 'temple.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
     'default': {'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'temple',
-        'USER': 'awanti',
-        'PASSWORD':'carmelacademy',
-        'HOST': 'localhost',
-        'PORT': '', }
+                'NAME': 'temple',
+                'USER': 'awanti',
+                'PASSWORD': 'carmelacademy',
+                'HOST': 'localhost',
+                'PORT': '', }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -162,7 +155,6 @@ AUTHENTICATION_BACKENDS = (
 
     'django.contrib.auth.backends.ModelBackend',
 
-
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -172,9 +164,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'divyakripamail@gmail.com'
 EMAIL_HOST_PASSWORD = 'startinspire16'
 DEFAULT_FROM_EMAIL = 'divyakripamail@gmail.com'
-
-
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -192,19 +181,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 SESSION_ENGINE = 'cart.session_backend'
-
 
 LOGIN_REDIRECT_URL = 'Usertype/'
 # SOCIAL_AUTH_FACEBOOK_KEY = '619151545144780' # App ID
 # SOCIAL_AUTH_FACEBOOK_SECRET = 'df7672f012d56e92e7e2e3fd5ded6615'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='965971474651-i143qi51rdpth27q47l7jd0tsqmiadd2.apps.googleusercontent.com'  #Paste CLient Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '965971474651-i143qi51rdpth27q47l7jd0tsqmiadd2.apps.googleusercontent.com'  # Paste CLient Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'bhKdPZCPAVNZrhf1IlpkSEV7'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '619151545144780'  # App ID
@@ -212,7 +198,7 @@ SOCIAL_AUTH_FACEBOOK_SECRET = 'df7672f012d56e92e7e2e3fd5ded6615'
 
 SESSION_COOKIE_AGE = 1209600
 SESSION_COOKIE_DOMAIN = None
-SESSION_COOKIE_SECURE = False #True when https website
+SESSION_COOKIE_SECURE = False  # True when https website
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_SAVE_EVERY_REQUEST = True
 
@@ -220,9 +206,6 @@ CART_SESSION_ID = 'cart'
 
 SALT = '7ngHbu55jc'
 KEY = 'oYKYBJEf'
-
-
-
 
 from django.conf import settings
 
@@ -272,36 +255,36 @@ DELETE_NF_CLASS_SELECTOR = getattr(settings, 'NOTIFY_DELETE_NF_CLASS_SELECTOR',
 # Time interval between ajax calls for notification update.
 UPDATE_TIME_INTERVAL = getattr(settings, 'NOTIFY_UPDATE_TIME_INTERVAL', 5000)
 
-#Payu----settings, use for Production only
+# Payu----settings, use for Production only
 
 
-#The value should be one of the items from the list ['production', 'test']
-#PAYMENT_MODE = "production"#default will be "test"
+# The value should be one of the items from the list ['production', 'test']
+# PAYMENT_MODE = "production"#default will be "test"
 
-#merchant_key from payu. default value will be included builtin in the package.
-#MERCHANT_KEY = "xxxxxxxx"
+# merchant_key from payu. default value will be included builtin in the package.
+# MERCHANT_KEY = "xxxxxxxx"
 
-#merchant_salt from payu. default value will be included builtin in the package.
-#MERCHANT_SALT = "xxxxxxxx"
+# merchant_salt from payu. default value will be included builtin in the package.
+# MERCHANT_SALT = "xxxxxxxx"
 
-#Where to redirect while transaction is succeeded.
-#SUCCESS_URL = "www.example.com/success/" #default will be "http://127.0.0.1:8000/payubiz-success/"
+# Where to redirect while transaction is succeeded.
+# SUCCESS_URL = "www.example.com/success/" #default will be "http://127.0.0.1:8000/payubiz-success/"
 
-#Where to redirect while transaction got failure.
-#FAILURE_URL = "www.example.com/failure/" #default will be "http://127.0.0.1:8000/payubiz-failure/"
+# Where to redirect while transaction got failure.
+# FAILURE_URL = "www.example.com/failure/" #default will be "http://127.0.0.1:8000/payubiz-failure/"
 
-#Where to redirect while transaction got canceld
-#CANCEL_URL = "www.example.com/cancel/" #default will be "http://127.0.0.1:8000/payubiz-cancel/"
+# Where to redirect while transaction got canceld
+# CANCEL_URL = "www.example.com/cancel/" #default will be "http://127.0.0.1:8000/payubiz-cancel/"
 PAYU_INFO = {
-              'merchant_key': "test merchant key",
+    'merchant_key': "test merchant key",
 
-             'merchant_salt': "test merchant salt",
-             # for production environment use 'https://secure.payu.in/_payment'
-             'payment_url': 'https://test.payu.in/_payment',
-             'surl':'http://example.com/pay-success/',
-             'furl':'http://example.com/failure/',
-             'curl':'http://example.com/cancel/',
-            }
+    'merchant_salt': "test merchant salt",
+    # for production environment use 'https://secure.payu.in/_payment'
+    'payment_url': 'https://test.payu.in/_payment',
+    'surl': 'http://example.com/pay-success/',
+    'furl': 'http://example.com/failure/',
+    'curl': 'http://example.com/cancel/',
+}
 PAID_FEE_AMOUNT = 1
 PAID_FEE_PRODUCT_INFO = "Message showing product details."
 PAYMENT_URL_TEST = 'https://test.payu.in/_payment'

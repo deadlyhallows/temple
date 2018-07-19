@@ -152,7 +152,7 @@
             {% for prod in product %}
                 <div class="col-md-3 col-sm-6" style="margin-bottom: 15px;">
 
-                    <a href="{% url 'shop:details1' val=prod.Product_Name %}" style="color: white">
+                    <a href="{% url 'shop:details1' pk=prod.id %}" style="color: white">
                         <div class="hovereffect">
                             <img {% if prod.Photo %}src="{{ prod.Photo.url }}"{% else %} alt="{{ prod.Product_Name }}" {% endif %}
                                  class="image-container img-responsive roundedCorner"
