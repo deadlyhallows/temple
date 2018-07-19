@@ -2,7 +2,9 @@
 {% load staticfiles %}
 {% load temple_extra %}
 {% block head_extra %}
-    <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5b35f20747b80c0011966093&product=inline-share-buttons' async='async'></script>
+    <script type='text/javascript'
+            src='//platform-api.sharethis.com/js/sharethis.js#property=5b35f20747b80c0011966093&product=inline-share-buttons'
+            async='async'></script>
 {% endblock head_extra %}
 {% block content %}
     {% block style %}
@@ -16,7 +18,8 @@
         <div class=" row display">
             <div class="col-md-5">
 
-                <img class="pictureImage"  {% if q.Latest_to_be_updated_image %} src="{{ q.Latest_to_be_updated_image.url }}"
+                <img class="pictureImage"  {% if q.Latest_to_be_updated_image %}
+                     src="{{ q.Latest_to_be_updated_image.url }}"
                 {% else %} alt="{{ q.temple2 }}" {% endif %}>
 
             </div>
@@ -46,22 +49,22 @@
                 <br>
 
                 {% if user.is_authenticated %}
-                <button class="btn btn-primary"
-                        style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
-                    <a style="color: white" {% if q.Online_Prasad %} href="{{ q.Online_Prasad }}" {% else %}
-                       href="{% url 'darshan:all_Prasad' pk=q.id %}"{% endif %}>
-                        Buy Prasad
-                    </a>
-                </button>
-                <br>
+                    <button class="btn btn-primary"
+                            style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
+                        <a style="color: white" {% if q.Online_Prasad %} href="{{ q.Online_Prasad }}" {% else %}
+                           href="{% url 'darshan:all_Prasad' pk=q.id %}"{% endif %}>
+                            Buy Prasad
+                        </a>
+                    </button>
+                    <br>
                 {% else %}
-                <button class="btn btn-primary"
-                        style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
-                    <a class="launch-modal" data-toggle="modal" data-modal-id="myModal4" style="color: white">
-                        Buy Prasad
-                    </a>
-                </button>
-                <br>
+                    <button class="btn btn-primary"
+                            style="margin-bottom: 20px; margin-left: 10px; width: 200px; height: 34px;">
+                        <a class="launch-modal" data-toggle="modal" data-modal-id="myModal4" style="color: white">
+                            Buy Prasad
+                        </a>
+                    </button>
+                    <br>
                 {% endif %}
 
                 {% if user.is_authenticated %}
@@ -94,7 +97,10 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                  <a class="launch-modal" data-toggle="modal" data-modal-id="modal-login" style="color: white">  <button type="button" class="btn btn-default" data-dismiss="modal">OK</button></a>
+                                    <a class="launch-modal" data-toggle="modal" data-modal-id="modal-login"
+                                       style="color: white">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                                    </a>
                                 </div>
                             </div>
 
@@ -134,7 +140,7 @@
         </ul>
         <!-- tab contents -->
 
-        <div class="tab-content" id="detail" style="margin: 25px 50px">
+        <div class="tab-content" id="detail">
             <div id="menu1" class="tab-pane active">
                 <table class="table table-striped">
                     <tbody>
@@ -156,13 +162,13 @@
                         <td>About Temple</td>
                         <td class="content-markdown">{{ q.About_Temple }}</td>
                     </tr>
-                    
+
                     <tr>
                         <td>Temple Purohit</td>
                         <td>{{ q.Temple_Purohit }}</td>
                     </tr>
 
-                     
+
                     <tr>
 
                         <td>Email</td>
@@ -234,7 +240,7 @@
                             <td class="content-markdown">{{ q.Significance }}</td>
                         </tr>
                     {% endif %}
-                    
+
                     {% if q.Management %}
                         <tr>
                             <td>Management</td>
@@ -318,7 +324,7 @@
                         <tr>
                             <td>About City</td>
 
-                            <td class="content-markdown">{{ q.About_City}}</td>
+                            <td class="content-markdown">{{ q.About_City }}</td>
 
                         </tr>
                     {% endif %}
@@ -344,7 +350,7 @@
                         <tr>
                             <td>Celebration</td>
 
-                            <td class="content-markdown">{{ q.Celebration}}</td>
+                            <td class="content-markdown">{{ q.Celebration }}</td>
                         </tr>
                     {% endif %}
                     {% if q.Precaution_While_Visiting %}

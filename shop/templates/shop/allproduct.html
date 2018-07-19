@@ -96,7 +96,7 @@
                 {% if list %}
                     {% for x in list %}
                         {% for y in x|product %}
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 col-xs-12">
                                 <a href="{% url 'shop:details1' pk=y.id %}">
                                 <div class="thumbnail" style="text-align: center;color: black;">
                                     <img {% if y.Photo %} src="{{ y.Photo.url }}" {% else %} alt="{{ y.Product_Name }}" {% endif %}>
@@ -110,7 +110,7 @@
                 {% else %}
                     {% for x in b %}
                         {% for y in x|product %}
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 col-xs-12">
                                 <a href="{% url 'shop:details1' pk=y.id %}">
                                 <div class="thumbnail" style="text-align: center;color: black;">
                                     <img {% if y.Photo %} src="{{ y.Photo.url }}" {% else %} alt="{{ y.Product_Name }}" {% endif %}>
