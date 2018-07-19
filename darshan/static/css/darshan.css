@@ -401,3 +401,17 @@ input[type=file] {
         max-height: 350px !important;
     }
 }
+
+@media only screen and (max-width: 768px){
+.carousel-inner>.item>a>img, .carousel-inner>.item>img {
+    max-height: 300px;
+}
+}
+
+@media only screen and (max-width: 768px){
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border-color: transparent;
+    background-color: #ee860c;
+
+}
+}
