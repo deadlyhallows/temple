@@ -367,16 +367,35 @@ input#abc {
 
 /*div {background-image: linear-gradient(to right, transparent 40%, rgba(255, 255, 255, .8));}*/
 
-.thumbnail{
-    width : 100% !important;
-    height: 275px;
-    overflow: auto;
-}
+/*.thumbnail{*/
+    /*width : 100% !important;*/
+    /*height: 275px;*/
+    /*overflow: auto;*/
+/*}*/
 
-.thumbnail img{
-    width: 100% !important;
-    height: 175px !important;
+/*.thumbnail img{*/
+    /*width: 100% !important;*/
+    /*height: 175px !important;*/
+    /*display: block;*/
+/*}*/
+
+.thumbnail {
     display: block;
+    padding: 4px;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: border .2s ease-in-out;
+    -o-transition: border .2s ease-in-out;
+    transition: border .2s ease-in-out;
+}
+.thumbnail img {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    min-height: 150px;
+    max-height: 150px;
 }
 
 input[type=file] {
