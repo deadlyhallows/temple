@@ -23,8 +23,10 @@ SECRET_KEY = '(1hy9%gtgf5dp_(c$+n-n4chuvp4=bg#l4mucyjry!-vw5bcc('
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
-# DEBUG = False
+DEBUG = False
+
+ALLOWED_HOSTS = ["127.0.0.1", ".pythonanywhere.com", "206.189.134.220", "divyakripa.com", 'www.divyakripa.com', 'localhost']
+
 
 ALLOWED_HOSTS = ["127.0.0.1", ".pythonanywhere.com", "206.189.134.220", "divyakripa.com", 'www.divyakripa.com',
                  'localhost']

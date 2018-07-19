@@ -314,8 +314,10 @@ def user_profile(request):
     get_user = User.objects.get(id=user.id)
     user_mobile = Mobile.objects.get(id=user.id)
 
-    if request.method == 'POST':
-        profile.selected.clear()
+
+    if request.method=='POST':
+        profile.selected = []
+
         profile.save()
         for x in query_list.Select_Temple:
             templeTime_pk_list = request.POST.getlist(x, None)
