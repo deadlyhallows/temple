@@ -1,4 +1,8 @@
- <!-- Login Form -->
+{% block head %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% endblock head %}
+
+<!-- Login Form -->
     <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <form method="post" role="form" action="{% url 'darshan:Login' %}" style="float: unset; box-shadow: unset">
