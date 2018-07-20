@@ -434,3 +434,7 @@ input[type=file] {
 
 }
 }
+
+.modal in{
+    display: flex;
+}
