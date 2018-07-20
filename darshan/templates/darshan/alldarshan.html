@@ -83,13 +83,15 @@
         <!-- HoverEffect Images -->
         <div class=" row display" id="darshan">
             {% for y in object_list %}
-                <div class="col-sm-3" style="text-align:center;">
+                <div class="col-sm-3 col-xs-6" style="text-align:center;">
                     <div class='thumbnail'>
-                        <img class="image-container img-responsive roundedCorner"
-
-                        {% if y.Display_image %} src="{{ y.Display_image.url }}" {% else %} alt="{{ y.temple2 }}" {% endif %} style="min-width: 150px">
-                        <br>
-                        <a href="{% url 'darshan:detail' temp1=y.temple2 %}" class="link">{{ y.temple2 }}</a>
+                        <a href="{% url 'darshan:detail' temp1=y.temple2 %}" class="link">
+                            <img class="image-container img-responsive roundedCorner"
+                                    {% if y.Display_image %} src="{{ y.Display_image.url }}" {% else %}
+                                 alt="{{ y.temple2 }}" {% endif %}>
+                            <br>
+                            {{ y.temple2 }}
+                        </a>
                     </div>
                 </div>
             {% endfor %}
@@ -113,7 +115,7 @@
                     <a href="?{{ page_change_var }}={{ object_list.paginator.num_pages }} ">last &raquo;</a>
                 {% endif %}
             </span>
-        </div>
+                </div>
             </div>
         </div>
 
