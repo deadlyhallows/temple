@@ -442,3 +442,9 @@ input[type=file] {
 #myModal4.in{
     display: flex !important;
 }
+
+@media only screen and (max-width: 768px){
+#bookPooja{
+    margin-top: 15px;
+}
+}
