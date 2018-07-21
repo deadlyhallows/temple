@@ -284,7 +284,7 @@ def user_profile(request):
             get_cart.save()
 
         for item in cart:
-            cart_product = get_object_or_404(Product, Product_Name=item['product'])
+            cart_product = get_object_or_404(Product, id=item['product_id'])
 
             cart_item = CartItem.objects.create(quantity=item['quantity'],
                                                 active=True, cart_id=get_cart.id, product_id=cart_product.id)

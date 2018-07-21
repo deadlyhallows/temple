@@ -22,51 +22,53 @@
                             <th>Unit Price</th>
                             <th>Price</th>
                         </tr>
-                        <!-- for unauthenticated user-->
-                        {% for item in cart %}
-
-                            {% with product=item.product %}
-
-                                {% for x in product|products %}
+                       
 
 
-                                    <tr>
-                                        <td>
-                                            <a href="#">
-                                                <img {% if x.Photo %} src="{{ x.Photo.url }}" {% else %}
-                                                                      alt="{{ x.Product_Name }}" {% endif %}
-                                                                      style="max-width: 350px !important;">
-                                            </a>
+        <!-- for unauthenticated user-->
+        {% for item in cart %}
+                   
+                {% with product=item.product_id %}
+                          
+                {% for x in product|products1 %}
+                    
+                    <tr>
+                        <td>
+                            <a href="#">
+                                <img {% if x.Photo %} src="{{ x.Photo.url }}" {% else %}
+                                                      alt="{{ x.Product_Name }}" {% endif %}
+                                                      style="max-width: 350px !important;">
+                            </a>
 
-                                        </td>
-                                        <td>{{ x.Product_Name }}</td>
-                                        <td>
+                        </td>
+                        <td>{{ x.Product_Name }}</td>
+                        <td>
 
-                                            <form action="{% url 'cart:cart_add' x.id %}" method="post">
+                            <form action="{% url 'cart:cart_add' x.id %}" method="post">
 
-                                                <select name="quantity" id="id_quantity">
-                                                    <option value="1" selected>1</option>
-                                                    {% for x in loop_times %}
-                                                        <option value={{ x }}>{{ x }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                                <input type="submit" name="update" value="Update" id="id_update"
-                                                       style="margin-left:10px;"/>
-                                                {% csrf_token %}
+                                <select name="quantity" id="id_quantity">
+                                    <option value="1" selected>1</option>
+                                    {% for x in loop_times %}
+                                        <option value={{ x }}>{{ x }}</option>
+                                    {% endfor %}
+                                </select>
+                                <input type="submit" name="update" value="Update" id="id_update"
+                                       style="margin-left:10px;"/>
+                                {% csrf_token %}
 
-                                            </form>
-                                        </td>
-                                        <td><a href="{% url 'cart:cart_remove' x.id %}">Remove</a></td>
-                                        <td class="num">Rs.{{ item.price }}</td>
-                                        <td class="num">Rs.{{ item.total_price }}</td>
-                                    </tr>
+                            </form>
+                        </td>
+                        <td><a href="{% url 'cart:cart_remove' x.id %}">Remove</a></td>
+                        <td class="num">Rs.{{ item.price }}</td>
+                        <td class="num">Rs.{{ item.total_price }}</td>
+                    </tr>
                                 {% endfor %}
                             {% endwith %}
                         {% endfor %}
                     </thead>
                 </table>
             </div>
-        </div>
+        
 
         <p>
         <a href="{% url 'shop:allproducts' %}" class="btn">Continue Shopping</a><br>
@@ -75,6 +77,6 @@
             href="{% url 'cart:view_cart' %}" class="launch-modal btn" data-modal-id="modal">SignUp</a> as a <strong
             style="color:red">User</strong> to Buy
 
-    </p>
+       </p>
     </div>
 {% endblock %}

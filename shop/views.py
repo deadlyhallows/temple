@@ -13,7 +13,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
-from shop.forms import CustomSearchForm
+#from shop.forms import CustomSearchForm
 from cart.forms import CartAddProductForm, CartAddProductForms
 from darshan.tokens import account_activation_token
 from django.contrib.auth.models import User
@@ -29,20 +29,20 @@ from django.views.generic import View
 from django.template.loader import get_template
 from django.template import Context
 from operator import attrgetter
-from haystack.query import SearchQuerySet
+#from haystack.query import SearchQuerySet
 import copy
 from shop.forms import ProductAddForm
 from shop.models import Shopkeeper, Product
 from cart.models import CartItem
-from haystack.generic_views import SearchView
+#from haystack.generic_views import SearchView
 from notify.signals import notify
 from darshan.views import send_verification_mail
 from cart.models import Carts
 
 
-class ProductSearch(SearchView):
-    template = 'search/search.html'
-    form_name = CustomSearchForm
+# class ProductSearch(SearchView):
+#     template = 'search/search.html'
+#     form_name = CustomSearchForm
 
 
 def allproducts(request):
