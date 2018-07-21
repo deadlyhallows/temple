@@ -23,8 +23,8 @@ SECRET_KEY = '(1hy9%gtgf5dp_(c$+n-n4chuvp4=bg#l4mucyjry!-vw5bcc('
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-# DEBUG = False
-DEBUG = True
+DEBUG = False
+#DEBUG = True
 ALLOWED_HOSTS = ["127.0.0.1", ".pythonanywhere.com", "206.189.134.220", "divyakripa.com", 'www.divyakripa.com', 'localhost']
 
 
@@ -52,9 +52,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     # ... Other apps
 
-    'haystack',
-    'whoosh',
-
+    
     'notify',
 
     'pagedown',
@@ -186,6 +184,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 SESSION_ENGINE = 'cart.session_backend'
 
+LOGIN_URL = 'login/'
 LOGIN_REDIRECT_URL = 'Usertype/'
 # SOCIAL_AUTH_FACEBOOK_KEY = '619151545144780' # App ID
 # SOCIAL_AUTH_FACEBOOK_SECRET = 'df7672f012d56e92e7e2e3fd5ded6615'

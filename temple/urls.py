@@ -31,7 +31,7 @@ urlpatterns = [
     url(r'orders/', include('orders.urls', namespace='orders')),
     url(r'^notifications/', include('notify.urls', namespace='notifications')),
     #url(r'^pay/', include('payu_biz.urls', namespace='pay')),
-    url(r'^search/', include('haystack.urls')),
+    #url(r'^search/', include('haystack.urls')),
     url(r'^auth/', include('social_django.urls', namespace='social')),
     url('^', include('django.contrib.auth.urls')),
     #url(r'^admin/jsi18n', javascript_catalog),
@@ -45,10 +45,12 @@ handler500 = core_views.error500  # noqa
 handler200 = core_views.error200  # noqa
 
 
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# if settings.DEBUG is False:
-#     urlpatterns += [url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, }),
-#                     url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}), ]
+# if settings.DEBUG:
+#     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG is False:
+    urlpatterns += [url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, }),
+                    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}), ]
+
