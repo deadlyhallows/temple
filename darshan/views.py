@@ -355,7 +355,7 @@ def pandit_profile(request):
     return render(request, 'darshan/pandit_profile.html')
 
 @login_required
-def accounts(request):
+def selectedDharshan(request):
     # set = Profile.objects.all()
     user = request.user
     profile = Profile.objects.filter(user_id=user.id)
@@ -367,7 +367,7 @@ def accounts(request):
             # print(temple)
     context = {'set': user,
                'pro': profile}
-    return render(request, 'darshan/accounts.html', context)
+    return render(request, 'darshan/selectedDharshan.html', context)
 
 
 @login_required
