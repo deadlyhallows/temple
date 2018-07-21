@@ -1,4 +1,4 @@
-from .models import Picture, Profile, Temples, Darshans, Mobile,TempleManager
+from .models import Picture, Profile, Temples, Darshans, Mobile,TempleManager, ContactInspire, Pandit
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -55,6 +55,8 @@ admin.site.register(Mobile)
 admin.site.register(Darshans)
 admin.site.register(Picture, PictureAdmin)
 admin.site.register(Profile)
+admin.site.register(ContactInspire)
+admin.site.register(Pandit)
 
 #class ProfileInline(admin.StackedInline):
  #   model = Profile

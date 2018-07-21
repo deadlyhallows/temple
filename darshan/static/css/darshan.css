@@ -435,6 +435,10 @@ input[type=file] {
 }
 }
 
-.modal in{
-    display: flex;
+#errors.in{
+    display: flex !important;
+}
+
+#myModal4.in{
+    display: flex !important;
 }
