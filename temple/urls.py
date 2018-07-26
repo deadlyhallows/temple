@@ -22,9 +22,10 @@ from django.conf.urls.static import static
 from shop import views as core_views
 #from django.views.i18n import javascript_catalog
 
-app_name = 'darshan'
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'', include('accountregistrations.urls', namespace='accountregistrations')),
     url(r'', include('darshan.urls', namespace='darshan')),
     url(r'', include('shop.urls', namespace='shop')),
     url(r'cart/', include('cart.urls', namespace='cart')),

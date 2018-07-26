@@ -1,0 +1,308 @@
+{% load staticfiles %}
+{% load notification_tags %}
+<html xmlns="">
+<head>
+    <title>Divya Kripa</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/darshan.css' %}">
+    {% block style1 %}
+        <style>
+            {#form {#}
+            {#    width: 500px;#}
+            {#    margin: 0 auto;#}
+            {#}#}
+        </style>
+    {% endblock style1 %}
+    {% block head_extra %} {% endblock head_extra %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top affix-top" data-spy="affix" data-offset-top="600">
+    <div class="container-fluid">
+        <h1 class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'darshan:home' %}"
+               style="font-size: 30px ; font-family: 'Carter One';color:white; ">
+                Divya Kripa
+            </a>
+        </h1>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right down">
+                {% if user.is_authenticated and user.shopkeeper.is_shopkeeper %}
+                    <li>
+                        <a href="{% url 'notifications:all' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">Notification
+                            {% if user|notifications_unread > 0 %} ({{ user|notifications_unread }}
+                                ) {% else %} {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accountregistrations:logout' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            logout
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'shop:seller_profile' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;margin-right: 15px;">
+                            Profile
+                        </a>
+                    </li>
+
+                {% endif %}
+                {% if user.is_authenticated and user.pandit.is_pandit %}
+                    <li>
+                        <a href="{% url 'darshan:alldarshan' %}"
+                           style="color: white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Darshan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'shop:allproducts' %}"
+                           style="color: white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Shop
+                        </a>
+                    </li>
+                    <li>
+                        {% if total_items > 0 %}
+                            <a href="{% url 'cart:view_cart' %}"
+                               style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                                Cart
+                                ({{ total_items }})
+                            </a>
+                        {% else %}
+                            <a href="{% url 'cart:view_cart' %}"
+                               style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                                Cart
+                            </a>
+                        {% endif %}
+                    </li>
+
+
+                    <li>
+                        <a href="{% url 'notifications:all' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">Notification
+                            {% if user|notifications_unread > 0 %} ({{ user|notifications_unread }}
+                                ) {% else %} {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href=""
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accountregistrations:logout' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            logout
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if user.is_authenticated and user.templemanager.is_manager %}
+                    <li>
+                        <a href="{% url 'darshan:manager_profile' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accountregistrations:logout' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            logout
+                        </a>
+                    </li>
+                {% endif %}
+                {% if user.is_authenticated and not user.is_superuser and not user.templemanager.is_manager and not user.shopkeeper.is_shopkeeper and not user.pandit.is_pandit %}
+                    <li>
+                        <a href="{% url 'darshan:alldarshan' %}"
+                           style="color: white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Darshan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'shop:allproducts' %}"
+                           style="color: white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Shop
+                        </a>
+                    </li>
+                    <li>
+                        {% if total_items > 0 %}
+                            <a href="{% url 'cart:view_cart' %}"
+                               style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                                Cart
+                                ({{ total_items }})
+                            </a>
+                        {% else %}
+                            <a href="{% url 'cart:view_cart' %}"
+                               style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                                Cart
+                            </a>
+                        {% endif %}
+                    </li>
+
+                    <li>
+                        <a href="{% url 'notifications:all' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Notification {% if user|notifications_unread > 0 %} ({{ user|notifications_unread }}
+                            ) {% else %} {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'darshan:user_profile' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accountregistrations:logout' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            logout
+                        </a>
+                    </li>
+                {% elif not user.is_authenticated and not user.is_superuser %}
+                    <li>
+                        <a href="{% url 'darshan:alldarshan' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Darshan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'shop:allproducts' %}"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Shop
+                        </a>
+                    </li>
+                    <li>
+                        {% with total_items=cart|length %}
+                            {% if total_items > 0 %}
+                                <a href="{% url 'cart:cart_detail' %}"
+                                   style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                                    Cart({{ total_items }})
+
+                                </a>
+                            {% else %}
+                                <a href="{% url 'cart:cart_detail' %}"
+                                   style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                                    Cart
+                                </a>
+                            {% endif %}
+                        {% endwith %}
+                    </li>
+                    <li>
+                        <a class="launch-modal" href="{% url 'accountregistrations:Login' %}" data-modal-id="modal-login"
+                           style="color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;">
+                            Login
+                        </a>
+                    </li>
+                    <li>
+                        <a class="launch-modal" href="{% url 'accountregistrations:signup' %}"
+                           style=" color:white;font-weight: 200;font-size: 16px;font-family: 'Capriola', sans-serif;"
+                           data-modal-id="modal-register">
+                            SignUp</a>
+
+                    </li>
+                {% endif %}
+                <li id="google_translate_element" style="margin-top: 12px; width: 165px"></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(window).load(function () {
+        $('#errors').modal('show');
+    });
+</script>
+{% if messages %}
+    <div class="modal" id="errors">
+        <div class="modal-dialog">
+            <div class="v-cell">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                                class="sr-only">Close</span></button>
+                        <h4 class="modal-title" style="color: red;text-align: center;font-weight: 600;font-size: 20px;font-size: 40px;
+          font-family: sans-serif;">Message</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="messages" style="text-align: left;margin-bottom: 0px;">
+                            {% for message in messages %}
+                                <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% include 'accountregistrations/auth-forms.html' %}
+{% block content %}
+{% endblock %}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+</script>
+
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static "notify/notifyX.min.js" %}"></script>
+<script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+    $(document).ready(function () {
+        $('.has-popover').popover({'trigger': 'hover', 'html': 'true'})
+
+    });
+
+    $(document).ready(function () {
+        $('#id_Select_Temple').select2();
+    });
+
+    $(document).ready(function () {
+        $('.django-select').select2();
+    });
+
+</script>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121617950-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'UA-121617950-1');
+</script>
+
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-from .models import Picture, Profile, Temples, Darshans, Mobile,TempleManager, ContactInspire, Pandit
+from .models import Picture, Profile, Temples, Darshans, TempleManager
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -7,7 +7,6 @@ from pagedown.widgets import AdminPagedownWidget
 from django.db import models
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
-from .views import send_verification_mail
 from django.utils.http import urlsafe_base64_decode
 
 
@@ -51,12 +50,10 @@ class PictureAdmin(admin.ModelAdmin):
 
 admin.site.register(TempleManager)
 admin.site.register(Temples, TempleAdmin)
-admin.site.register(Mobile)
 admin.site.register(Darshans)
 admin.site.register(Picture, PictureAdmin)
 admin.site.register(Profile)
-admin.site.register(ContactInspire)
-admin.site.register(Pandit)
+
 
 #class ProfileInline(admin.StackedInline):
  #   model = Profile

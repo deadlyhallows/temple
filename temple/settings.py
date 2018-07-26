@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     'shop',
     'cart',
     'orders',
+    'accountregistrations',
+     'pandit',
 
 ]
 # SITE_ID = 1
@@ -92,8 +94,7 @@ ROOT_URLCONF = 'temple.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -104,7 +105,7 @@ TEMPLATES = [
 
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
-                'darshan.context_processor.Manager',
+                'accountregistrations.context_processor.Manager',
 
                 'cart.context_processors.cart'  # comment it when logging in as Superuser
 
