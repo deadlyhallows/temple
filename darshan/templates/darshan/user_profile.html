@@ -1,4 +1,4 @@
-{% extends "darshan/otherBase.html" %}
+{% extends "accountregistrations/otherBase.html" %}
 
 {% load temple_extra %}
 {% block content %}
@@ -11,12 +11,12 @@
                     <label>Name:</label>
                     <span>{{ u.first_name }}</span><span> {{ u.last_name }}</span>
                 </p>
-                {% if v.Mobile_Number %}
+                {% if v %}
                 <p>
-                    
+{#                    {% for mobile in v %}#}
                     <label>Mobile Number:</label>
                     <span>{{ v.Mobile_Number }}</span>
-                    
+{#                    {% endfor %}#}
                 </p>
                 {% endif %}
                 <p>
@@ -57,7 +57,7 @@
                                         <div class="col-md-2">
                                             <button class="btn btn-primary">
                                                 <a style="color: white" class="launch-modal"
-                                            data-toggle="modal" data-target="#{{ x }}" data-backdrop="static">
+                                            data-toggle="modal" data-modal-id="{{ x }}" data-backdrop="static">
                                                     Delete
                                                 </a>
                                             </button>

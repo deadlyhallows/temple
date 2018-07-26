@@ -1,0 +1,75 @@
+{% block head_extra %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% endblock head_extra %}
+
+<!-- Login Form -->
+<div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <form method="post" role="form" action="{% url 'accountregistrations:Login' %}" style="display: flex; width: unset; float: unset">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h2 class="modal-title" id="myModalLabel">Login</h2>
+                </div>
+                <div class="modal-body">
+                    {% csrf_token %}
+                    {% if error_message %}
+                        <div style="color: red;">{{ error_message }}</div>
+                    {% endif %}
+                    {{ login_form.as_p }}
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12 col-xs-12" align="center">
+                        <button class="btn btn-primary" type="submit" style="width: 154px;text-align: center;">Log in
+                        </button>
+                    </div>
+                    <br><br>
+                    <div class="col-md-12 col-xs-12" style="text-align: center;">
+                        <a href="{% url 'darshan:home' %}" class="ab">New to My Site? Sign up</a>
+                        <p><a href="{% url 'accountregistrations:password_reset' %}" class="ab">Forgot Password?</a></p>
+                        <p><strong>-- OR --</strong></p>
+                        <div class="col-xs-12" style="margin-bottom: 15px">
+                            <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary">Login with Facebook</a>
+                        </div>
+                        <div class="col-xs-12">
+                            <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-primary" style="width: 154px">Login
+                            with Gmail</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!--SignUp form for user ,Pandit and seller-->
+<div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <form role="form" action="{% url 'accountregistrations:signup' %}" method="post" style="display: flex; float: unset; font-size: 88%">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h2 class="modal-title" id="myModalLabel">Sign Up</h2>
+                </div>
+                <div class="modal-body">
+                    {% csrf_token %}
+                    {{ user_form.as_p }}
+                    {{ Mobile_form.as_p }}
+                    <label>SignUp as:</label>
+
+                    <select name="usertype" style="float:right;width: 157px; height: 25px;">
+                        <option value="user">User</option>
+                        <option value="seller">Seller</option>
+                        <option value="pandit">Pandit</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+   

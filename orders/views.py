@@ -6,18 +6,13 @@ from .models import OrderItem, Order, OnlineDonation
 from darshan.models import Temples
 from shop.models import Product
 from django.shortcuts import get_object_or_404
-#from .tasks import order_created
-
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 import hashlib
 from django.conf import settings
 import logging, traceback
-import orders.constants as constants
 from django.core.urlresolvers import reverse
 import hashlib
-import requests
-from .admin import OrderAdmin
 from random import randint
 from decimal import Decimal
 from orders.admin import OrderAdmin
@@ -26,7 +21,7 @@ from django.contrib.auth import get_user
 from django.views.decorators.csrf import csrf_exempt
 from notify.signals import notify
 from django.template.loader import render_to_string
-from darshan.views import send_verification_mail
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 PAID_FEE_AMOUNT = 0
@@ -50,7 +45,7 @@ def Online_Donation(request, v):
             donation.save()
             return redirect('orders:payment')
         else:
-            message.errors(request,"your form is invalid.Fill it again.")    
+            messages.error(request,"your form is invalid.Fill it again.")
     else:
         form = DonationForm()
 

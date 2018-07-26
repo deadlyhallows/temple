@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import TempleManager
 from django.contrib.auth.forms import AuthenticationForm
-from darshan.forms import SignUpForm, TempleForm, MobileForm, TempleManagerForm
-
+from darshan.forms import TempleForm,TempleManagerForm
+from accountregistrations.forms import SignUpForm,MobileForm
 
 def Manager(request):
     return {

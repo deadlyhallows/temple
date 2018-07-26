@@ -36,7 +36,7 @@ from shop.models import Shopkeeper, Product
 from cart.models import CartItem
 #from haystack.generic_views import SearchView
 from notify.signals import notify
-from darshan.views import send_verification_mail
+
 from cart.models import Carts
 
 
@@ -177,7 +177,7 @@ def product_update(request, p=None):
                         message = render_to_string('darshan/notification_email.html', {
                             'target': instance, 'verb': verb})
                         person.email_user(subject, message)
-                        send_verification_mail(person.email, message, subject)
+                        #send_verification_mail(person.email, message, subject)
 
         instances.save()
 

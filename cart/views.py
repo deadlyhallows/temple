@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib.auth.forms import AuthenticationForm
-from darshan.forms import SignUpForm, MobileForm
+from accountregistrations.forms import SignUpForm, MobileForm
 from shop.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm, CartAddProductForms
