@@ -91,6 +91,18 @@ ul{list-style: none;}
 	height:50px;
 
 }
+@media only screen and (max-width: 768px) {
+     #myimage{
+        width: 320px;
+		 height:150px;
+    }
+}
+@media only screen and (width: 320px) {
+     #features h3 {
+        font-size: 18px;
+    }
+}
+
 .piclist li img:hover{
 	box-shadow: 1px 1px 1px 1px #ffad0d;
 }

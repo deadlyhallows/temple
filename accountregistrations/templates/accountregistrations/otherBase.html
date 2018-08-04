@@ -297,9 +297,13 @@
 
 
 <script src="{% static 'js/script.js' %}"></script>
+
 <script src="{% static 'js/jquery.picZoomer.js'%}"></script>
 <script>
-    $('#picZoomer').picZoomer();
+  $(document).ready(function() {
+      if($(window).width()>768)
+      {$('#picZoomer').picZoomer();}
+  });
 
     $('.piclist li ').on('click',function(event){
       var $pic = $(this).find('img');
