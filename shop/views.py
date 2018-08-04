@@ -57,7 +57,6 @@ def details1(request, pk):
     cart_product_forms = CartAddProductForms()
     context = {'product': product,
                'loop_times': range(2, 21),
-               'range':range(0,6),
                'cart_product_form': cart_product_form,
                'cart_product_forms': cart_product_forms,
                'user': user,
