@@ -1,48 +1,61 @@
 {% extends 'accountregistrations/otherBase.html' %}
 {% load staticfiles %}
 {% load temple_extra %}
+{% block head_extra %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+
+{% endblock head_extra %}
 {% block content %}
-    {% block style %}
-    {% endblock style %}
-    <div class="container-fluid" style="margin-top: 15px">
+    <div class="container-fluid" style="margin-top: 15px;">
         <div class="row">
             <div class="col-md-12">
-                {% for p in product %}
-                    <div class="col-md-5">
-                        <img {% if p.Photo %} src="{{ p.Photo.url }}" {% else %} alt="{{ p.Product_Name }}" {% endif %} class="img-responsive" style="max-width: 100% !important;">
+
+                    <div class="col-md-5" id="picZoomer" >
+                        <img id="myimage"  {% if product.Photo %} src="{{ product.Photo.url }}" {% else %} alt="{{ product.Product_Name }}" {% endif %} class="img-responsive"
+                             style="max-width: 100% !important; ">
+
+                        <ul class="piclist">
+                            {% if product.Photo %}<li><img src="{{ product.Photo.url }}" alt="photo"></li>{% endif %}
+                            {% if product.Photo1 %}<li><img src="{{ product.Photo1.url }}" alt="photo1"></li>{% endif %}
+                            {% if product.Photo2 %}<li><img src="{{ product.Photo2.url }}" alt="photo2"></li>{% endif %}
+                            {% if product.Photo3 %}<li><img src="{{ product.Photo3.url }}" alt="photo3"></li>{% endif %}
+                            {% if product.Photo4 %}<li><img src="{{ product.Photo4.url }}" alt="photo4"></li>{% endif %}
+                            {% if product.Photo5 %}<li><img src="{{ product.Photo5.url }}" alt="photo5"></li>{% endif %}
+
+                        </ul>
                     </div>
                     <div class="col-md-7 ">
                         <h3>
-                           {{ p.Product_Name }}
+                           {{ product.Product_Name }}
                         </h3>
                         <p>
                             <br>
-                            Rs.{{ p.Price }}
+                            Rs.{{ product.Price }}
                         </p>
                         <p>
                             
-                            {% if p.Offer_or_Discount %}
+                            {% if product.Offer_or_Discount %}
                             <strong>Offer or Discount: </strong>
-                                {{ p.Offer_or_Discount }}
+                                {{ product.Offer_or_Discount }}
                             {% endif %}    
                         </p>
                         <p>
                         
                            <strong>Description: </strong>
-                           <div class="content-markdown">{{ p.Product_Description }}</div> 
+                           <div class="content-markdown">{{ product.Product_Description }}</div>
                         
                         </p>
                         <br><br>
                         <p>
                             {% if user.is_authenticated %}
-                                <form action="{% url 'cart:add_to_cart' p.id %}" method="post">
+                                <form action="{% url 'cart:add_to_cart' product.id %}" method="post">
                                     {{ cart_product_form }}
                                     {% csrf_token %}
                                     <input type="submit" value="Add to Cart">
                                     <!--add Product Description-->
                                 </form>
                             {% elif not user.is_authenticated and not user.is_superuser %}
-                                <form action="{% url 'cart:cart_add' p.id %}" method="post">
+                                <form action="{% url 'cart:cart_add' product.id %}" method="post">
                                     {{ cart_product_forms }}
                                     {% csrf_token %}
                                     <input class="btn btn-primary" type="submit" value="Add to Cart">
@@ -53,9 +66,37 @@
 
 
                     </div>
-                {% endfor %}
+
             </div>
         </div>
+
+    <br><br><hr>
+    <div class="row">
+         <div id="features" class="features uk-container uk-margin-large-top">
+            <h3 class="title-deco uk-text-center title-text color-black-a54" style="text-align: center;margin-top: 0;margin-bottom: 40px;">
+                <span class="triangle-up"></span>
+                <span class="triangle-down"></span>
+                <span class="heading" style="color:#555; font-weight: 700; font-family: 'Roboto', sans-serif;">SIMILAR PRODUCTS</span>
+                <span class="triangle-up"></span>
+                <span class="triangle-down"></span>
+            </h3>
+         </div>
     </div>
+    <div class="row">
+        {% for products in related_products %}
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <a href="{% url 'shop:details1' pk=products.id %}">
+                 <div class="thumbnail">
+                    <img {% if products.Photo %} src="{{ products.Photo.url }}" {% else %} alt="{{ products.Product_Name }}" {% endif %} class="img-responsive" >
+                 </div>
+                </a>
+            </div>
+
+        {% endfor %}
+    </div>
+    </div>
+
+
 
 {% endblock %}

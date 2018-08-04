@@ -22,6 +22,9 @@ from django.views.decorators.csrf import csrf_exempt
 from notify.signals import notify
 from django.template.loader import render_to_string
 from django.contrib import messages
+from django.utils import timezone
+import datetime
+from django.urls import resolve
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 PAID_FEE_AMOUNT = 0
@@ -176,31 +179,7 @@ def get_transaction_id(request):
 @csrf_exempt
 def payment_success(request):
     user = request.user
-    order = get_object_or_404(Order, buyer_id=user.id)
-    order.paid=True
-    order.save()
-    cart = get_object_or_404(Carts, user_id=user.id)
-    #print(cart)
-    cart_items = CartItem.objects.filter(cart_id=cart.id)
-    #print(cart_items)
-    for item in cart_items:
-        item.delete()
-    #important:when paid is seen in database table mark is_accepted as True for the product to notify
-    orders = Order.objects.filter(buyer_id=user.id).order_by('-id').first()
-    #print(order)
-    order_items = OrderItem.objects.filter(order_id=orders.id)
-    for item in order_items:
-        products=get_object_or_404(Product,id=item.product.id)
-        #print(products)
-        users=get_object_or_404(User,username=products.seller)
-        #print(users)
-        notify.send(sender=OrderAdmin, target=products, recipient=users, verb="paid")
-        subject = 'Notification'
-        verb="paid"
-        message = render_to_string('orders/order/order_notificaton.html', {
-            'target':products,'verb':verb,'order':orders })
-        users.email_user(subject, message)
-        #send_verification_mail(users.email, message, subject)      
+
     
     #if payment is successful notify the product seller
     data = {}
@@ -211,8 +190,43 @@ def payment_success(request):
 @login_required
 @csrf_exempt
 def payment_failure(request):
-    
+    user=request.user
+    recent_order = Order.objects.filter(buyer_id=user.id).latest('created')
+    recent_donation = OnlineDonation.objects.filter(donor_id=user.id).latest('created')
+
+    if(recent_order.created<recent_donation.created):#after the online donation id paid send invoice
+        print(recent_order.id,"asd")
+        Temple=get_object_or_404(Temples,id=recent_donation.temple.id)
+        Temple_manager=get_object_or_404(User,id=Temple.user_id)
+        notify.send(sender=OrderAdmin, target=recent_donation, recipient=Temple_manager, verb="received")
+        subject = 'Notification'
+        verb = "received"
+        message = render_to_string('orders/order/online_donation_received.html', {
+            'target': recent_donation, 'verb': verb})
+        Temple_manager.email_user(subject, message)
+
+    if(recent_order.created>recent_donation.created):#after the order is paid send invoice
+        print(recent_donation.id,"qwe")
+        recent_order.paid = True
+        recent_order.save()
+        cart = get_object_or_404(Carts, user_id=user.id)
+        cart_items = CartItem.objects.filter(cart_id=cart.id)
+        for item in cart_items:
+            item.delete()
+        # important:when paid is seen in database table mark is_accepted as True for the product to notify
+        order_items = OrderItem.objects.filter(order_id=recent_order.id)
+        for item in order_items:
+            products = get_object_or_404(Product, id=item.product.id)
+            users = get_object_or_404(User, username=products.seller)
+            notify.send(sender=OrderAdmin, target=products, recipient=users, verb="paid")
+            subject = 'Notification'
+            verb = "paid"
+            message = render_to_string('orders/order/order_notification.html', {
+                'target': products, 'verb': verb, 'order': recent_order})
+            users.email_user(subject, message)
+
     return redirect ('orders:payment')
+
 
 
 

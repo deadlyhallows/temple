@@ -1,42 +1,17 @@
 from django.contrib.auth.decorators import login_required
-from temple.decorators import user_is_shopkeeper, user_is_temple_manager
-from django.utils import timezone
+from temple.decorators import user_is_shopkeeper
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.db.models import Q
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from darshan.models import Temples
-from shop.models import Product, ProductSelected
 from django.shortcuts import get_object_or_404
-from django.contrib.auth import login
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
-#from shop.forms import CustomSearchForm
 from cart.forms import CartAddProductForm, CartAddProductForms
-from darshan.tokens import account_activation_token
 from django.contrib.auth.models import User
-from django.utils.encoding import force_text
-from django.utils.http import urlsafe_base64_decode
-from django.contrib.auth.forms import AuthenticationForm
-import smtplib
-from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib import messages
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.core import serializers
-from django.views.generic import View
-from django.template.loader import get_template
-from django.template import Context
-from operator import attrgetter
-#from haystack.query import SearchQuerySet
-import copy
 from shop.forms import ProductAddForm
-from shop.models import Shopkeeper, Product
+from shop.models import Product
 from cart.models import CartItem
-#from haystack.generic_views import SearchView
 from notify.signals import notify
-
 from cart.models import Carts
 
 
@@ -76,14 +51,17 @@ def allproducts(request):
 def details1(request, pk):
     # print(val)
     user = request.user
-    product = Product.objects.filter(id=pk)
+    product = Product.objects.filter(id=pk).first()
+    related_products= Product.objects.filter(Q(Temple_Name_id=product.Temple_Name_id)|Q(Product_Name=product.Product_Name)).distinct()
     cart_product_form = CartAddProductForm()
     cart_product_forms = CartAddProductForms()
     context = {'product': product,
                'loop_times': range(2, 21),
+               'range':range(0,6),
                'cart_product_form': cart_product_form,
                'cart_product_forms': cart_product_forms,
-               'user': user}
+               'user': user,
+               'related_products':related_products}
     return render(request, 'shop/details.html', context)
 
 

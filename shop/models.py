@@ -25,6 +25,30 @@ class Product(DirtyFieldsMixin, models.Model):
         null=True, blank=True,
         height_field="height_field",
         width_field="width_field")
+    Photo1 = models.ImageField(
+        null=True, blank=True,
+        height_field="height_field",
+        width_field="width_field")
+    Photo2 = models.ImageField(
+        null=True, blank=True,
+        height_field="height_field",
+        width_field="width_field")
+    Photo3 = models.ImageField(
+        null=True, blank=True,
+        height_field="height_field",
+        width_field="width_field")
+    Photo4 = models.ImageField(
+        null=True, blank=True,
+        height_field="height_field",
+        width_field="width_field")
+    Photo5 = models.ImageField(
+        null=True, blank=True,
+        height_field="height_field",
+        width_field="width_field")
+    Photo6 = models.ImageField(
+        null=True, blank=True,
+        height_field="height_field",
+        width_field="width_field")
     height_field = models.IntegerField(default=None, null=True, blank=True)
     width_field = models.IntegerField(default=None, null=True, blank=True)
     Offer_or_Discount = models.CharField(max_length=50, default=None, blank=True, null=True)
@@ -40,17 +64,17 @@ class Product(DirtyFieldsMixin, models.Model):
         ]
 
 
-class Photo(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    photos = models.ImageField(
-        null=True, blank=True,
-        height_field="height_field",
-        width_field="width_field")
-    height_field = models.IntegerField(default=None, null=True, blank=True)
-    width_field = models.IntegerField(default=None, null=True, blank=True)
-
-    def __str__(self):
-        return self.product
+# class Photo(models.Model):
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+#     photos = models.ImageField(
+#         null=True, blank=True,
+#         height_field="height_field",
+#         width_field="width_field")
+#     height_field = models.IntegerField(default=None, null=True, blank=True)
+#     width_field = models.IntegerField(default=None, null=True, blank=True)
+#
+#     def __str__(self):
+#         return self.product
 
 
 class ProductSelected(models.Model):
