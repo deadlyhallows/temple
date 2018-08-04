@@ -1,12 +1,6 @@
 from django import forms
-from darshan.models import Temples
 from shop.models import Product
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-#from haystack.forms import SearchForm
 from pagedown.widgets import PagedownWidget
-from django.utils.translation import ugettext_lazy as _
-#from haystack.forms import ModelSearchForm
 
 
 class ProductAddForm(forms.ModelForm):
@@ -19,10 +13,14 @@ class ProductAddForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ('Temple_Name', 'Product_Name', 'Out_of_Stock', 'Price', 'Photo', 'Offer_or_Discount', 'is_Prasad',
-                  'Product_Description')
+        fields = ('Temple_Name', 'Product_Name', 'Out_of_Stock', 'Price', 'Photo','Photo1','Photo2','Photo3','Photo4','Photo5','Photo6','Offer_or_Discount',
+                  'is_Prasad','Product_Description')
 
-
+# class ProductExtraImagesForm(forms.ModelForm):
+#
+#     class Meta:
+#         model = Photo
+#         fields = ('photos','height_field','width_field')
 # class CustomSearchForm(ModelSearchForm):
 #     order_choices = [('y', 'Descending'), ('n', 'Ascending')]
 #     order = forms.ChoiceField(choices=order_choices, widget=forms.RadioSelect(), required=False)

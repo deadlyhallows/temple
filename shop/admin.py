@@ -1,6 +1,6 @@
 from django.contrib import admin
 from darshan.models import Picture, Profile, Temples
-from shop.models import Product, Photo, Shopkeeper
+from shop.models import Product,Shopkeeper
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from notify.signals import notify
@@ -63,5 +63,5 @@ class ProductAdmin(admin.ModelAdmin):
 
 admin.site.register(Product,ProductAdmin)
 admin.site.register(Shopkeeper)
-admin.site.register(Photo)
+
 # Register your models here.

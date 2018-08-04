@@ -8,6 +8,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/darshan.css' %}">
 
+
+
     {% block style1 %}
         <style>
 
@@ -289,9 +291,21 @@
             $(this).html(markedContent);
         })
     });
+
+
 </script>
 
+
 <script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/jquery.picZoomer.js'%}"></script>
+<script>
+    $('#picZoomer').picZoomer();
+
+    $('.piclist li ').on('click',function(event){
+      var $pic = $(this).find('img');
+      $('#myimage').attr('src',$pic.attr('src'));
+    });
+</script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121617950-1"></script>
 <script>
