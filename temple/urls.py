@@ -46,6 +46,7 @@ handler500 = core_views.error500  # noqa
 handler200 = core_views.error200  # noqa
 
 
+#when debug is True
 
 # if settings.DEBUG:
 #     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -51,10 +51,8 @@ INSTALLED_APPS = [
     # ... Other apps
 
     'notify',
-
     'pagedown',
     'crispy_forms',
-
     'darshan',
     'shop',
     'cart',
