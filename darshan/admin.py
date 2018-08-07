@@ -54,6 +54,16 @@ admin.site.register(Darshans)
 admin.site.register(Picture, PictureAdmin)
 admin.site.register(Profile)
 
+class MyUserAdmin(UserAdmin):
+    # override the default sort column
+    ordering = ('-date_joined', )
+    # if you want the date they joined or other columns displayed in the list,
+    # override list_display too
+    list_display = ('username', 'email', 'date_joined', 'first_name', 'last_name', 'is_staff')
+
+# finally replace the default UserAdmin with yours
+admin.site.unregister(User)
+admin.site.register(User, MyUserAdmin)
 
 #class ProfileInline(admin.StackedInline):
  #   model = Profile
