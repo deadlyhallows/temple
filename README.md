@@ -12,4 +12,5 @@ Built With
 * Python Programming;
 * Django;
 * HTML;
+* Javascript;
 * css.
