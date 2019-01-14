@@ -9,8 +9,8 @@ In order to know and use this project you need to know how python work and how t
 
 Built With
 ----------
-* Python Programming;
-* Django;
-* HTML;
-* Javascript;
-* css.
+* Python Programming
+* Django
+* HTML
+* Javascript
+* css
